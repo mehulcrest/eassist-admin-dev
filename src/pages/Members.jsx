@@ -1,0 +1,484 @@
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import {
+  ArrowDown,
+  ArrowUp,
+  CalendarDays,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Eye,
+  Filter,
+  Gem,
+  Mail,
+  MapPin,
+  Phone,
+  Plus,
+  Search,
+  ShoppingBag,
+  Ticket,
+} from "lucide-react";
+import userProfile from "../assets/userProfile.png";
+import SideSheet from "../components/SideSheet";
+
+const STATS = [
+  { label: "Total", value: "1,248", change: 82, positive: true },
+  { label: "Active", value: "1,011", change: 22, positive: false },
+  { label: "Premium", value: "432", change: 30, positive: true },
+  { label: "Services", value: "4,293", change: 382, positive: true },
+];
+
+const BASE_MEMBERS = [
+  {
+    id: "E001",
+    name: "Margaret Thompson",
+    location: "Downtown",
+    gender: "Female",
+    age: 78,
+    email: "margaret.t@email.com",
+    phone: "(555) 201-8843",
+    spent: "935.00",
+    orders: 14,
+    premium: true,
+    active: true,
+    avatar: userProfile,
+  },
+  {
+    id: "E002",
+    name: "James Wilson",
+    location: "Westside",
+    gender: "Male",
+    age: 82,
+    email: "j.wilson@email.com",
+    phone: "(555) 310-2291",
+    spent: "1,240.50",
+    orders: 22,
+    premium: false,
+    active: true,
+    avatar: userProfile,
+  },
+  {
+    id: "E003",
+    name: "Helen Carter",
+    location: "Riverside",
+    gender: "Female",
+    age: 75,
+    email: "helen.c@email.com",
+    phone: "(555) 442-1188",
+    spent: "412.00",
+    orders: 6,
+    premium: true,
+    active: false,
+    avatar: userProfile,
+  },
+  {
+    id: "E004",
+    name: "Robert Lee",
+    location: "Downtown",
+    gender: "Male",
+    age: 98,
+    email: "r.lee@email.com",
+    phone: "(555) 778-0092",
+    spent: "2,100.00",
+    orders: 31,
+    premium: false,
+    active: true,
+    avatar: userProfile,
+  },
+  {
+    id: "E005",
+    name: "Susan Miller",
+    location: "North Park",
+    gender: "Female",
+    age: 71,
+    email: "susan.m@email.com",
+    phone: "(555) 661-3344",
+    spent: "688.25",
+    orders: 11,
+    premium: true,
+    active: true,
+    avatar: userProfile,
+  },
+];
+
+const MEMBERS = [
+  ...BASE_MEMBERS,
+  ...BASE_MEMBERS.map((m, i) => ({
+    ...m,
+    id: `E${String(6 + i).padStart(3, "0")}`,
+    name: `${m.name.split(" ")[0]} ${m.name.split(" ")[1] ?? "Member"} (${i + 6})`,
+  })),
+  ...BASE_MEMBERS.slice(0, 5).map((m, i) => ({
+    ...m,
+    id: `E${String(11 + i).padStart(3, "0")}`,
+    name: `${m.name.split(" ")[0]} ${m.name.split(" ")[1] ?? "Member"} (${i + 11})`,
+  })),
+];
+
+const PAGE_SIZE_OPTIONS = [10, 25, 50];
+
+const getVisiblePages = (current, total, maxVisible = 5) => {
+  if (total <= maxVisible) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+  let start = Math.max(1, current - Math.floor(maxVisible / 2));
+  let end = Math.min(total, start + maxVisible - 1);
+  start = Math.max(1, end - maxVisible + 1);
+  return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+};
+
+const StatusToggle = ({ active, onChange }) => (
+  <button
+    type="button"
+    role="switch"
+    aria-checked={active}
+    onClick={() => onChange(!active)}
+    className={`relative inline-flex h-6 w-11 shrink-0 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-gradientVia focus-visible:ring-offset-2 ${
+      active ? "bg-[#12B76A]" : "bg-[#E4E7EC]"
+    }`}
+  >
+    <span
+      className={`pointer-events-none absolute top-0.5 size-5 rounded-full bg-white shadow-sm transition-all duration-200 ${
+        active ? "left-[22px]" : "left-0.5"
+      }`}
+    />
+  </button>
+);
+
+const thClass =
+  "px-4 py-3 text-left text-sm font-medium text-textColor first:pl-6 last:pr-6 border";
+const thcenterClass = "px-4 py-3 text-center text-sm font-medium text-textColor first:pl-6 last:pr-6 border";
+const tdClass = "px-4 py-3 align-middle text-sm first:pl-6 last:pr-6";
+const tdcenterClass = "px-4 py-3 align-middle text-sm text-center first:pl-6 last:pr-6";
+
+const Members = () => {
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("q") ?? "";
+  const [pageSize, setPageSize] = useState(10);
+  const [page, setPage] = useState(1);
+  const [rows, setRows] = useState(MEMBERS);
+  const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
+
+  useEffect(() => {
+    setPage(1);
+  }, [query]);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return rows;
+    return rows.filter(
+      (m) =>
+        m.name.toLowerCase().includes(q) || m.id.toLowerCase().includes(q)
+    );
+  }, [query, rows]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const safePage = Math.min(page, totalPages);
+  const start = (safePage - 1) * pageSize;
+  const pageRows = filtered.slice(start, start + pageSize);
+
+  const setActive = (id, active) => {
+    setRows((prev) => prev.map((m) => (m.id === id ? { ...m, active } : m)));
+  };
+
+  const pageNumbers = useMemo(
+    () => getVisiblePages(safePage, totalPages, 5),
+    [safePage, totalPages]
+  );
+
+  return (
+    <div className="flex h-[calc(100vh-120px)] flex-col gap-6 overflow-hidden">
+      <div className="space-y-4">
+      {/* Same grid as stat cards: search = col 1 width, buttons = col 4 width */}
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div className="relative col-span-2 min-w-0 lg:col-span-1">
+          <Search
+            className="pointer-events-none absolute left-3.5 top-1/2 size-[18px] -translate-y-1/2 text-[#667085]"
+            aria-hidden
+            strokeWidth={2}
+          />
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => {
+              const v = e.target.value;
+              setSearchParams(v ? { q: v } : {}, { replace: true });
+            }}
+            placeholder="Search by name, ID"
+            className="w-full rounded-lg border border-[#D0D5DD] bg-white py-3 pl-10 pr-3.5 text-base text-[#101828] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] placeholder:text-[#667085] focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia"
+          />
+        </div>
+        <div className="col-span-2 flex gap-2 lg:col-span-1 lg:col-start-4">
+          <button
+            type="button"
+            onClick={() => setIsFilterSheetOpen(true)}
+            className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg border border-[#D0D5DD] bg-white px-2 py-3 text-sm font-semibold text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] sm:gap-2 sm:px-3"
+          >
+            <Filter size={18} className="shrink-0 text-[#667085]" strokeWidth={2} />
+            <span className="truncate">Filters</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate("/members/new")}
+            className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg bg-gradient-to-r from-gradientFrom via-gradientVia to-gradientTo px-2 py-3 text-sm font-semibold text-white shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] sm:gap-2 sm:px-3"
+          >
+            <Plus size={18} className="shrink-0" strokeWidth={2.5} />
+            <span className="truncate">Add New</span>
+          </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        {STATS.map((s) => (
+          <div
+            key={s.label}
+            className="rounded-xl border border-[#E5E7EB] bg-white px-5 py-5 shadow-[0_1px_2px_0_rgba(16,24,40,0.05)]"
+          >
+            <p className="text-lg font-medium text-[#667085]">{s.label}</p>
+            <div className="mt-3 flex items-center justify-between gap-3">
+              <div className="flex min-w-0 flex-1 items-center gap-2">
+                <span className="text-2xl font-semibold tracking-tight text-[#101828]">
+                  {s.value}
+                </span>
+              </div>
+                <span
+                  className={`inline-flex shrink-0 items-center gap-0.5 rounded-full px-2.5 py-1 text-base font-semibold ${
+                    s.positive
+                      ? "bg-[#ECFDF3] text-[#027A48]"
+                      : "bg-[#FEF3F2] text-[#B42318]"
+                  }`}
+                >
+                  {s.positive ? (
+                    <ArrowUp className="size-3.5 shrink-0" strokeWidth={2.5} />
+                  ) : (
+                    <ArrowDown className="size-3.5 shrink-0" strokeWidth={2.5} />
+                  )}
+                  {s.change.toLocaleString()}
+                </span>
+              <span className="shrink-0 text-sm font-normal text-[#98A2B3]">
+                this month
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+      </div>
+
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+        <div className="min-h-0 flex-1 overflow-auto">
+          <table className="w-full min-w-[1040px] border-collapse">
+            <thead>
+              <tr className="border border-[#F2F4F7] bg-tableHeader">
+                <th className={thClass}>Member Name</th>
+                <th className={thClass}>Gender | Age</th>
+                <th className={thClass}>Contact</th>
+                <th className={thClass}>Total Spent</th>
+                <th className={thcenterClass}>Subscription</th>
+                <th className={thClass}>Status</th>
+                <th className={`${thClass} w-[88px]`}>Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#EAECF0]">
+              {pageRows.map((m) => (
+                <tr key={m.id} className="bg-white hover:bg-[#F9FAFB]/80">
+                  <td className={tdClass}>
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={m.avatar}
+                        alt=""
+                        className="size-10 shrink-0 rounded-full object-cover ring-1 ring-[#EAECF0]"
+                      />
+                      <div className="min-w-0">
+                        <p className="font-medium text-[#101828]">{m.name}</p>
+                        <div className="flex gap-3">
+                        <p className="text-xs text-[#667085] mt-0.5">ID: {m.id}</p>
+                        <p className="mt-0.5 flex items-center gap-1 text-xs text-[#667085]">
+                          <MapPin size={14} className="shrink-0 text-[#98A2B3]" />
+                          {m.location}
+                        </p>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className={`${tdClass} text-[#475467]`}>
+                    {m.gender} | {m.age}
+                  </td>
+                  <td className={tdClass}>
+                    <div className="space-y-1.5">
+                      <p className="flex items-center gap-2 text-sm text-[#475467]">
+                        <Mail size={16} className="shrink-0 text-[#98A2B3]" />
+                        <span className="truncate">{m.email}</span>
+                      </p>
+                      <p className="flex items-center gap-2 text-sm text-[#475467]">
+                        <Phone size={16} className="shrink-0 text-[#98A2B3]" />
+                        {m.phone}
+                      </p>
+                    </div>
+                  </td>
+                  <td className={tdClass}>
+                    <p className="font-normal text-[#101828]">
+                      $ {m.spent}
+                    </p>
+                    <p className="mt-1 flex items-center gap-1.5 text-xs text-[#667085]">
+                      <ShoppingBag size={14} className="text-[#98A2B3]" />
+                      {m.orders}
+                    </p>
+                  </td>
+                  <td className={tdcenterClass}>
+                    {m.premium ? (
+                      <span className="inline-flex size-9 items-center justify-center rounded-lg bg-[#FEF3F2]">
+                        <Gem
+                          size={18}
+                          className="text-gradientVia"
+                          aria-label="Premium"
+                        />
+                      </span>
+                    ) : (
+                      <span className="inline-flex size-9 items-center justify-center rounded-lg bg-[#F2F4F7]">
+                        <Ticket
+                          size={18}
+                          className="text-[#667085]"
+                          aria-label="Standard"
+                        />
+                      </span>
+                    )}
+                  </td>
+                  <td className={tdClass}>
+                    <StatusToggle
+                      active={m.active}
+                      onChange={(next) => setActive(m.id, next)}
+                    />
+                  </td>
+                  <td className={tdClass}>
+                    <button
+                      type="button"
+                      onClick={() => navigate(`/member/${m.id}`, { state: { member: m } })}
+                      className="inline-flex size-9 items-center justify-center rounded-lg text-[#667085] transition hover:bg-[#F2F4F7] hover:text-[#344054] border border-lineMuted rounded-lg"
+                      aria-label={`View ${m.name}`}
+                    >
+                      <Eye size={18} strokeWidth={2} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="flex flex-col gap-4 border-t border-[#EAECF0] bg-white px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+          <label className="flex items-center gap-2 text-sm text-[#667085]">
+            <span>Rows per page</span>
+            <select
+              value={pageSize}
+              onChange={(e) => {
+                setPageSize(Number(e.target.value));
+                setPage(1);
+              }}
+              className="rounded-lg border border-[#D0D5DD] bg-white px-3 py-2 text-sm font-medium text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia"
+            >
+              {PAGE_SIZE_OPTIONS.map((n) => (
+                <option key={n} value={n}>
+                  {n}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <div className="flex items-center justify-center gap-1 sm:justify-end">
+            <button
+              type="button"
+              disabled={safePage <= 1}
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              className="inline-flex size-9 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] disabled:opacity-40"
+              aria-label="Previous page"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            {pageNumbers.map((n) => (
+              <button
+                key={n}
+                type="button"
+                onClick={() => setPage(n)}
+                className={`min-w-[36px] rounded-lg px-3 py-2 text-sm font-semibold ${
+                  n === safePage
+                    ? "bg-gradient-to-r from-gradientFrom via-gradientVia to-gradientTo text-white shadow-[0_1px_2px_0_rgba(16,24,40,0.05)]"
+                    : "text-[#344054] border border-[#D0D5DD]"
+                }`}
+              >
+                {n}
+              </button>
+            ))}
+            <button
+              type="button"
+              disabled={safePage >= totalPages}
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              className="inline-flex size-9 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] disabled:opacity-40"
+              aria-label="Next page"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <SideSheet
+        isOpen={isFilterSheetOpen}
+        onClose={() => setIsFilterSheetOpen(false)}
+        title="Filters"
+        footer={
+          <div className="flex gap-3">
+            <button
+              type="button"
+              className="h-11 flex-1 rounded-lg bg-gradient-to-r from-gradientFrom via-gradientVia to-gradientTo text-base font-semibold text-white"
+            >
+              Apply
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsFilterSheetOpen(false)}
+              className="h-11 flex-1 rounded-lg border border-[#D0D5DD] bg-white text-base font-medium text-[#344054]"
+            >
+              Cancel
+            </button>
+          </div>
+        }
+      >
+        <div className="space-y-4">
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-[#344054]">
+              Last Service Date
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="MM-DD-YYYY ~ MM-DD-YYYY"
+                className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] placeholder:text-[#98A2B3] focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia"
+              />
+              <CalendarDays className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
+            </div>
+          </div>
+
+          {["Status", "Subscription Type", "Territory", "Age Group"].map((label) => (
+            <div key={label}>
+              <label className="mb-1.5 block text-sm font-medium text-[#344054]">
+                {label}
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  readOnly
+                  placeholder={`Select ${label}`}
+                  className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] placeholder:text-[#98A2B3]"
+                />
+                <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </SideSheet>
+    </div>
+  );
+};
+
+export default Members;

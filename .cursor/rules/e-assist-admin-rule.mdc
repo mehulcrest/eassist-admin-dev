@@ -1,0 +1,84 @@
+---
+description: 
+alwaysApply: true
+---
+
+# React Admin Boilerplate - Agent Rules (Strict)
+
+## 1) Project Intent
+- Build a lightweight, scalable React admin panel.
+- Prioritize maintainability, reusability, and clean architecture.
+- Avoid unnecessary complexity and over-engineering.
+
+## 2) Dependency Policy (Very Strict)
+- Do NOT install any library/package without user approval.
+- Before proposing any library, always provide:
+  1) Why it is needed,
+  2) Pros/cons,
+  3) Bundle/performance impact,
+  4) Native alternative (if possible).
+- Install only after explicit user permission.
+- Remove unused dependencies proactively.
+
+## 3) State Management
+- Use React Hooks as default (`useState`, `useReducer`, `useContext`, custom hooks).
+- Prefer local/component state first.
+- Lift state only when required.
+- Use Context + hooks for shared app state when needed.
+- Redux should NOT be added now.
+- If state complexity grows, propose Redux later with justification and ask permission first.
+
+## 4) React Patterns & Standards
+- Follow latest stable React patterns and best practices.
+- Prefer functional components only.
+- Use composition over prop drilling-heavy structures.
+- Keep components single-responsibility and small.
+- Avoid legacy or outdated React patterns.
+
+## 5) Folder Structure & Reusability
+- Always maintain clean, scalable, reusable folder structure.
+- Group code by responsibility and feature readiness.
+- Suggested structure:
+  - `app/` (providers, app-level setup)
+  - `routes/` (route definitions, guards)
+  - `layouts/`
+  - `pages/`
+  - `components/` (shared reusable UI)
+  - `hooks/` (custom hooks)
+  - `services/` (API layer)
+  - `constants/`
+  - `utils/`
+  - `styles/` (tokens/global styles)
+- Reuse existing components/hooks before creating new ones.
+
+## 6) Routing Rules
+- Use nested routing for layouts.
+- Use route guards for protected routes.
+- Use `Link`/`NavLink` for internal navigation (never `<a href>` for app routes).
+- Keep route paths centralized in constants when app grows.
+
+## 7) Styling & Theme Strategy
+- Keep styling lightweight and consistent.
+- Use CSS variables/tokens for theming foundation.
+- Theme should be configurable later without large refactor.
+- Avoid heavy UI/theming frameworks unless explicitly approved.
+
+## 8) Code Cleanliness
+- Enforce clean code and coding standards in every change.
+- Rules:
+  - meaningful naming,
+  - no dead code,
+  - no unused imports/variables,
+  - no duplicate logic,
+  - minimal and useful comments only.
+- Prefer readable code over clever code.
+
+## 9) Quality Gate Before Completing Task
+- Ensure changed files are lint-clean.
+- Verify no regressions in routing/layout/basic flow.
+- Keep changes focused and minimal to the request.
+- Do not modify unrelated files.
+
+## 10) Collaboration Rule
+- If architectural trade-offs exist, present options briefly and recommend one.
+- For any non-trivial decision (new pattern, package, major refactor), ask user confirmation first.
