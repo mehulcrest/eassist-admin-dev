@@ -1,6 +1,10 @@
-import { CalendarDays, ChevronDown } from "lucide-react";
+import {
+  CalendarDays,
+  ChevronDown,
+} from "lucide-react";
 import { useCallback, useMemo, useRef, useState } from "react";
 import DateRangePopover from "../DateRangePopover";
+import IndividualServiceDetailsView from "./IndividualServiceDetailsView";
 import userProfile from "../../assets/userProfile.png";
 import SideSheet from "../SideSheet";
 
@@ -175,13 +179,21 @@ const MatchQuality = ({ quality }) => {
   const meta = qualityMeta[quality] ?? qualityMeta.Moderate;
 
   return (
-    <div className="group relative inline-flex items-center gap-1.5">
-      <span className={`size-2.5 rounded-full ${meta.dot}`} />
-      <span className={`text-xs ${meta.text}`}>{quality}</span>
-      <div className="pointer-events-none absolute left-0 top-[115%] z-20 hidden w-[260px] rounded-lg border border-[#EAECF0] bg-white p-3 shadow-[0_4px_10px_rgba(16,24,40,0.12)] group-hover:block">
-        <p className="text-sm font-semibold text-[#1D2939]">{meta.title}</p>
-        <p className="mt-1 text-xs text-[#475467]">{meta.description}</p>
-      </div>
+    <div
+      className="inline-flex items-center gap-1.5"
+      title={`${meta.title}: ${meta.description}`}
+      aria-label={`${meta.title}: ${meta.description}`}
+    >
+      <span
+        className={`size-2.5 rounded-full ${meta.dot}`}
+        title={`${meta.title}: ${meta.description}`}
+      />
+      <span
+        className={`text-xs ${meta.text}`}
+        title={`${meta.title}: ${meta.description}`}
+      >
+        {quality}
+      </span>
     </div>
   );
 };
@@ -210,12 +222,13 @@ const buildRangeDisplay = (dateStart, dateEnd) => {
 };
 
 const rangeDisplayInputClass =
-  "h-11 w-full cursor-pointer rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] placeholder:text-[#98A2B3] read-only:bg-white focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia";
+  "h-11 w-full cursor-pointer rounded-lg border border-[#D0D5DD] bg-white px-3 pr-20 text-sm text-[#344054] placeholder:text-[#98A2B3] read-only:bg-white focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia";
 
 const ServiceHistoryTab = () => {
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
   const [draftFilters, setDraftFilters] = useState(initialFilters);
   const [appliedFilters, setAppliedFilters] = useState(initialFilters);
+  const [selectedService, setSelectedService] = useState(null);
   const rangeAnchorRef = useRef(null);
   const [isRangePickerOpen, setIsRangePickerOpen] = useState(false);
 
@@ -229,6 +242,12 @@ const ServiceHistoryTab = () => {
 
   const handleRangeComplete = useCallback((startIso, endIso) => {
     setDraftFilters((prev) => ({ ...prev, dateStart: startIso, dateEnd: endIso }));
+    setIsRangePickerOpen(false);
+  }, []);
+
+  const clearDateRange = useCallback((event) => {
+    event.stopPropagation();
+    setDraftFilters((prev) => ({ ...prev, dateStart: "", dateEnd: "" }));
     setIsRangePickerOpen(false);
   }, []);
 
@@ -298,77 +317,87 @@ const ServiceHistoryTab = () => {
 
   return (
     <>
-      <section className="flex min-h-0 flex-col overflow-hidden">
-        <div className="mb-4 flex items-center justify-between">
-          <div className="relative w-full max-w-[420px]">
-            <input
-              type="search"
-              placeholder="Search by Service, Service ID, PSP"
-              className="h-10 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 text-sm text-[#101828] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] placeholder:text-[#98A2B3] focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia"
-            />
-          </div>
-          <button
-            type="button"
-            onClick={openFilters}
-            className="ml-3 inline-flex h-10 items-center gap-2 rounded-lg border border-[#D0D5DD] bg-white px-4 text-sm font-semibold text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)]"
-          >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7.91699 10.7754C9.49286 10.7754 10.812 11.8731 11.1523 13.3457H17.708C18.1219 13.346 18.4578 13.6818 18.458 14.0957C18.458 14.5098 18.122 14.8454 17.708 14.8457H11.1523C10.8122 16.3185 9.49308 17.417 7.91699 17.417C6.3411 17.4168 5.0226 16.3183 4.68262 14.8457H2.29102C1.87695 14.8455 1.54004 14.5098 1.54004 14.0957C1.54024 13.6818 1.87707 13.3459 2.29102 13.3457H4.68262C5.02284 11.8733 6.34133 10.7756 7.91699 10.7754ZM7.91699 12.2754C6.91159 12.2756 6.09668 13.0912 6.09668 14.0967C6.09714 15.1018 6.91187 15.9167 7.91699 15.917C8.92232 15.917 9.73782 15.1019 9.73828 14.0967C9.73828 13.0911 8.92261 12.2754 7.91699 12.2754ZM12.083 2.58301C13.6588 2.58322 14.9772 3.68177 15.3174 5.1543H17.707C18.1211 5.15447 18.457 5.49019 18.457 5.9043C18.4568 6.31823 18.121 6.65412 17.707 6.6543H15.3174C14.9773 8.1268 13.6588 9.2244 12.083 9.22461C10.507 9.22461 9.18787 8.12694 8.84766 6.6543H2.29004C1.87595 6.6543 1.54024 6.31834 1.54004 5.9043C1.54004 5.49008 1.87583 5.1543 2.29004 5.1543H8.84766C9.18793 3.68162 10.5071 2.58301 12.083 2.58301ZM12.083 4.08301C11.0775 4.08301 10.2619 4.89883 10.2617 5.9043C10.262 6.90971 11.0775 7.72461 12.083 7.72461C13.0883 7.72436 13.9031 6.90955 13.9033 5.9043C13.9031 4.89898 13.0883 4.08325 12.083 4.08301Z" fill="#344054"/>
-            </svg>
-            Filters
-          </button>
-        </div>
+      <section className="flex h-full min-h-0 flex-col overflow-hidden">
+        {selectedService ? (
+          <IndividualServiceDetailsView
+            service={selectedService}
+            onBack={() => setSelectedService(null)}
+          />
+        ) : (
+          <div className="flex min-h-0 flex-1 flex-col">
+            <div className="mb-4 flex items-center justify-between">
+              <div className="relative w-full max-w-[420px]">
+                <input
+                  type="search"
+                  placeholder="Search by Service, Service ID, PSP"
+                  className="h-10 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 text-sm text-[#101828] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] placeholder:text-[#98A2B3] focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia"
+                />
+              </div>
+              <button
+                type="button"
+                onClick={openFilters}
+                className="ml-3 inline-flex h-10 items-center gap-2 rounded-lg border border-[#D0D5DD] bg-white px-4 text-sm font-semibold text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)]"
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7.91699 10.7754C9.49286 10.7754 10.812 11.8731 11.1523 13.3457H17.708C18.1219 13.346 18.4578 13.6818 18.458 14.0957C18.458 14.5098 18.122 14.8454 17.708 14.8457H11.1523C10.8122 16.3185 9.49308 17.417 7.91699 17.417C6.3411 17.4168 5.0226 16.3183 4.68262 14.8457H2.29102C1.87695 14.8455 1.54004 14.5098 1.54004 14.0957C1.54024 13.6818 1.87707 13.3459 2.29102 13.3457H4.68262C5.02284 11.8733 6.34133 10.7756 7.91699 10.7754ZM7.91699 12.2754C6.91159 12.2756 6.09668 13.0912 6.09668 14.0967C6.09714 15.1018 6.91187 15.9167 7.91699 15.917C8.92232 15.917 9.73782 15.1019 9.73828 14.0967C9.73828 13.0911 8.92261 12.2754 7.91699 12.2754ZM12.083 2.58301C13.6588 2.58322 14.9772 3.68177 15.3174 5.1543H17.707C18.1211 5.15447 18.457 5.49019 18.457 5.9043C18.4568 6.31823 18.121 6.65412 17.707 6.6543H15.3174C14.9773 8.1268 13.6588 9.2244 12.083 9.22461C10.507 9.22461 9.18787 8.12694 8.84766 6.6543H2.29004C1.87595 6.6543 1.54024 6.31834 1.54004 5.9043C1.54004 5.49008 1.87583 5.1543 2.29004 5.1543H8.84766C9.18793 3.68162 10.5071 2.58301 12.083 2.58301ZM12.083 4.08301C11.0775 4.08301 10.2619 4.89883 10.2617 5.9043C10.262 6.90971 11.0775 7.72461 12.083 7.72461C13.0883 7.72436 13.9031 6.90955 13.9033 5.9043C13.9031 4.89898 13.0883 4.08325 12.083 4.08301Z" fill="#344054"/>
+                </svg>
+                Filters
+              </button>
+            </div>
 
-        <div className="min-h-0 max-h-[calc(100vh-320px)] overflow-auto rounded-xl border border-[#E4E7EC]">
-          <table className="w-full min-w-[980px] border-collapse">
-            <thead>
-              <tr className="border border-[#F2F4F7] bg-tableHeader">
-                {["Service", "Caregiver (PSP)", "Match Quality", "Date", "Duration", "Cost", "Rating", "Actions"].map((head) => (
-                  <th key={head} className={tableHeadClass}>
-                    {head}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#EAECF0]">
-              {filteredRows.map((row) => (
-                <tr key={`${row.service}-${row.id}`} className="bg-white hover:bg-[#F9FAFB]/80">
-                  <td className={tableCellClass}>
-                    <p className="text-sm font-medium text-[#101828]">{row.service}</p>
-                    <p className="mt-0.5 text-xs text-[#667085]">{row.id}</p>
-                  </td>
-                  <td className={tableCellClass}>
-                    <div className="flex items-center gap-2">
-                      <img src={userProfile} alt="" className="size-8 rounded-full object-cover ring-1 ring-[#EAECF0]" />
-                      <p className="text-sm text-[#344054]">{row.caregiver}</p>
-                    </div>
-                  </td>
-                  <td className={tableCellClass}>
-                    <MatchQuality quality={row.quality} />
-                  </td>
-                  <td className={`${tableCellClass} text-[#475467]`}>{row.date}</td>
-                  <td className={tableCellClass}>
-                    <p className="text-sm text-[#475467]">{row.duration}</p>
-                    <p className="mt-0.5 text-xs text-[#98A2B3]">{row.slot}</p>
-                  </td>
-                  <td className={`${tableCellClass} text-[#475467]`}>{row.cost}</td>
-                  <td className={`${tableCellClass} text-[#475467]`}>{row.rating}</td>
-                  <td className={tableCellClass}>
-                    <button
-                      type="button"
-                      className="inline-flex size-9 items-center justify-center rounded-lg border border-lineMuted text-[#667085] transition hover:bg-[#F2F4F7] hover:text-[#344054]"
-                    >
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0.875 7C0.875 7 3.0625 2.625 7 2.625C10.9375 2.625 13.125 7 13.125 7C13.125 7 10.9375 11.375 7 11.375C3.0625 11.375 0.875 7 0.875 7Z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M7 8.64062C7.90672 8.64062 8.64062 7.90672 8.64062 7C8.64062 6.09328 7.90672 5.35938 7 5.35938C6.09328 5.35938 5.35938 6.09328 5.35938 7C5.35938 7.90672 6.09328 8.64062 7 8.64062Z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            <div className="min-h-0 overflow-auto rounded-xl border border-[#E4E7EC] bg-white">
+              <table className="w-full min-w-[980px] border-collapse">
+                <thead>
+                  <tr className="border border-[#F2F4F7] bg-tableHeader">
+                    {["Service", "Caregiver (PSP)", "Match Quality", "Date", "Duration", "Cost", "Rating", "Actions"].map((head) => (
+                      <th key={head} className={tableHeadClass}>
+                        {head}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#EAECF0]">
+                  {filteredRows.map((row) => (
+                    <tr key={`${row.service}-${row.id}`} className="bg-white hover:bg-[#F9FAFB]/80">
+                      <td className={tableCellClass}>
+                        <p className="text-sm font-medium text-[#101828]">{row.service}</p>
+                        <p className="mt-0.5 text-xs text-[#475467]">{row.id}</p>
+                      </td>
+                      <td className={tableCellClass}>
+                        <div className="flex items-center gap-2">
+                          <img src={userProfile} alt="" className="size-8 rounded-full object-cover ring-1 ring-[#EAECF0]" />
+                          <p className="text-sm text-[#344054] underline underline-offset-4">{row.caregiver}</p>
+                        </div>
+                      </td>
+                      <td className={tableCellClass}>
+                        <MatchQuality quality={row.quality} />
+                      </td>
+                      <td className={`${tableCellClass} text-[#475467]`}>{row.date}</td>
+                      <td className={tableCellClass}>
+                        <p className="text-sm text-[#667085]">{row.duration}</p>
+                        <p className="mt-0.5 text-xs text-[#667085]">{row.slot}</p>
+                      </td>
+                      <td className={`${tableCellClass} text-[#475467]`}>{row.cost}</td>
+                      <td className={`${tableCellClass} text-[#475467]`}>{row.rating}</td>
+                      <td className={tableCellClass}>
+                        <button
+                          type="button"
+                          onClick={() => setSelectedService(row)}
+                          className="inline-flex size-9 items-center justify-center rounded-lg border border-lineMuted text-[#667085] transition hover:bg-[#F2F4F7] hover:text-[#344054]"
+                        >
+                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.875 7C0.875 7 3.0625 2.625 7 2.625C10.9375 2.625 13.125 7 13.125 7C13.125 7 10.9375 11.375 7 11.375C3.0625 11.375 0.875 7 0.875 7Z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M7 8.64062C7.90672 8.64062 8.64062 7.90672 8.64062 7C8.64062 6.09328 7.90672 5.35938 7 5.35938C6.09328 5.35938 5.35938 6.09328 5.35938 7C5.35938 7.90672 6.09328 8.64062 7 8.64062Z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </section>
 
       <SideSheet
@@ -452,6 +481,11 @@ const ServiceHistoryTab = () => {
                     e.preventDefault();
                     toggleRangePicker();
                   }
+                  if ((e.key === "Backspace" || e.key === "Delete") && rangeDisplay) {
+                    e.preventDefault();
+                    setDraftFilters((prev) => ({ ...prev, dateStart: "", dateEnd: "" }));
+                    setIsRangePickerOpen(false);
+                  }
                 }}
                 className={rangeDisplayInputClass}
                 aria-describedby="sh-filter-date-range-hint"
@@ -460,6 +494,18 @@ const ServiceHistoryTab = () => {
               <span id="sh-filter-date-range-hint" className="sr-only">
                 One calendar: choose start date, then end date; the panel then closes.
               </span>
+              {rangeDisplay ? (
+                <button
+                  type="button"
+                  onClick={clearDateRange}
+                  className="absolute right-8 top-1/2 -translate-y-1/2 rounded p-1 text-[#98A2B3] hover:bg-[#F2F4F7] hover:text-[#667085]"
+                  aria-label="Clear date range"
+                >
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+                  </svg>
+                </button>
+              ) : null}
               <button
                 type="button"
                 onClick={toggleRangePicker}

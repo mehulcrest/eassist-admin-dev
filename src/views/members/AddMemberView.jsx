@@ -47,7 +47,7 @@ const AddMemberView = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="flex h-full min-h-0 flex-col gap-4">
       <div className="overflow-hidden rounded-lg border border-[#E4E7EC] bg-white">
         <div className="flex gap-6 border-b border-[#EAECF0] px-4 py-3">
           <button
@@ -86,6 +86,7 @@ const AddMemberView = () => {
         </div>
       </div>
 
+      <div className="min-h-0 flex-1 overflow-y-auto pr-1">
       {activeTab === "basic" ? (
         <>
           <div className="grid gap-6 xl:grid-cols-[2fr_1fr]">
@@ -528,8 +529,9 @@ const AddMemberView = () => {
           </div>
         </section>
       ) : null}
+      </div>
 
-      <div className="flex justify-end gap-3">
+      <div className="mt-2 flex shrink-0 justify-end gap-3 border-t border-[#EAECF0] bg-pageColor pt-3">
         <button
           type="button"
           className="h-11 rounded-lg border border-[#D0D5DD] bg-white px-8 text-sm font-semibold text-[#344054]"

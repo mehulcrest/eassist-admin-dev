@@ -9,7 +9,7 @@ const MainLayout = () => {
 
       <div className="min-h-screen min-w-0 pl-[290px]">
         <Navbar />
-        <div className="p-6 bg-pageColor">
+        <div className="h-[calc(100vh-72px)] overflow-hidden bg-pageColor p-6">
           <Outlet />
         </div>
       </div>

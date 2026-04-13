@@ -188,7 +188,7 @@ const Members = () => {
   );
 
   return (
-    <div className="flex h-[calc(100vh-120px)] flex-col gap-6 overflow-hidden">
+    <div className="flex h-full min-h-0 flex-col gap-6 overflow-hidden">
       <div className="space-y-4">
       {/* Same grid as stat cards: search = col 1 width, buttons = col 4 width */}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -265,8 +265,8 @@ const Members = () => {
       </div>
       </div>
 
-      <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
-        <div className="min-h-0 flex-1 overflow-auto">
+      <div className="flex min-h-0 flex-col overflow-hidden rounded-xl border border-[#E4E7EC] bg-white shrink">
+        <div className="min-h-0 overflow-auto border-b-0">
           <table className="w-full min-w-[1040px] border-collapse">
             <thead>
               <tr className="border border-[#F2F4F7] bg-tableHeader">
@@ -366,7 +366,7 @@ const Members = () => {
           </table>
         </div>
 
-        <div className="flex flex-col gap-4 border-t border-[#EAECF0] bg-white px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-4 border-t border-[#EAECF0] bg-white px-6 py-4 sm:flex-row sm:items-center sm:justify-between shrink-0">
           <label className="flex items-center gap-2 text-sm text-[#667085]">
             <span>Rows per page</span>
             <select

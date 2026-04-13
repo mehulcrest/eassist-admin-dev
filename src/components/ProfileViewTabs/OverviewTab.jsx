@@ -5,9 +5,10 @@ const valueClass = "mt-[6px] text-base text-[#475467]";
 
 const OverviewTab = ({ memberName, member }) => {
   return (
-    <>
-      <div className="grid gap-4 xl:grid-cols-[2fr_1fr]">
-        <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+    <div className="flex h-full min-h-0 flex-col">
+      <div className="min-h-0 flex-1 space-y-4 overflow-y-auto pr-1">
+        <div className="grid gap-4 xl:grid-cols-[2fr_1fr]">
+          <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
           <div className="border-b border-[#EAECF0] px-4 py-3">
             <h2 className="text-lg font-semibold text-[#1D2939]">Personal Details</h2>
           </div>
@@ -98,9 +99,9 @@ const OverviewTab = ({ memberName, member }) => {
               </div>
             </div>
           </div>
-        </section>
+          </section>
 
-        <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+          <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
           <div className="border-b border-[#EAECF0] px-4 py-3">
             <h2 className="text-lg font-semibold text-[#1D2939]">Home Address</h2>
           </div>
@@ -126,64 +127,65 @@ const OverviewTab = ({ memberName, member }) => {
               <p className={valueClass}>M5V 3G5</p>
             </div>
           </div>
+          </section>
+        </div>
+
+        <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+          <div className="border-b border-[#EAECF0] px-4 py-3">
+            <h2 className="text-lg font-semibold text-[#1D2939]">Care Preferences</h2>
+          </div>
+          <div className="grid gap-4 p-4 text-base text-[#475467] md:grid-cols-2">
+            <div>
+              <p className={labelClass}>Preferred Language</p>
+              <p className={valueClass}>English, Spanish</p>
+            </div>
+            <div>
+              <p className={labelClass}>Mobility Level</p>
+              <p className={valueClass}>Needs Walker</p>
+            </div>
+            <div>
+              <p className={labelClass}>Pets</p>
+              <p className={valueClass}>Yes</p>
+            </div>
+            <div>
+              <p className={labelClass}>Religious / Cultural Preferences</p>
+              <p className={valueClass}>Christian (Catholic), Prefers Sunday church visits</p>
+            </div>
+            <div>
+              <p className={labelClass}>Medical Sensitivities</p>
+              <div className="mt-[6px] flex flex-wrap gap-2">
+                {["Mobility Issues", "Dementia", "Vision"].map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-[#EF444433] bg-[#FFF6F6] px-2 py-1 text-sm text-[#B42318]"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className={labelClass}>Preferred Service Time</p>
+              <div className="mt-[6px] flex flex-wrap gap-2">
+                {["Morning", "Evening"].map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-[#EF444433] bg-[#FFF6F6] px-2 py-1 text-sm text-[#B42318]"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="md:col-span-2">
+              <p className={labelClass}>Notes</p>
+              <p className={valueClass}>Needs steady gait support during evening walks.</p>
+            </div>
+          </div>
         </section>
       </div>
 
-      <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
-        <div className="border-b border-[#EAECF0] px-4 py-3">
-          <h2 className="text-lg font-semibold text-[#1D2939]">Care Preferences</h2>
-        </div>
-        <div className="grid gap-4 p-4 text-base text-[#475467] md:grid-cols-2">
-          <div>
-            <p className={labelClass}>Preferred Language</p>
-            <p className={valueClass}>English, Spanish</p>
-          </div>
-          <div>
-            <p className={labelClass}>Mobility Level</p>
-            <p className={valueClass}>Needs Walker</p>
-          </div>
-          <div>
-            <p className={labelClass}>Pets</p>
-            <p className={valueClass}>Yes</p>
-          </div>
-          <div>
-            <p className={labelClass}>Religious / Cultural Preferences</p>
-            <p className={valueClass}>Christian (Catholic), Prefers Sunday church visits</p>
-          </div>
-          <div>
-            <p className={labelClass}>Medical Sensitivities</p>
-            <div className="mt-[6px] flex flex-wrap gap-2">
-              {["Mobility Issues", "Dementia", "Vision"].map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-[#EF444433] bg-[#FFF6F6] px-2 py-1 text-sm text-[#B42318]"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className={labelClass}>Preferred Service Time</p>
-            <div className="mt-[6px] flex flex-wrap gap-2">
-              {["Morning", "Evening"].map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-[#EF444433] bg-[#FFF6F6] px-2 py-1 text-sm text-[#B42318]"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className="md:col-span-2">
-            <p className={labelClass}>Notes</p>
-            <p className={valueClass}>Needs steady gait support during evening walks.</p>
-          </div>
-        </div>
-      </section>
-
-      <div className="flex justify-end gap-3">
+      <div className="mt-4 flex shrink-0 justify-end gap-3 border-t border-[#EAECF0] bg-pageColor pt-3">
         <button
           type="button"
           className="h-11 rounded-lg border border-[#D0D5DD] bg-white px-8 text-sm font-semibold text-[#344054]"
@@ -197,7 +199,7 @@ const OverviewTab = ({ memberName, member }) => {
           Edit Profile
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         textColor: "#333333",
+        secondaryTextColor: "#667085",
         navheaderColor: "#1D2939",
         whiteColor: "#ffffff",
         DangerRed: "#D92D20",
