@@ -1,4 +1,6 @@
 import { Eye } from "lucide-react";
+import { useState } from "react";
+import BillingDetailsSideSheet from "./BillingDetailsSideSheet";
 
 /* ─── Static data ───────────────────────────────────────────────────────── */
 
@@ -144,9 +146,21 @@ const TD = ({ children, className = "" }) => (
 
 /* ─── Main component ────────────────────────────────────────────────────── */
 
-const SubscriptionBillingTab = () => (
+const SubscriptionBillingTab = () => {
+  const [selectedInvoice, setSelectedInvoice] = useState(null);
+  const [isBillingDetailsOpen, setIsBillingDetailsOpen] = useState(false);
+
+  const handleOpenBillingDetails = (invoice) => {
+    setSelectedInvoice(invoice);
+    setIsBillingDetailsOpen(true);
+  };
+
+  const handleCloseBillingDetails = () => {
+    setIsBillingDetailsOpen(false);
+  };
+
+  return (
   <div className="flex flex-col gap-6">
-    {/* ── Current Plan ──────────────────────────────────────────────────── */}
     <section className="rounded-xl border border-[#EAECF0] bg-white p-6">
       <h2 className="text-base font-semibold text-[#101828]">Current Plan</h2>
       <p className="mt-0.5 text-sm text-[#667085]">
@@ -239,7 +253,7 @@ const SubscriptionBillingTab = () => (
       <div className="overflow-x-auto rounded-xl border border-[#EAECF0] bg-white">
         <table className="w-full min-w-[1000px] border-collapse">
           <thead>
-            <tr className="bg-[#FCFCFD]">
+            <tr className="border-b border-[#EAECF0] bg-[#F9F5F5] px-5 py-3 text-left text-xs font-semibold tracking-[0.01em] text-[#667085]">
               <TH>Billing ID</TH>
               <TH>Transaction Type</TH>
               <TH>Plan</TH>
@@ -286,6 +300,7 @@ const SubscriptionBillingTab = () => (
                   <button
                     type="button"
                     aria-label={`View billing record ${row.id}`}
+                    onClick={() => handleOpenBillingDetails(row)}
                     className="inline-flex size-[34px] items-center justify-center rounded-lg border border-[#EAECF0] text-[#667085] shadow-[0px_1px_2px_rgba(16,24,40,0.05)] transition hover:bg-[#F2F4F7] hover:text-[#344054]"
                   >
                     <Eye size={18} strokeWidth={1.5} />
@@ -297,7 +312,14 @@ const SubscriptionBillingTab = () => (
         </table>
       </div>
     </section>
+
+    <BillingDetailsSideSheet
+      isOpen={isBillingDetailsOpen}
+      onClose={handleCloseBillingDetails}
+      invoice={selectedInvoice}
+    />
   </div>
-);
+  );
+};
 
 export default SubscriptionBillingTab;

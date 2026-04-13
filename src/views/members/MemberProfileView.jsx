@@ -58,8 +58,8 @@ const MemberProfileView = () => {
           </div>
         ) : null}
         {activeTab === "Activity Log" ? (
-          <div className="h-full overflow-y-auto pr-1">
-            <ActivityLogTab />
+          <div className="h-full overflow-hidden">
+            <ActivityLogTab memberName={memberName} />
           </div>
         ) : null}
       </div>

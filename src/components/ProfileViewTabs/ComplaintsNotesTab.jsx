@@ -107,8 +107,8 @@ const getStatusBadge = (status) => {
   );
 };
 
-const tableHeadClass = "px-4 py-3 text-left text-[14px] font-semibold text-[#344054] border-b border-[#EAECF0] first:pl-6 last:pr-6 whitespace-nowrap";
-const tableCellClass = "px-4 py-3.5 align-middle text-[14px] text-secondaryTextColor font-normal first:pl-6 last:pr-6 align-middle";
+const tableHeadClass = "border-b border-[#EAECF0] bg-[#F9F5F5] px-5 py-3 text-left text-xs font-semibold tracking-[0.01em] text-[#667085]";
+const tableCellClass = "px-4 py-3 align-middle text-[14px] text-secondaryTextColor font-normal first:pl-6 last:pr-6 align-middle";
 
 const initialFilters = {
   serviceTypes: [],
