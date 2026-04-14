@@ -9,11 +9,13 @@ const Navbar = ({ onMenuClick }) => {
     "/": "Dashboard",
     "/dashboard": "Dashboard",
     "/members": "Members",
+    "/psp-individuals": "PSP Individuals",
   };
 
   const pageTitle = pageTitleMap[pathname] || "Dashboard";
   const isAddMemberPage = pathname === "/members/new";
   const isMemberProfilePage = pathname.startsWith("/member/");
+  const isAddPSPPage = pathname === "/psp-individuals/new";
   const memberName = state?.member?.name ?? "Member Profile";
 
   return (
@@ -43,6 +45,14 @@ const Navbar = ({ onMenuClick }) => {
           </Link>
           <span className="px-1 text-[#667085]">|</span>
           <span className="truncate font-semibold text-[#101828]">{memberName}</span>
+        </div>
+      ) : isAddPSPPage ? (
+        <div className="shrink-0 text-base sm:text-lg">
+          <Link to="/psp-individuals" className="font-medium text-[#667085] underline">
+            PSP Individuals
+          </Link>
+          <span className="px-1 text-[#667085]">|</span>
+          <span className="font-semibold text-[#101828]">Add New</span>
         </div>
       ) : (
         <h2 className="shrink-0 text-lg font-semibold text-[#101828] sm:text-xl">
