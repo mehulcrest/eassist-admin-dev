@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import userProfile from "../assets/userProfile.png";
 import SideSheet from "../components/SideSheet";
+import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../components/ui/Table";
 
 const STATS = [
   { label: "Total", value: "1,248", change: 82, positive: true },
@@ -145,11 +146,7 @@ const StatusToggle = ({ active, onChange }) => (
   </button>
 );
 
-const thClass =
-  "px-4 py-3 text-left text-sm font-medium text-textColor first:pl-6 last:pr-6 border";
-const thcenterClass = "px-4 py-3 text-center text-sm font-medium text-textColor first:pl-6 last:pr-6 border";
-const tdClass = "px-4 py-3 align-middle text-sm first:pl-6 last:pr-6";
-const tdcenterClass = "px-4 py-3 align-middle text-sm text-center first:pl-6 last:pr-6";
+
 
 const Members = () => {
   const navigate = useNavigate();
@@ -265,24 +262,22 @@ const Members = () => {
       </div>
       </div>
 
-      <div className="flex min-h-0 flex-col overflow-hidden rounded-xl border border-[#E4E7EC] bg-white shrink">
+      <TableWrapper className="flex min-h-0 flex-col shrink">
         <div className="min-h-0 overflow-auto border-b-0">
-          <table className="w-full min-w-[1040px] border-collapse">
-            <thead>
-              <tr className="border border-[#F2F4F7] bg-tableHeader">
-                <th className={thClass}>Member Name</th>
-                <th className={thClass}>Gender | Age</th>
-                <th className={thClass}>Contact</th>
-                <th className={thClass}>Total Spent</th>
-                <th className={thcenterClass}>Subscription</th>
-                <th className={thClass}>Status</th>
-                <th className={`${thClass} w-[88px]`}>Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#EAECF0]">
+          <Table minWidth="min-w-[1040px]">
+            <TableHead>
+              <Th>Member Name</Th>
+              <Th>Gender | Age</Th>
+              <Th>Contact</Th>
+              <Th>Total Spent</Th>
+              <Th center>Subscription</Th>
+              <Th>Status</Th>
+              <Th className="w-[88px]">Actions</Th>
+            </TableHead>
+            <TableBody>
               {pageRows.map((m) => (
-                <tr key={m.id} className="bg-white hover:bg-[#F9FAFB]/80">
-                  <td className={tdClass}>
+                <TableRow key={m.id}>
+                  <Td>
                     <div className="flex items-center gap-3">
                       <img
                         src={m.avatar}
@@ -300,11 +295,11 @@ const Members = () => {
                         </div>
                       </div>
                     </div>
-                  </td>
-                  <td className={`${tdClass} text-[#475467]`}>
+                  </Td>
+                  <Td className="text-[#475467]">
                     {m.gender} | {m.age}
-                  </td>
-                  <td className={tdClass}>
+                  </Td>
+                  <Td>
                     <div className="space-y-1.5">
                       <p className="flex items-center gap-2 text-sm text-[#475467]">
                         <Mail size={16} className="shrink-0 text-[#98A2B3]" />
@@ -315,8 +310,8 @@ const Members = () => {
                         {m.phone}
                       </p>
                     </div>
-                  </td>
-                  <td className={tdClass}>
+                  </Td>
+                  <Td>
                     <p className="font-normal text-[#101828]">
                       $ {m.spent}
                     </p>
@@ -324,8 +319,8 @@ const Members = () => {
                       <ShoppingBag size={14} className="text-[#98A2B3]" />
                       {m.orders}
                     </p>
-                  </td>
-                  <td className={tdcenterClass}>
+                  </Td>
+                  <Td center>
                     {m.premium ? (
                       <span className="inline-flex size-9 items-center justify-center rounded-lg bg-[#FEF3F2]">
                         <Gem
@@ -343,27 +338,27 @@ const Members = () => {
                         />
                       </span>
                     )}
-                  </td>
-                  <td className={tdClass}>
+                  </Td>
+                  <Td>
                     <StatusToggle
                       active={m.active}
                       onChange={(next) => setActive(m.id, next)}
                     />
-                  </td>
-                  <td className={tdClass}>
+                  </Td>
+                  <Td>
                     <button
                       type="button"
                       onClick={() => navigate(`/member/${m.id}`, { state: { member: m } })}
-                      className="inline-flex size-9 items-center justify-center rounded-lg text-[#667085] transition hover:bg-[#F2F4F7] hover:text-[#344054] border border-lineMuted rounded-lg"
+                      className="inline-flex size-9 items-center justify-center rounded-lg text-[#667085] transition hover:bg-[#F2F4F7] hover:text-[#344054] border border-lineMuted"
                       aria-label={`View ${m.name}`}
                     >
                       <Eye size={18} strokeWidth={2} />
                     </button>
-                  </td>
-                </tr>
+                  </Td>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
 
         <div className="flex flex-col gap-4 border-t border-[#EAECF0] bg-white px-6 py-4 sm:flex-row sm:items-center sm:justify-between shrink-0">
@@ -420,7 +415,7 @@ const Members = () => {
             </button>
           </div>
         </div>
-      </div>
+        </TableWrapper>
 
       <SideSheet
         isOpen={isFilterSheetOpen}

@@ -4,6 +4,7 @@ import userProfile from "../../assets/userProfile.png";
 import SideSheet from "../SideSheet";
 import DateRangePopover from "../DateRangePopover";
 import ComplaintDetailsSheet from "./ComplaintDetailsSheet";
+import { Table, TableBody, TableEmpty, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 
 const complaintsData = [
   {
@@ -107,8 +108,7 @@ const getStatusBadge = (status) => {
   );
 };
 
-const tableHeadClass = "border-b border-[#EAECF0] bg-[#F9F5F5] px-5 py-3 text-left text-xs font-semibold tracking-[0.01em] text-[#667085]";
-const tableCellClass = "px-4 py-3 align-middle text-[14px] text-secondaryTextColor font-normal first:pl-6 last:pr-6 align-middle";
+
 
 const initialFilters = {
   serviceTypes: [],
@@ -323,28 +323,26 @@ const ComplaintsNotesTab = () => {
           </button>
         </div>
 
-        <div className="min-h-0 shrink overflow-auto rounded-xl border border-[#EAECF0] bg-white">
-          <table className="w-full min-w-[1000px] border-collapse">
-            <thead>
-              <tr className="bg-[#FCFCFD]">
-                <th className={tableHeadClass}>Complaint ID</th>
-                <th className={tableHeadClass}>Caregiver (PSP)</th>
-                <th className={tableHeadClass}>Service</th>
-                <th className={tableHeadClass}>Issue Type</th>
-                <th className={tableHeadClass}>Date Reported</th>
-                <th className={tableHeadClass}>Source</th>
-                <th className={tableHeadClass}>Status</th>
-                <th className={tableHeadClass}>Rating</th>
-                <th className={tableHeadClass}>Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#EAECF0]">
+        <TableWrapper className="min-h-0 shrink">
+          <Table minWidth="min-w-[1000px]">
+            <TableHead>
+              <Th>Complaint ID</Th>
+              <Th>Caregiver (PSP)</Th>
+              <Th>Service</Th>
+              <Th>Issue Type</Th>
+              <Th>Date Reported</Th>
+              <Th>Source</Th>
+              <Th>Status</Th>
+              <Th>Rating</Th>
+              <Th>Actions</Th>
+            </TableHead>
+            <TableBody>
               {filteredData.map((row) => (
-                <tr key={row.id} className="hover:bg-[#F9FAFB]/80 transition-colors">
-                  <td className={tableCellClass}>
+                <TableRow key={row.id}>
+                  <Td>
                     <span className="font-normal text-secondaryTextColor">{row.id}</span>
-                  </td>
-                  <td className={tableCellClass}>
+                  </Td>
+                  <Td>
                     <div className="flex items-center gap-2.5">
                       <img
                         src={userProfile}
@@ -355,13 +353,13 @@ const ComplaintsNotesTab = () => {
                         {row.caregiver}
                       </span>
                     </div>
-                  </td>
-                  <td className={tableCellClass}>{row.service}</td>
-                  <td className="font-normal text-[#1D2939]">{row.issueType}</td>
-                  <td className={tableCellClass}>{row.date}</td>
-                  <td className={tableCellClass}>{row.source}</td>
-                  <td className={tableCellClass}>{getStatusBadge(row.status)}</td>
-                  <td className={tableCellClass}>
+                  </Td>
+                  <Td>{row.service}</Td>
+                  <Td className="font-normal text-[#1D2939]">{row.issueType}</Td>
+                  <Td>{row.date}</Td>
+                  <Td>{row.source}</Td>
+                  <Td>{getStatusBadge(row.status)}</Td>
+                  <Td>
                     <div className="flex items-center gap-1.5 font-normal text-secondaryTextColor">
                       <Star
                         size={16}
@@ -374,8 +372,8 @@ const ComplaintsNotesTab = () => {
                       />
                       {row.rating}
                     </div>
-                  </td>
-                  <td className={tableCellClass}>
+                  </Td>
+                  <Td>
                     <button
                       type="button"
                       onClick={() => openViewSheet(row)}
@@ -384,19 +382,15 @@ const ComplaintsNotesTab = () => {
                     >
                       <Eye size={18} strokeWidth={1.5} />
                     </button>
-                  </td>
-                </tr>
+                  </Td>
+                </TableRow>
               ))}
               {filteredData.length === 0 && (
-                <tr>
-                  <td colSpan={9} className="py-12 text-center text-sm text-[#667085]">
-                    No complaints found.
-                  </td>
-                </tr>
+                <TableEmpty colSpan={9} message="No complaints found." />
               )}
-            </tbody>
-          </table>
-        </div>
+            </TableBody>
+          </Table>
+        </TableWrapper>
       </div>
       {/* View Complaint Details Side Sheet */}
       <ComplaintDetailsSheet

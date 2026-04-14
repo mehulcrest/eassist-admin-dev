@@ -2,6 +2,7 @@ import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
 import logoImage from "../../assets/logo.png";
 import userProfile from "../../assets/userProfile.png";
+import { Table, TableBody, TableEmpty, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 
 const PAGE_SIZE_OPTIONS = [10, 25, 50];
 
@@ -73,9 +74,7 @@ const getVisiblePages = (current, total, maxVisible = 5) => {
   return Array.from({ length: end - start + 1 }, (_, index) => start + index);
 };
 
-const headerClass =
-  "border-b border-[#EAECF0] bg-[#F9F5F5] px-5 py-3 text-left text-xs font-semibold tracking-[0.01em] text-[#667085]";
-const cellClass = "px-5 py-3 align-center text-sm text-[#475467]";
+
 
 const buildActivityRows = (memberName) => [
   {
@@ -311,22 +310,20 @@ const ActivityLogTab = ({ memberName = "Margaret Thompson" }) => {
         />
       </div>
 
-      <section className="flex min-h-0 flex-col overflow-hidden rounded-xl border border-[#EAECF0] bg-white">
-        <div className="min-h-0 flex-1 overflow-auto">
-          <table className="w-full min-w-[1020px] border-collapse">
-            <thead>
-              <tr>
-                <th className={`${headerClass} w-[170px]`}>Date</th>
-                <th className={`${headerClass} w-[240px]`}>Performed By</th>
-                <th className={`${headerClass} min-w-[420px]`}>Action</th>
-                <th className={`${headerClass} w-[210px]`}>Activity Type</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#EAECF0] bg-white">
+        <TableWrapper className="flex min-h-0 flex-col overflow-hidden">
+          <div className="min-h-0 flex-1 overflow-auto">
+          <Table minWidth="min-w-[1020px]">
+            <TableHead>
+              <Th className="w-[170px]">Date</Th>
+              <Th className="w-[240px]">Performed By</Th>
+              <Th className="min-w-[420px]">Action</Th>
+              <Th className="w-[210px]">Activity Type</Th>
+            </TableHead>
+            <TableBody>
               {currentRows.length > 0 ? (
                 currentRows.map((row) => (
-                  <tr key={row.id} className="transition-colors hover:bg-[#FCFCFD]">
-                    <td className={cellClass}>
+                  <TableRow key={row.id}>
+                    <Td className="text-[#475467]">
                       <div className="flex flex-col">
                         <span className="font-medium text-[#475467]">
                           {formatDateLabel(row.occurredAt)}
@@ -335,8 +332,8 @@ const ActivityLogTab = ({ memberName = "Margaret Thompson" }) => {
                           {formatTimeLabel(row.occurredAt)}
                         </span>
                       </div>
-                    </td>
-                    <td className={cellClass}>
+                    </Td>
+                    <Td className="text-[#475467]">
                       <div className="flex items-center gap-3">
                         <ActorAvatar actor={row.actor} />
                         <div className="min-w-0">
@@ -348,8 +345,8 @@ const ActivityLogTab = ({ memberName = "Margaret Thompson" }) => {
                           </p>
                         </div>
                       </div>
-                    </td>
-                    <td className={cellClass}>
+                    </Td>
+                    <Td className="text-[#475467]">
                       <p className="text-sm leading-5 text-[#667085]">
                         <span className="font-semibold text-[#475467]">
                           {row.actionTitle}
@@ -357,22 +354,18 @@ const ActivityLogTab = ({ memberName = "Margaret Thompson" }) => {
                         {" - "}
                         {row.actionDetail}
                       </p>
-                    </td>
-                    <td className={cellClass}>
+                    </Td>
+                    <Td className="text-[#475467]">
                       <ActivityTypeBadge label={row.activityType} />
-                    </td>
-                  </tr>
+                    </Td>
+                  </TableRow>
                 ))
               ) : (
-                <tr>
-                  <td colSpan={4} className="px-5 py-14 text-center text-sm text-[#667085]">
-                    No activity log entries match the selected filters.
-                  </td>
-                </tr>
+                <TableEmpty colSpan={4} message="No activity log entries match the selected filters." />
               )}
-            </tbody>
-          </table>
-        </div>
+            </TableBody>
+          </Table>
+          </div>
 
         <div className="shrink-0 flex flex-col gap-4 border-t border-[#EAECF0] bg-white px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
           <label className="flex items-center gap-2 text-sm text-[#667085]">
@@ -430,7 +423,7 @@ const ActivityLogTab = ({ memberName = "Margaret Thompson" }) => {
             </button>
           </div>
         </div>
-      </section>
+        </TableWrapper>
     </div>
   );
 };

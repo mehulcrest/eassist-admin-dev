@@ -1,6 +1,7 @@
 import { Eye } from "lucide-react";
 import { useState } from "react";
 import BillingDetailsSideSheet from "./BillingDetailsSideSheet";
+import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 
 /* ─── Static data ───────────────────────────────────────────────────────── */
 
@@ -128,21 +129,7 @@ const VisaIcon = () => (
 
 
 
-const TH = ({ children, className = "" }) => (
-  <th
-    className={`px-4 py-3 text-left text-[14px] font-semibold text-[#344054] border-b border-[#EAECF0] whitespace-nowrap first:pl-6 last:pr-6 ${className}`}
-  >
-    {children}
-  </th>
-);
 
-const TD = ({ children, className = "" }) => (
-  <td
-    className={`px-4 py-3.5 align-middle text-[14px] text-secondaryTextColor font-normal first:pl-6 last:pr-6 ${className}`}
-  >
-    {children}
-  </td>
-);
 
 /* ─── Main component ────────────────────────────────────────────────────── */
 
@@ -250,39 +237,37 @@ const SubscriptionBillingTab = () => {
     <section className="flex flex-col gap-4">
       <h2 className="text-base font-semibold text-[#101828]">Billing History</h2>
 
-      <div className="overflow-x-auto rounded-xl border border-[#EAECF0] bg-white">
-        <table className="w-full min-w-[1000px] border-collapse">
-          <thead>
-            <tr className="border-b border-[#EAECF0] bg-[#F9F5F5] px-5 py-3 text-left text-xs font-semibold tracking-[0.01em] text-[#667085]">
-              <TH>Billing ID</TH>
-              <TH>Transaction Type</TH>
-              <TH>Plan</TH>
-              <TH>Billing Period</TH>
-              <TH>Loyalty Activity</TH>
-              <TH>Payment Date</TH>
-              <TH>Total Amount</TH>
-              <TH>Status</TH>
-              <TH>Actions</TH>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-[#EAECF0]">
+      <TableWrapper>
+        <Table minWidth="min-w-[1000px]">
+          <TableHead>
+            <Th>Billing ID</Th>
+            <Th>Transaction Type</Th>
+            <Th>Plan</Th>
+            <Th>Billing Period</Th>
+            <Th>Loyalty Activity</Th>
+            <Th>Payment Date</Th>
+            <Th>Total Amount</Th>
+            <Th>Status</Th>
+            <Th>Actions</Th>
+          </TableHead>
+          <TableBody>
             {BILLING_HISTORY.map((row) => (
-              <tr key={row.id} className="transition-colors hover:bg-[#F9FAFB]/80">
-                <TD>
+              <TableRow key={row.id}>
+                <Td>
                   <span className="font-normal text-secondaryTextColor">{row.id}</span>
-                </TD>
-                <TD>{row.transactionType}</TD>
-                <TD>
+                </Td>
+                <Td>{row.transactionType}</Td>
+                <Td>
                   <span className="font-medium text-[#344054]">{row.plan}</span>
-                </TD>
-                <TD>{row.billingPeriod}</TD>
-                <TD>
+                </Td>
+                <Td>{row.billingPeriod}</Td>
+                <Td>
                   <span className={`font-medium ${row.loyaltyColor}`}>
                     {row.loyaltyActivity}
                   </span>
-                </TD>
-                <TD>{row.paymentDate}</TD>
-                <TD>
+                </Td>
+                <Td>{row.paymentDate}</Td>
+                <Td>
                   <span
                     className={
                       row.totalAmount.startsWith("-")
@@ -292,11 +277,11 @@ const SubscriptionBillingTab = () => {
                   >
                     {row.totalAmount}
                   </span>
-                </TD>
-                <TD>
+                </Td>
+                <Td>
                   <StatusBadge status={row.status} />
-                </TD>
-                <TD>
+                </Td>
+                <Td>
                   <button
                     type="button"
                     aria-label={`View billing record ${row.id}`}
@@ -305,12 +290,12 @@ const SubscriptionBillingTab = () => {
                   >
                     <Eye size={18} strokeWidth={1.5} />
                   </button>
-                </TD>
-              </tr>
+                </Td>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </Table>
+      </TableWrapper>
     </section>
 
     <BillingDetailsSideSheet

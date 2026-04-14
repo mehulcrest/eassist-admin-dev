@@ -7,10 +7,9 @@ import DateRangePopover from "../DateRangePopover";
 import IndividualServiceDetailsView from "./IndividualServiceDetailsView";
 import userProfile from "../../assets/userProfile.png";
 import SideSheet from "../SideSheet";
+import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 
-const tableHeadClass =
-  "px-4 py-3 text-left text-sm font-medium text-textColor first:pl-6 last:pr-6 border";
-const tableCellClass = "px-4 py-1.5 align-middle text-sm first:pl-6 last:pr-6";
+
 
 const serviceRows = [
   {
@@ -345,41 +344,37 @@ const ServiceHistoryTab = () => {
               </button>
             </div>
 
-            <div className="min-h-0 overflow-auto rounded-xl border border-[#E4E7EC] bg-white">
-              <table className="w-full min-w-[980px] border-collapse">
-                <thead>
-                  <tr className="border border-[#F2F4F7] bg-tableHeader">
-                    {["Service", "Caregiver (PSP)", "Match Quality", "Date", "Duration", "Cost", "Rating", "Actions"].map((head) => (
-                      <th key={head} className={tableHeadClass}>
-                        {head}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#EAECF0]">
+            <TableWrapper>
+              <Table minWidth="min-w-[980px]">
+                <TableHead>
+                  {["Service", "Caregiver (PSP)", "Match Quality", "Date", "Duration", "Cost", "Rating", "Actions"].map((head) => (
+                    <Th key={head}>{head}</Th>
+                  ))}
+                </TableHead>
+                <TableBody>
                   {filteredRows.map((row) => (
-                    <tr key={`${row.service}-${row.id}`} className="bg-white hover:bg-[#F9FAFB]/80">
-                      <td className={tableCellClass}>
+                    <TableRow key={`${row.service}-${row.id}`}>
+                      <Td>
                         <p className="text-sm font-medium text-[#101828]">{row.service}</p>
                         <p className="mt-0.5 text-xs text-[#475467]">{row.id}</p>
-                      </td>
-                      <td className={tableCellClass}>
+                      </Td>
+                      <Td>
                         <div className="flex items-center gap-2">
                           <img src={userProfile} alt="" className="size-8 rounded-full object-cover ring-1 ring-[#EAECF0]" />
                           <p className="text-sm text-[#344054] underline underline-offset-4">{row.caregiver}</p>
                         </div>
-                      </td>
-                      <td className={tableCellClass}>
+                      </Td>
+                      <Td>
                         <MatchQuality quality={row.quality} />
-                      </td>
-                      <td className={`${tableCellClass} text-[#475467]`}>{row.date}</td>
-                      <td className={tableCellClass}>
+                      </Td>
+                      <Td className="text-[#475467]">{row.date}</Td>
+                      <Td>
                         <p className="text-sm text-[#667085]">{row.duration}</p>
                         <p className="mt-0.5 text-xs text-[#667085]">{row.slot}</p>
-                      </td>
-                      <td className={`${tableCellClass} text-[#475467]`}>{row.cost}</td>
-                      <td className={`${tableCellClass} text-[#475467]`}>{row.rating}</td>
-                      <td className={tableCellClass}>
+                      </Td>
+                      <Td className="text-[#475467]">{row.cost}</Td>
+                      <Td className="text-[#475467]">{row.rating}</Td>
+                      <Td>
                         <button
                           type="button"
                           onClick={() => setSelectedService(row)}
@@ -390,12 +385,12 @@ const ServiceHistoryTab = () => {
                             <path d="M7 8.64062C7.90672 8.64062 8.64062 7.90672 8.64062 7C8.64062 6.09328 7.90672 5.35938 7 5.35938C6.09328 5.35938 5.35938 6.09328 5.35938 7C5.35938 7.90672 6.09328 8.64062 7 8.64062Z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
                         </button>
-                      </td>
-                    </tr>
+                      </Td>
+                    </TableRow>
                   ))}
-                </tbody>
-              </table>
-            </div>
+                </TableBody>
+              </Table>
+            </TableWrapper>
           </div>
         )}
       </section>
