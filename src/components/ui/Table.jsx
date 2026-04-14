@@ -21,7 +21,7 @@ export const Table = ({ children, minWidth = "min-w-[800px]", className = "" }) 
  */
 export const TableHead = ({ children }) => (
   <thead>
-    <tr className="border-b border-[#EAECF0] bg-tableHeader">
+    <tr>
       {children}
     </tr>
   </thead>
@@ -35,7 +35,7 @@ export const TableHead = ({ children }) => (
  */
 export const Th = ({ children, center = false, className = "" }) => (
   <th
-    className={`px-4 py-3 text-sm font-semibold text-[#344054] whitespace-nowrap first:pl-6 last:pr-6 ${
+    className={`sticky top-0 z-10 bg-[#F4EEEE] border-b border-[#EAECF0] px-4 py-3 text-sm font-semibold text-[#344054] whitespace-nowrap first:pl-6 last:pr-6 ${
       center ? "text-center" : "text-left"
     } ${className}`}
   >

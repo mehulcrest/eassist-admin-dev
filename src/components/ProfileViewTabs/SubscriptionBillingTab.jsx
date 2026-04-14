@@ -195,7 +195,7 @@ const SubscriptionBillingTab = () => {
         <div className="flex flex-1 flex-col p-6">
           <div className="flex w-full flex-col justify-between sm:flex-row sm:items-start gap-6">
             {/* Grid of details */}
-            <div className="grid grid-cols-2 gap-x-12 gap-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
               <div className="flex flex-col gap-1.5">
                 <span className="text-sm font-semibold text-[#101828]">Next Billing Date</span>
                 <span className="text-sm text-[#667085]">{PLAN.nextBillingDate}</span>
@@ -220,10 +220,10 @@ const SubscriptionBillingTab = () => {
             </div>
 
             {/* Manage Subscription Button */}
-            <div className="shrink-0">
+            <div className="shrink-0 w-full sm:w-auto">
               <button
                 type="button"
-                className="rounded-lg bg-[#F04438] px-[18px] py-[10px] text-sm font-semibold text-white shadow-[0px_1px_2px_rgba(16,24,40,0.05)] transition-colors hover:bg-[#D92D20] whitespace-nowrap"
+                className="w-full sm:w-auto rounded-lg bg-[#F04438] px-[18px] py-[10px] text-sm font-semibold text-white shadow-[0px_1px_2px_rgba(16,24,40,0.05)] transition-colors hover:bg-[#D92D20] whitespace-nowrap"
               >
                 Manage Subscription
               </button>

@@ -214,9 +214,18 @@ const IndividualServiceDetailsView = ({ service, onBack }) => {
           </div>
         </section>
       </div>
-      <div className="mt-4 flex shrink-0 justify-end gap-3 border-t border-lineMuted bg-pageColor pt-3">
-        <button type="button" onClick={onBack} className="h-11 rounded-lg border border-[#D0D5DD] bg-white px-8 text-sm font-semibold text-[#344054]">Cancel</button>
-        <button type="button" className="inline-flex h-11 items-center gap-2 rounded-lg bg-gradient-to-r from-gradientFrom via-gradientVia to-gradientTo px-6 text-sm font-semibold text-white"><Download size={16} />Download Invoice</button>
+      <div className="mt-4 shrink-0 border-t border-lineMuted bg-pageColor pt-3">
+        <div className="flex flex-col gap-2 sm:hidden">
+          <div className="grid grid-cols-2 gap-2">
+            <button type="button" onClick={onBack} className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white text-sm font-semibold text-[#344054]">Cancel</button>
+            <button type="button" className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-gradientFrom via-gradientVia to-gradientTo text-sm font-semibold text-white"><Download size={16} /> <span className="hidden sm:inline">Download Invoice</span><span className="sm:hidden">Download</span></button>
+          </div>
+        </div>
+
+        <div className="hidden sm:flex sm:justify-end sm:gap-3">
+          <button type="button" onClick={onBack} className="h-11 rounded-lg border border-[#D0D5DD] bg-white px-8 text-sm font-semibold text-[#344054]">Cancel</button>
+          <button type="button" className="inline-flex h-11 items-center gap-2 rounded-lg bg-gradient-to-r from-gradientFrom via-gradientVia to-gradientTo px-6 text-sm font-semibold text-white"><Download size={16} />Download Invoice</button>
+        </div>
       </div>
     </div>
     <SideSheet

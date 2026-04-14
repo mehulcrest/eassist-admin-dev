@@ -302,8 +302,8 @@ const ComplaintsNotesTab = () => {
   return (
     <>
       <div className="flex h-full min-h-0 flex-col gap-4">
-        <div className="flex items-center justify-between">
-          <div className="relative w-full max-w-[420px]">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="relative w-full sm:max-w-[420px]">
             <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-[#667085]" strokeWidth={2.5} />
             <input
               type="search"
@@ -316,7 +316,7 @@ const ComplaintsNotesTab = () => {
           <button
             type="button"
             onClick={openFilters}
-            className="inline-flex h-[42px] items-center justify-center gap-2 rounded-lg border border-[#D0D5DD] bg-white px-4 text-sm font-semibold text-[#344054] shadow-[0px_1px_2px_rgba(16,24,40,0.05)] transition hover:bg-[#F9FAFB] sm:px-4"
+            className="inline-flex h-[42px] w-full sm:w-auto items-center justify-center gap-2 rounded-lg border border-[#D0D5DD] bg-white px-4 text-sm font-semibold text-[#344054] shadow-[0px_1px_2px_rgba(16,24,40,0.05)] transition hover:bg-[#F9FAFB]"
           >
             <Filter size={18} strokeWidth={2} className="text-[#667085]" />
             Filters

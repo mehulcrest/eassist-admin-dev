@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 const SideSheet = ({
@@ -10,6 +10,15 @@ const SideSheet = ({
   footer,
   widthClass = "w-[500px]",
 }) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize(); // Init based on current width
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     if (!isOpen || typeof document === "undefined") {
       return undefined;
@@ -54,12 +63,25 @@ const SideSheet = ({
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className={`absolute right-0 top-0 flex h-full overscroll-contain ${widthClass} max-w-[95vw] flex-col bg-white shadow-2xl transition-transform duration-300 ease-out ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+        className={`absolute flex flex-col bg-white shadow-2xl transition-transform duration-300 ease-out overscroll-contain ${
+          isMobile
+            ? `left-0 right-0 bottom-0 w-full max-h-[92vh] rounded-t-[20px] ${
+                isOpen ? "translate-y-0" : "translate-y-full"
+              }`
+            : `right-0 top-0 h-full ${widthClass} max-w-[95vw] ${
+                isOpen ? "translate-x-0" : "translate-x-full"
+              }`
         }`}
       >
+        {/* Mobile handle indicator */}
+        {isMobile && (
+          <div className="flex w-full items-center justify-center pt-3 pb-1" onClick={onClose}>
+            <div className="h-1.5 w-12 rounded-full bg-[#D0D5DD]" />
+          </div>
+        )}
+
         <div className="flex items-center justify-between border-b border-[#EAECF0] px-4 py-3">
-          <h2 className="text-2xl font-semibold text-[#344054]">{title}</h2>
+          <h2 className="text-[20px] sm:text-2xl font-semibold text-[#344054]">{title}</h2>
           <button
             type="button"
             onClick={onClose}
