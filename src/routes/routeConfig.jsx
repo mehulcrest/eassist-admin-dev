@@ -1,6 +1,7 @@
 import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
 import Members from "../pages/Members";
+import Jobs from "../pages/Jobs";
 import AddMemberView from "../views/members/AddMemberView";
 import MemberProfileView from "../views/members/MemberProfileView";
 import MainLayout from "../layouts/MainLayout";
@@ -28,6 +29,8 @@ const routeConfig = [
       { path: "members", element: <Members /> },
       { path: "members/new", element: <AddMemberView /> },
       { path: "member/:id", element: <MemberProfileView /> },
+      { path: "jobs", element: <Jobs /> },
+      { path: "job/:id", element: <div className="p-6">Job Details View Placeholder</div> },
     ],
   },
 ];

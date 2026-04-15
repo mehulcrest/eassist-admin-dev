@@ -9,6 +9,7 @@ const Navbar = () => {
     "/": "Dashboard",
     "/dashboard": "Dashboard",
     "/members": "Members",
+    "/jobs": "Jobs",
   };
 
   const pageTitle = pageTitleMap[pathname] || "Dashboard";
