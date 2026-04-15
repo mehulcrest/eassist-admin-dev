@@ -47,13 +47,14 @@ const AddMemberView = () => {
   };
 
   return (
-    <div className="flex h-full min-h-0 flex-col gap-4">
+    <div className="flex h-full flex-col gap-4 overflow-hidden">
+      {/* ── Tab bar — scrolls horizontally on very small screens ── */}
       <div className="overflow-hidden rounded-lg border border-[#E4E7EC] bg-white">
-        <div className="flex gap-6 border-b border-[#EAECF0] px-4 py-3">
+        <div className="flex gap-6 overflow-x-auto border-b border-[#EAECF0] px-4 py-3 scrollbar-none">
           <button
             type="button"
             onClick={() => setActiveTab("basic")}
-            className={`pb-1 text-sm ${
+            className={`shrink-0 whitespace-nowrap pb-1 text-sm ${
               activeTab === "basic"
                 ? "border-b-2 border-gradientVia font-semibold text-gradientVia"
                 : "font-medium text-[#667085]"
@@ -64,7 +65,7 @@ const AddMemberView = () => {
           <button
             type="button"
             onClick={() => setActiveTab("care")}
-            className={`pb-1 text-sm ${
+            className={`shrink-0 whitespace-nowrap pb-1 text-sm ${
               activeTab === "care"
                 ? "border-b-2 border-gradientVia font-semibold text-gradientVia"
                 : "font-medium text-[#667085]"
@@ -75,7 +76,7 @@ const AddMemberView = () => {
           <button
             type="button"
             onClick={() => setActiveTab("plan")}
-            className={`pb-1 text-sm ${
+            className={`shrink-0 whitespace-nowrap pb-1 text-sm ${
               activeTab === "plan"
                 ? "border-b-2 border-gradientVia font-semibold text-gradientVia"
                 : "font-medium text-[#667085]"
@@ -86,7 +87,7 @@ const AddMemberView = () => {
         </div>
       </div>
 
-      <div className="min-h-0 flex-1 overflow-y-auto pr-1">
+      <div className="flex-1 min-h-0 overflow-y-auto pb-2">
       {activeTab === "basic" ? (
         <>
           <div className="grid gap-6 xl:grid-cols-[2fr_1fr]">
@@ -531,33 +532,93 @@ const AddMemberView = () => {
       ) : null}
       </div>
 
-      <div className="mt-2 flex shrink-0 justify-end gap-3 border-t border-[#EAECF0] bg-pageColor pt-3">
-        <button
-          type="button"
-          className="h-11 rounded-lg border border-[#D0D5DD] bg-white px-8 text-sm font-semibold text-[#344054]"
-        >
-          Cancel
-        </button>
-        {activeTab === "care" || activeTab === "plan" ? (
+      {/* ── Bottom action bar ─────────────────────────────────────────── */}
+      {/*
+          Mobile  : primary button full-width on top row;
+                    Cancel + Back share equal space on the row below.
+          sm+     : all buttons inline, right-aligned (original layout).
+      */}
+      <div className="shrink-0 border-t border-[#EAECF0] bg-pageColor pt-3">
+        {/* Mobile layout (hidden on sm+) */}
+        <div className="flex flex-col gap-2 sm:hidden">
+          {activeTab === "basic" ? (
+            /* Tab 1 — only Cancel + Save: equal 50/50 side by side */
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white text-sm font-semibold text-[#344054]"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab("care")}
+                className="inline-flex h-11 w-full items-center justify-center gap-1 rounded-lg bg-gradient-to-r from-gradientFrom via-gradientVia to-gradientTo text-sm font-semibold text-white"
+              >
+                Save & Continue <span className="text-base">→</span>
+              </button>
+            </div>
+          ) : (
+            /* Tabs 2 & 3 — 3 buttons: primary full-width, then Cancel + Back 50/50 */
+            <>
+              <button
+                type="button"
+                onClick={() => {
+                  if (activeTab === "care") setActiveTab("plan");
+                }}
+                className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-gradientFrom via-gradientVia to-gradientTo text-sm font-semibold text-white"
+              >
+                {activeTab === "plan" ? "Create Member Profile" : "Save & Continue"}
+                {activeTab === "plan" ? null : <span className="text-base">→</span>}
+              </button>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white text-sm font-semibold text-[#344054]"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab(activeTab === "plan" ? "care" : "basic")}
+                  className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white text-sm font-semibold text-[#344054]"
+                >
+                  ← Back
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* sm+ layout — right-aligned inline row */}
+        <div className="hidden sm:flex sm:justify-end sm:gap-3">
           <button
             type="button"
-            onClick={() => setActiveTab(activeTab === "plan" ? "care" : "basic")}
-            className="h-11 rounded-lg bg-white px-5 text-sm font-semibold text-[#344054]"
+            className="h-11 rounded-lg border border-[#D0D5DD] bg-white px-8 text-sm font-semibold text-[#344054]"
           >
-            ← Back
+            Cancel
           </button>
-        ) : null}
-        <button
-          type="button"
-          onClick={() => {
-            if (activeTab === "basic") setActiveTab("care");
-            else if (activeTab === "care") setActiveTab("plan");
-          }}
-          className="inline-flex h-11 items-center gap-2 rounded-lg bg-gradient-to-r from-gradientFrom via-gradientVia to-gradientTo px-6 text-sm font-semibold text-white"
-        >
-          {activeTab === "plan" ? "Create Member Profile" : "Save & Continue"}
-          {activeTab === "plan" ? null : <span className="text-base">→</span>}
-        </button>
+          {activeTab === "care" || activeTab === "plan" ? (
+            <button
+              type="button"
+              onClick={() => setActiveTab(activeTab === "plan" ? "care" : "basic")}
+              className="h-11 rounded-lg bg-white px-5 text-sm font-semibold text-[#344054]"
+            >
+              ← Back
+            </button>
+          ) : null}
+          <button
+            type="button"
+            onClick={() => {
+              if (activeTab === "basic") setActiveTab("care");
+              else if (activeTab === "care") setActiveTab("plan");
+            }}
+            className="inline-flex h-11 items-center gap-2 rounded-lg bg-gradient-to-r from-gradientFrom via-gradientVia to-gradientTo px-6 text-sm font-semibold text-white"
+          >
+            {activeTab === "plan" ? "Create Member Profile" : "Save & Continue"}
+            {activeTab === "plan" ? null : <span className="text-base">→</span>}
+          </button>
+        </div>
       </div>
 
       <SideSheet

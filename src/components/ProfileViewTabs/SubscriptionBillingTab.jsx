@@ -1,4 +1,7 @@
 import { Eye } from "lucide-react";
+import { useState } from "react";
+import BillingDetailsSideSheet from "./BillingDetailsSideSheet";
+import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 
 /* ─── Static data ───────────────────────────────────────────────────────── */
 
@@ -126,27 +129,25 @@ const VisaIcon = () => (
 
 
 
-const TH = ({ children, className = "" }) => (
-  <th
-    className={`px-4 py-3 text-left text-[14px] font-semibold text-[#344054] border-b border-[#EAECF0] whitespace-nowrap first:pl-6 last:pr-6 ${className}`}
-  >
-    {children}
-  </th>
-);
 
-const TD = ({ children, className = "" }) => (
-  <td
-    className={`px-4 py-3.5 align-middle text-[14px] text-secondaryTextColor font-normal first:pl-6 last:pr-6 ${className}`}
-  >
-    {children}
-  </td>
-);
 
 /* ─── Main component ────────────────────────────────────────────────────── */
 
-const SubscriptionBillingTab = () => (
+const SubscriptionBillingTab = () => {
+  const [selectedInvoice, setSelectedInvoice] = useState(null);
+  const [isBillingDetailsOpen, setIsBillingDetailsOpen] = useState(false);
+
+  const handleOpenBillingDetails = (invoice) => {
+    setSelectedInvoice(invoice);
+    setIsBillingDetailsOpen(true);
+  };
+
+  const handleCloseBillingDetails = () => {
+    setIsBillingDetailsOpen(false);
+  };
+
+  return (
   <div className="flex flex-col gap-6">
-    {/* ── Current Plan ──────────────────────────────────────────────────── */}
     <section className="rounded-xl border border-[#EAECF0] bg-white p-6">
       <h2 className="text-base font-semibold text-[#101828]">Current Plan</h2>
       <p className="mt-0.5 text-sm text-[#667085]">
@@ -194,7 +195,7 @@ const SubscriptionBillingTab = () => (
         <div className="flex flex-1 flex-col p-6">
           <div className="flex w-full flex-col justify-between sm:flex-row sm:items-start gap-6">
             {/* Grid of details */}
-            <div className="grid grid-cols-2 gap-x-12 gap-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
               <div className="flex flex-col gap-1.5">
                 <span className="text-sm font-semibold text-[#101828]">Next Billing Date</span>
                 <span className="text-sm text-[#667085]">{PLAN.nextBillingDate}</span>
@@ -219,10 +220,10 @@ const SubscriptionBillingTab = () => (
             </div>
 
             {/* Manage Subscription Button */}
-            <div className="shrink-0">
+            <div className="shrink-0 w-full sm:w-auto">
               <button
                 type="button"
-                className="rounded-lg bg-[#F04438] px-[18px] py-[10px] text-sm font-semibold text-white shadow-[0px_1px_2px_rgba(16,24,40,0.05)] transition-colors hover:bg-[#D92D20] whitespace-nowrap"
+                className="w-full sm:w-auto rounded-lg bg-[#F04438] px-[18px] py-[10px] text-sm font-semibold text-white shadow-[0px_1px_2px_rgba(16,24,40,0.05)] transition-colors hover:bg-[#D92D20] whitespace-nowrap"
               >
                 Manage Subscription
               </button>
@@ -236,39 +237,37 @@ const SubscriptionBillingTab = () => (
     <section className="flex flex-col gap-4">
       <h2 className="text-base font-semibold text-[#101828]">Billing History</h2>
 
-      <div className="overflow-x-auto rounded-xl border border-[#EAECF0] bg-white">
-        <table className="w-full min-w-[1000px] border-collapse">
-          <thead>
-            <tr className="bg-[#FCFCFD]">
-              <TH>Billing ID</TH>
-              <TH>Transaction Type</TH>
-              <TH>Plan</TH>
-              <TH>Billing Period</TH>
-              <TH>Loyalty Activity</TH>
-              <TH>Payment Date</TH>
-              <TH>Total Amount</TH>
-              <TH>Status</TH>
-              <TH>Actions</TH>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-[#EAECF0]">
+      <TableWrapper>
+        <Table minWidth="min-w-[1000px]">
+          <TableHead>
+            <Th>Billing ID</Th>
+            <Th>Transaction Type</Th>
+            <Th>Plan</Th>
+            <Th>Billing Period</Th>
+            <Th>Loyalty Activity</Th>
+            <Th>Payment Date</Th>
+            <Th>Total Amount</Th>
+            <Th>Status</Th>
+            <Th>Actions</Th>
+          </TableHead>
+          <TableBody>
             {BILLING_HISTORY.map((row) => (
-              <tr key={row.id} className="transition-colors hover:bg-[#F9FAFB]/80">
-                <TD>
+              <TableRow key={row.id}>
+                <Td>
                   <span className="font-normal text-secondaryTextColor">{row.id}</span>
-                </TD>
-                <TD>{row.transactionType}</TD>
-                <TD>
+                </Td>
+                <Td>{row.transactionType}</Td>
+                <Td>
                   <span className="font-medium text-[#344054]">{row.plan}</span>
-                </TD>
-                <TD>{row.billingPeriod}</TD>
-                <TD>
+                </Td>
+                <Td>{row.billingPeriod}</Td>
+                <Td>
                   <span className={`font-medium ${row.loyaltyColor}`}>
                     {row.loyaltyActivity}
                   </span>
-                </TD>
-                <TD>{row.paymentDate}</TD>
-                <TD>
+                </Td>
+                <Td>{row.paymentDate}</Td>
+                <Td>
                   <span
                     className={
                       row.totalAmount.startsWith("-")
@@ -278,26 +277,34 @@ const SubscriptionBillingTab = () => (
                   >
                     {row.totalAmount}
                   </span>
-                </TD>
-                <TD>
+                </Td>
+                <Td>
                   <StatusBadge status={row.status} />
-                </TD>
-                <TD>
+                </Td>
+                <Td>
                   <button
                     type="button"
                     aria-label={`View billing record ${row.id}`}
+                    onClick={() => handleOpenBillingDetails(row)}
                     className="inline-flex size-[34px] items-center justify-center rounded-lg border border-[#EAECF0] text-[#667085] shadow-[0px_1px_2px_rgba(16,24,40,0.05)] transition hover:bg-[#F2F4F7] hover:text-[#344054]"
                   >
                     <Eye size={18} strokeWidth={1.5} />
                   </button>
-                </TD>
-              </tr>
+                </Td>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </Table>
+      </TableWrapper>
     </section>
+
+    <BillingDetailsSideSheet
+      isOpen={isBillingDetailsOpen}
+      onClose={handleCloseBillingDetails}
+      invoice={selectedInvoice}
+    />
   </div>
-);
+  );
+};
 
 export default SubscriptionBillingTab;

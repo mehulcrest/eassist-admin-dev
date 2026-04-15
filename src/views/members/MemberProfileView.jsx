@@ -24,14 +24,14 @@ const MemberProfileView = () => {
   const memberId = member?.id ?? id?.toUpperCase() ?? "E001";
 
   return (
-    <div className="flex h-full min-h-0 flex-col gap-4">
-      <div className="overflow-hidden rounded-lg border border-[#E4E7EC] bg-white">
-        <div className="flex gap-6 border-b border-[#EAECF0] px-4 py-3">
+    <div className="flex h-full flex-col gap-4 overflow-hidden">
+      <div className="shrink-0 overflow-hidden rounded-lg border border-[#E4E7EC] bg-white">
+        <div className="flex gap-6 overflow-x-auto border-b border-[#EAECF0] px-4 py-3 scrollbar-none">
           {tabs.map((tab) => (
             <button
               key={tab}
               type="button"
-              className={`pb-1 text-base ${
+              className={`shrink-0 whitespace-nowrap pb-1 text-base ${
                 activeTab === tab
                   ? "border-b-2 border-gradientVia font-semibold text-gradientVia"
                   : "font-medium text-[#667085]"
@@ -44,7 +44,7 @@ const MemberProfileView = () => {
         </div>
       </div>
 
-      <div className="min-h-0 flex-1 overflow-hidden">
+      <div className="flex-1 min-h-0 overflow-hidden">
         {activeTab === "Overview" ? (
           <div className="h-full overflow-y-auto pr-1">
             <OverviewTab memberName={memberName} member={member} />
@@ -58,8 +58,8 @@ const MemberProfileView = () => {
           </div>
         ) : null}
         {activeTab === "Activity Log" ? (
-          <div className="h-full overflow-y-auto pr-1">
-            <ActivityLogTab />
+          <div className="h-full overflow-hidden">
+            <ActivityLogTab memberName={memberName} />
           </div>
         ) : null}
       </div>

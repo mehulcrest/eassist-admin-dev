@@ -87,12 +87,12 @@ const OverviewTab = ({ memberName, member }) => {
                 <p className={labelClass}>Lifetime Spend</p>
                 <p className={valueClass}>$935.00</p>
               </div>
-              <div className="flex gap-[150px]">
+              <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className={labelClass}>Total Services</p>
                   <p className={valueClass}>14</p>
                 </div>
-                <div className="md:col-start-2">
+                <div>
                   <p className={labelClass}>Last Service Date</p>
                   <p className={valueClass}>Friday, Mar 12, 2026</p>
                 </div>
@@ -185,19 +185,38 @@ const OverviewTab = ({ memberName, member }) => {
         </section>
       </div>
 
-      <div className="mt-4 flex shrink-0 justify-end gap-3 border-t border-[#EAECF0] bg-pageColor pt-3">
-        <button
-          type="button"
-          className="h-11 rounded-lg border border-[#D0D5DD] bg-white px-8 text-sm font-semibold text-[#344054]"
-        >
-          Cancel
-        </button>
-        <button
-          type="button"
-          className="h-11 rounded-lg bg-gradient-to-r from-gradientFrom via-gradientVia to-gradientTo px-6 text-sm font-semibold text-white"
-        >
-          Edit Profile
-        </button>
+      <div className="mt-4 shrink-0 border-t border-[#EAECF0] bg-pageColor pt-3">
+        <div className="flex flex-col gap-2 sm:hidden">
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white text-sm font-semibold text-[#344054]"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="h-11 w-full rounded-lg bg-gradient-to-r from-gradientFrom via-gradientVia to-gradientTo text-sm font-semibold text-white"
+            >
+              Edit Profile
+            </button>
+          </div>
+        </div>
+
+        <div className="hidden sm:flex sm:justify-end sm:gap-3">
+          <button
+            type="button"
+            className="h-11 rounded-lg border border-[#D0D5DD] bg-white px-8 text-sm font-semibold text-[#344054]"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            className="h-11 rounded-lg bg-gradient-to-r from-gradientFrom via-gradientVia to-gradientTo px-6 text-sm font-semibold text-white"
+          >
+            Edit Profile
+          </button>
+        </div>
       </div>
     </div>
   );
