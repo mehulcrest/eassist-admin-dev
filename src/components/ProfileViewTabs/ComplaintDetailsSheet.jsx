@@ -6,11 +6,11 @@ import userProfile from "../../assets/userProfile.png";
 /* ── Status badge ──────────────────────────────────────────────────────────── */
 const STATUS_META = {
   New: { bg: "bg-[#FEF3F2]", text: "text-[#D92D20]" },
-  Resolved: { bg: "bg-[#ECFDF3]", text: "text-[#039855]" },
+  Resolved: { bg: "bg-[#ECFDF3]", text: "text-greenVerified" },
   "In Review": { bg: "bg-[#F2F4F7]", text: "text-[#344054]" },
   "Refund Issued": { bg: "bg-[#F0F9FF]", text: "text-[#007AFF]" },
-  "Awaiting Refund": { bg: "bg-[#FFFAEB]", text: "text-[#DC6803]" },
-  Closed: { bg: "bg-[#ECFDF3]", text: "text-[#039855]" },
+  "Awaiting Refund": { bg: "bg-[#FFFAEB]", text: "text-orangeReview" },
+  Closed: { bg: "bg-[#ECFDF3]", text: "text-greenVerified" },
 };
 
 const StatusBadge = ({ status }) => {

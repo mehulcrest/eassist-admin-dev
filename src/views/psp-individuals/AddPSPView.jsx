@@ -45,7 +45,7 @@ const AddPSPView = () => {
               type="button"
               onClick={() => setActiveTab(tab.id)}
               className={`shrink-0 whitespace-nowrap pb-1 text-sm ${activeTab === tab.id
-                  ? "border-b-2 border-[#F04438] font-semibold text-[#F04438]"
+                  ? "border-b-2 border-redRejected font-semibold text-redRejected"
                   : "font-medium text-[#667085]"
                 }`}
             >
@@ -78,7 +78,7 @@ const AddPSPView = () => {
               <button
                 type="button"
                 onClick={handleNext}
-                className="inline-flex h-11 w-full items-center justify-center gap-1 rounded-lg bg-[#F04438] hover:bg-[#D92D20] transition-colors text-sm font-semibold text-white"
+                className="inline-flex h-11 w-full items-center justify-center gap-1 rounded-lg bg-redRejected hover:bg-[#D92D20] transition-colors text-sm font-semibold text-white"
               >
                 Save & Continue <span className="text-base">→</span>
               </button>
@@ -88,7 +88,7 @@ const AddPSPView = () => {
               <button
                 type="button"
                 onClick={activeTab === "verification" ? () => navigate("/psp-individuals") : handleNext}
-                className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#F04438] hover:bg-[#D92D20] transition-colors text-sm font-semibold text-white"
+                className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-redRejected hover:bg-[#D92D20] transition-colors text-sm font-semibold text-white"
               >
                 {activeTab === "verification" ? "Create PSP Individual Profile" : "Save & Continue"}
                 {activeTab === "verification" ? null : <span className="text-base">→</span>}
@@ -134,7 +134,7 @@ const AddPSPView = () => {
           <button
             type="button"
             onClick={activeTab === "verification" ? () => navigate("/psp-individuals") : handleNext}
-            className="inline-flex h-11 items-center gap-2 rounded-lg bg-[#F04438] hover:bg-[#D92D20] transition-colors px-6 text-sm font-semibold text-white"
+            className="inline-flex h-11 items-center gap-2 rounded-lg bg-redRejected hover:bg-[#D92D20] transition-colors px-6 text-sm font-semibold text-white"
           >
             {activeTab === "verification" ? "Create PSP Individual Profile" : "Save & Continue"}
             {activeTab === "verification" ? null : <span className="text-base">→</span>}

@@ -72,7 +72,7 @@ const AvailabilityTab = () => {
                   {/* Toggle */}
                   <div className="shrink-0 flex flex-col gap-2">
                     <label className="text-[13px] font-medium text-[#344054]">
-                      Available <span className="text-[#F04438]">*</span>
+                      Available <span className="text-redRejected">*</span>
                     </label>
                     <button
                       type="button"
@@ -94,7 +94,7 @@ const AvailabilityTab = () => {
                   {/* Start Time */}
                   <div className="flex-1 min-w-[120px]">
                     <label className="mb-2 block text-[13px] font-medium text-[#344054]">
-                      Start Time <span className="text-[#F04438]">*</span>
+                      Start Time <span className="text-redRejected">*</span>
                     </label>
                     <div className="relative">
                       <input
@@ -115,7 +115,7 @@ const AvailabilityTab = () => {
                   {/* End Time */}
                   <div className="flex-1 min-w-[120px]">
                     <label className="mb-2 block text-[13px] font-medium text-[#344054]">
-                      End Time <span className="text-[#F04438]">*</span>
+                      End Time <span className="text-redRejected">*</span>
                     </label>
                     <div className="relative">
                       <input

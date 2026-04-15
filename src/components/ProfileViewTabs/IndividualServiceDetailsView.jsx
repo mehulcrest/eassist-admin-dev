@@ -46,7 +46,7 @@ const IndividualServiceDetailsView = ({ service, onBack }) => {
               </div>
             </div>
             <div><p className="text-sm font-medium text-[#344054]">Estimated Service Time</p><p className="mt-1 text-base text-[#475467]">1.5 hrs</p></div>
-            <div><p className="text-sm font-medium text-[#344054]">Service Status</p><div className="mt-1 flex items-center gap-2"><span className="rounded-full bg-[#ECFDF3] px-2 py-1 text-xs font-medium text-[#039855]">Completed</span><span className="text-sm text-[#475467]">No issue were reported in this service</span></div></div>
+            <div><p className="text-sm font-medium text-[#344054]">Service Status</p><div className="mt-1 flex items-center gap-2"><span className="rounded-full bg-[#ECFDF3] px-2 py-1 text-xs font-medium text-greenVerified">Completed</span><span className="text-sm text-[#475467]">No issue were reported in this service</span></div></div>
             <div className="border-t border-lineMuted pt-4">
               <p className="text-lg font-semibold text-[#1D2939]">Add-ons & notes</p>
               <div className="mt-3 grid gap-6 sm:grid-cols-2">
@@ -140,7 +140,7 @@ const IndividualServiceDetailsView = ({ service, onBack }) => {
               <span className="inline-flex items-center rounded-md bg-[#F9FAFB] px-2.5 py-1 text-sm font-medium text-[#475467]">
                 Match Strength: {service.quality}
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-md bg-[#ECFDF3] px-2.5 py-1 text-sm font-medium text-[#039855]">
+              <span className="inline-flex items-center gap-1.5 rounded-md bg-[#ECFDF3] px-2.5 py-1 text-sm font-medium text-greenVerified">
                 <CheckCircle2 size={18} className="fill-[#12B76A] text-white shrink-0" />
                 Successfully Matched
               </span>
@@ -261,7 +261,7 @@ const IndividualServiceDetailsView = ({ service, onBack }) => {
           ["03:48 PM", "Payment Processed"],
         ].map(([time, label]) => (
           <div key={`${time}-${label}`} className="relative mb-7 flex items-center gap-4 last:mb-0">
-            <span className="absolute -left-10 top-1.5 size-3.5 rounded-full border-[1.5px] border-[#F04438] bg-white" />
+            <span className="absolute -left-10 top-1.5 size-3.5 rounded-full border-[1.5px] border-redRejected bg-white" />
             <span className="text-[16px] font-normal text-textColor">{time}</span>
             <span className="text-[16px] font-normal text-textColor">{label}</span>
           </div>

@@ -16,7 +16,10 @@ const Navbar = ({ onMenuClick }) => {
   const isAddMemberPage = pathname === "/members/new";
   const isMemberProfilePage = pathname.startsWith("/member/");
   const isAddPSPPage = pathname === "/psp-individuals/new";
+  const isPSPProfilePage =
+    pathname.startsWith("/psp-individuals/") && pathname !== "/psp-individuals/new";
   const memberName = state?.member?.name ?? "Member Profile";
+  const pspName = state?.psp?.name ?? "PSP Profile";
 
   return (
     <header className="sticky top-0 z-20 flex min-h-[72px] items-center gap-3 border-b border-[#EAECF0] bg-white px-4 py-4 sm:gap-4 sm:px-6">
@@ -54,6 +57,14 @@ const Navbar = ({ onMenuClick }) => {
           <span className="px-1 text-[#667085]">|</span>
           <span className="font-semibold text-[#101828]">Add New</span>
         </div>
+      ) : isPSPProfilePage ? (
+        <div className="min-w-0 flex-1 text-base sm:text-lg">
+          <Link to="/psp-individuals" className="font-medium text-[#667085] underline">
+            PSP Individuals
+          </Link>
+          <span className="px-1 text-[#667085]">|</span>
+          <span className="truncate font-semibold text-[#101828]">{pspName}</span>
+        </div>
       ) : (
         <h2 className="shrink-0 text-lg font-semibold text-[#101828] sm:text-xl">
           {pageTitle}
@@ -90,4 +101,4 @@ const Navbar = ({ onMenuClick }) => {
   );
 };
 
-export default Navbar;
+export default Navbar;

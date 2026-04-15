@@ -5,6 +5,7 @@ import AddMemberView from "../views/members/AddMemberView";
 import MemberProfileView from "../views/members/MemberProfileView";
 import PSPIndividuals from "../pages/PSPIndividuals";
 import AddPSPView from "../views/psp-individuals/AddPSPView";
+import PSPIndividualProfileView from "../views/psp-individuals/PSPIndividualProfileView";
 import MainLayout from "../layouts/MainLayout";
 import AuthGuard from "../guards/AuthGuard";
 
@@ -32,6 +33,7 @@ const routeConfig = [
       { path: "member/:id", element: <MemberProfileView /> },
       { path: "psp-individuals", element: <PSPIndividuals /> },
       { path: "psp-individuals/new", element: <AddPSPView /> },
+      { path: "psp-individuals/:id", element: <PSPIndividualProfileView /> },
     ],
   },
 ];

@@ -94,11 +94,11 @@ const complaintsData = [
 const getStatusBadge = (status) => {
   const meta = {
     "New": { bg: "bg-[#FEF3F2]", text: "text-[#D92D20]" },
-    "Resolved": { bg: "bg-[#ECFDF3]", text: "text-[#039855]" },
+    "Resolved": { bg: "bg-[#ECFDF3]", text: "text-greenVerified" },
     "In Review": { bg: "bg-[#F2F4F7]", text: "text-[#344054]" },
     "Refund Issued": { bg: "bg-[#F0F9FF]", text: "text-[#007AFF]" },
-    "Awaiting Refund": { bg: "bg-[#FFFAEB]", text: "text-[#DC6803]" },
-    "Closed": { bg: "bg-[#ECFDF3]", text: "text-[#039855]" },
+    "Awaiting Refund": { bg: "bg-[#FFFAEB]", text: "text-orangeReview" },
+    "Closed": { bg: "bg-[#ECFDF3]", text: "text-greenVerified" },
   };
   const config = meta[status] || meta["In Review"];
   return (
@@ -195,7 +195,7 @@ const CheckboxSelect = ({ label, placeholder, options, value, onChange }) => {
                   type="checkbox"
                   checked={value.includes(opt)}
                   onChange={() => handleToggle(opt)}
-                  className="size-4 shrink-0 rounded border-[#D0D5DD] text-[#F04438] focus:ring-[#F04438]"
+                  className="size-4 shrink-0 rounded border-[#D0D5DD] text-redRejected focus:ring-redRejected"
                 />
                 <span className="text-sm text-[#344054] truncate">{opt}</span>
               </label>
@@ -410,7 +410,7 @@ const ComplaintsNotesTab = () => {
             <button
               type="button"
               onClick={handleApply}
-              className="h-11 flex-1 rounded-lg bg-[#F04438] hover:bg-[#D92D20] text-sm font-semibold text-white transition-colors"
+              className="h-11 flex-1 rounded-lg bg-redRejected hover:bg-[#D92D20] text-sm font-semibold text-white transition-colors"
             >
               Apply
             </button>
