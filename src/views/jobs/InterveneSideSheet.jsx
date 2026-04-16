@@ -3,7 +3,7 @@ import {
   ChevronRight,
   Clock,
   MapPin,
-  MessageCircle,
+  MessageCircleMore,
   Phone,
   PenSquare,
   Trash2,
@@ -106,14 +106,14 @@ const InterveneSideSheet = ({ isOpen, onClose, job }) => {
                 <div className="min-w-0">
                   <p className="text-sm font-semibold text-[#101828] truncate">{job.member.name}</p>
                   <div className="mt-0.5 flex items-start gap-1 text-xs text-[#667085]">
-                    <MapPin size={11} className="mt-[2px] shrink-0" />
+                    <MapPin size={15} className="mt-[2px] shrink-0" />
                     <span className="break-words">{job.member.address}</span>
                   </div>
                 </div>
               </div>
               {/* Status pill */}
               <div className="flex justify-start sm:block">
-                <span className="shrink-0 rounded-full bg-[#EFF8FF] px-2.5 py-0.5 text-xs font-semibold text-[#175CD3]">
+                <span className="shrink-0 rounded-full bg-[#EFF8FF] px-2.5 py-0.5 text-xs font-semibold text-[#007AFF]">
                   {job.statusText === "In Progress" ? "In Progress" : job.statusText}
                 </span>
               </div>
@@ -125,11 +125,11 @@ const InterveneSideSheet = ({ isOpen, onClose, job }) => {
           {/* Quick Actions */}
           <div>
             <p className="mb-3 text-base font-bold text-[#101828]">Quick Actions</p>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-3 grid-cols-2">
               <QuickActionBtn icon={Phone} label="Call PSP" onClick={() => console.log("Call PSP")} />
               <QuickActionBtn icon={Phone} label="Call Member" onClick={() => console.log("Call Member")} />
-              <QuickActionBtn icon={MessageCircle} label="Message PSP" onClick={() => console.log("Message PSP")} />
-              <QuickActionBtn icon={MessageCircle} label="Message Member" onClick={() => console.log("Message Member")} />
+              <QuickActionBtn icon={MessageCircleMore} label="Message PSP" onClick={() => console.log("Message PSP")} />
+              <QuickActionBtn icon={MessageCircleMore} label="Message Member" onClick={() => console.log("Message Member")} />
             </div>
           </div>
 
@@ -196,7 +196,7 @@ const InterveneSideSheet = ({ isOpen, onClose, job }) => {
         </div>
 
         {/* ── Footer ── */}
-        <div className="flex flex-col gap-3 border-t border-[#EAECF0] px-6 py-4 shrink-0 sm:flex-row">
+        <div className="flex  gap-3 border-t border-[#EAECF0] px-6 py-4 shrink-0 sm:flex-row">
           <button
             type="button"
             onClick={handleSave}

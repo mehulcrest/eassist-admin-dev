@@ -2,15 +2,15 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import CancellationDetailSheet from "./CancellationDetailSheet";
 import {
-  BarChart2,
+  ChartLine,
   CalendarDays,
   ChevronDown,
   Clock,
   Eye,
-  Filter,
+  Settings2,
   RefreshCw,
   Search,
-  UserX,
+  User, MapPin,
 } from "lucide-react";
 import SideSheet from "../../components/SideSheet";
 import userProfile from "../../assets/userProfile.png";
@@ -23,7 +23,7 @@ const KPI_DATA = [
     title: "Cancellation Rate",
     value: "4.5%",
     subtitle: "this month",
-    icon: <BarChart2 className="text-[#12B76A]" size={20} />,
+    icon: <ChartLine className="text-[#12B76A]" size={20} />,
     iconBg: "bg-[#ECFDF3]",
   },
   {
@@ -37,7 +37,7 @@ const KPI_DATA = [
     title: "Top Reason",
     value: "Member Unavailable",
     subtitle: "4 times this month",
-    icon: <UserX className="text-[#F04438]" size={20} />,
+    icon: <User className="text-[#F04438]" size={20} />,
     iconBg: "bg-[#FEF3F2]",
     wideValue: true,
   },
@@ -166,13 +166,13 @@ const CANCELLATION_DATA = [
 ───────────────────────────────────────────── */
 const cancelledByBadge = {
   Member: "bg-[#EFF8FF] text-[#175CD3]",
-  PSP:    "bg-[#FFFAEB] text-[#B54708]",
+  PSP: "bg-[#FFFAEB] text-[#B54708]",
   System: "bg-[#F2F4F7] text-[#344054]",
 };
 
 const refundBadge = {
   "Full Refund": "bg-[#ECFDF3] text-[#027A48]",
-  "No Refund":   "bg-[#FEF3F2] text-[#F04438]",
+  "No Refund": "bg-[#FEF3F2] text-[#F04438]",
 };
 
 const thClass =
@@ -237,7 +237,7 @@ const CancellationTab = ({ renderTabNav }) => {
             onClick={() => setIsFilterSheetOpen(true)}
             className="inline-flex flex-1 sm:flex-none items-center justify-center gap-2 rounded-lg border border-[#D0D5DD] bg-white px-4 py-2.5 text-sm font-semibold text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] hover:bg-gray-50 transition-colors"
           >
-            <Filter size={16} className="text-[#667085]" strokeWidth={2.5} />
+            <Settings2 size={18} className="text-[#667085]" strokeWidth={2.5} />
             Filters
           </button>
         </div>
@@ -250,12 +250,14 @@ const CancellationTab = ({ renderTabNav }) => {
             key={index}
             className="rounded-xl border border-[#EAECF0] bg-white p-5 shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] flex items-start gap-4"
           >
-            <div className={`flex size-12 shrink-0 items-center justify-center rounded-lg ${kpi.iconBg}`}>
-              {kpi.icon}
-            </div>
-            <div className="min-w-0">
-              <p className="text-base font-medium text-[#101828] mb-1">{kpi.title}</p>
-              <div className="flex items-baseline gap-2 flex-wrap">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <div className={`flex size-12 shrink-0 items-center justify-center rounded-lg ${kpi.iconBg}`}>
+                  {kpi.icon}
+                </div>
+                <p className="text-base font-medium text-[#101828] mb-1">{kpi.title}</p>
+              </div>
+              <div className="flex items-center gap-2">
                 {kpi.wideValue ? (
                   <span className="text-xl font-bold tracking-tight text-[#101828]">
                     {kpi.value}
@@ -313,10 +315,7 @@ const CancellationTab = ({ renderTabNav }) => {
                         <span>JID: {row.serviceId}</span>
                         <span className="size-[3px] rounded-full bg-[#D0D5DD]" />
                         <span className="flex items-center gap-0.5">
-                          <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#98A2B3]">
-                            <path d="M4.99994 6.66667C5.92042 6.66667 6.66661 5.92047 6.66661 5C6.66661 4.07953 5.92042 3.33333 4.99994 3.33333C4.07946 3.33333 3.33327 4.07953 3.33327 5C3.33327 5.92047 4.07946 6.66667 4.99994 6.66667Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
-                            <path d="M5.00006 10.8333C6.66673 9.16667 8.33339 7.1819 8.33339 5C8.33339 4.11594 7.9822 3.2681 7.35708 2.64298C6.73196 2.01786 5.88412 1.66667 5.00006 1.66667C4.116 1.66667 3.26815 2.01786 2.64303 2.64298C2.01791 3.2681 1.66673 4.11594 1.66673 5C1.66673 7.1819 3.33339 9.16667 5.00006 10.8333Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
+                          <MapPin size={14} className="shrink-0" />
                           {row.location}
                         </span>
                       </div>

@@ -1,11 +1,23 @@
-import { ChevronDown, Menu } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { ChevronDown, Menu, LogOut, Settings, User, Info } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import userProfile from "../assets/userProfile.png";
+import { AUTH_TOKEN_KEY } from "../constants/auth";
 
 const Navbar = ({ onMenuClick }) => {
   const { pathname, state } = useLocation();
+  const navigate = useNavigate();
+  const dropdownRef = useRef(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const pageTitleMap = {
+  const user = {
+    name: "Robert Brown",
+    role: "Admin",
+    email: "robert.brown@eassist.com",
+    avatar: userProfile,
+  };
+
+  const menuTitleMap = {
     "/": "Dashboard",
     "/dashboard": "Dashboard",
     "/members": "Members",
@@ -13,11 +25,28 @@ const Navbar = ({ onMenuClick }) => {
     "/jobs": "Jobs",
   };
 
-  const pageTitle = pageTitleMap[pathname] || "Dashboard";
+  const pageTitle = menuTitleMap[pathname] || "Dashboard";
   const isAddMemberPage = pathname === "/members/new";
   const isMemberProfilePage = pathname.startsWith("/member/");
   const isAddPSPPage = pathname === "/psp-individuals/new";
   const memberName = state?.member?.name ?? "Member Profile";
+
+  // Handle click outside to close dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleSignOut = () => {
+    localStorage.removeItem(AUTH_TOKEN_KEY);
+    setIsDropdownOpen(false);
+    navigate("/login", { replace: true });
+  };
 
   return (
     <header className="sticky top-0 z-20 flex min-h-[72px] items-center gap-3 border-b border-[#EAECF0] bg-white px-4 py-4 sm:gap-4 sm:px-6">
@@ -75,16 +104,70 @@ const Navbar = ({ onMenuClick }) => {
             </svg>
         </button>
 
-        {/* User profile — hide name on small screens */}
-        <div className="flex h-9 items-center gap-2 rounded-xl px-2 sm:px-3">
-          <div className="h-9 w-9 overflow-hidden rounded-xl border border-textColor/20 sm:h-11 sm:w-11">
-            <img src={userProfile} alt="User profile" className="h-full w-full object-cover" />
-          </div>
-          <div className="hidden sm:block">
-            <p className="text-base font-medium text-textColor">Robert Brown</p>
-            <p className="text-sm font-normal text-textColor/70">Admin</p>
-          </div>
-          <ChevronDown className="hidden text-icon sm:block" size={14} />
+        {/* User profile dropdown container */}
+        <div className="relative" ref={dropdownRef}>
+          <button
+            type="button"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="flex items-center gap-2 rounded-xl px-1 py-1 hover:bg-[#F9FAFB] transition-colors sm:px-3 sm:py-1.5"
+          >
+            <div className="h-9 w-9 overflow-hidden rounded-xl border border-textColor/10 sm:h-10 sm:w-10">
+              <img src={user.avatar} alt="User profile" className="h-full w-full object-cover" />
+            </div>
+            <div className="hidden text-left sm:block">
+              <p className="text-sm font-semibold text-[#101828]">{user.name}</p>
+              <p className="text-xs font-medium text-[#667085]">{user.role}</p>
+            </div>
+            <ChevronDown className={`hidden text-[#667085] transition-transform duration-200 sm:block ${isDropdownOpen ? "rotate-180" : ""}`} size={16} />
+          </button>
+
+          {/* Dropdown Menu */}
+          {isDropdownOpen && (
+            <div className="absolute right-0 mt-2 w-[240px] origin-top-right overflow-hidden rounded-xl border border-[#EAECF0] bg-white shadow-lg animate-in fade-in zoom-in duration-200">
+              {/* Header */}
+              <div className="bg-[#F9FAFB] px-4 py-3">
+                <p className="text-sm font-bold text-[#101828]">{user.name}</p>
+                <p className="mt-0.5 truncate text-xs font-medium text-[#667085]">{user.email}</p>
+              </div>
+
+              {/* Links */}
+              <div className="p-1">
+                <button
+                  type="button"
+                  className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold text-[#344054] hover:bg-[#F2F4F7] transition-colors"
+                >
+                  <User size={18} className="text-[#667085]" />
+                  Edit profile
+                </button>
+                <button
+                  type="button"
+                  className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold text-[#344054] hover:bg-[#F2F4F7] transition-colors"
+                >
+                  <Settings size={18} className="text-[#667085]" />
+                  Account settings
+                </button>
+                <button
+                  type="button"
+                  className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold text-[#344054] hover:bg-[#F2F4F7] transition-colors"
+                >
+                  <Info size={18} className="text-[#667085]" />
+                  Support
+                </button>
+              </div>
+
+              {/* Separator & Sign Out */}
+              <div className="border-t border-[#EAECF0] p-1">
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold text-[#F04438] hover:bg-[#FEF3F2] transition-colors"
+                >
+                  <LogOut size={18} />
+                  Sign out
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </header>

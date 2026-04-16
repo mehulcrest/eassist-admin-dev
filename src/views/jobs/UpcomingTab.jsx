@@ -7,12 +7,12 @@ import {
   ChevronDown,
   Clock,
   Eye,
-  Filter,
+  Settings2,
   RefreshCw,
   Search,
   MoreHorizontal,
   PenSquare,
-  XCircle
+  XCircle, MapPin
 } from "lucide-react";
 import userProfile from "../../assets/userProfile.png";
 import SideSheet from "../../components/SideSheet";
@@ -179,31 +179,31 @@ const tdClass =
   "px-4 py-4 align-middle text-sm text-[#475467] first:pl-6 last:pr-6 whitespace-nowrap";
 
 const ActionMenu = ({ onAssign, onReschedule, onReject }) => {
-   return (
-      <div className="absolute right-0 top-full mt-2 w-[180px] z-50 rounded-lg border border-[#EAECF0] bg-white p-1.5 shadow-lg">
-         <button
-            onClick={onAssign}
-            className="flex w-full items-center gap-2.5 rounded-md px-3 py-2.5 text-sm text-[#344054] transition-colors hover:bg-[#F9FAFB]"
-         >
-            <PenSquare size={16} className="text-[#667085]" />
-            Assign PSP
-         </button>
-         <button
-            onClick={onReschedule}
-            className="flex w-full items-center gap-2.5 rounded-md px-3 py-2.5 text-sm text-[#344054] transition-colors hover:bg-[#F9FAFB]"
-         >
-            <Clock size={16} className="text-[#667085]" />
-            Reschedule
-         </button>
-         <button
-            onClick={onReject}
-            className="flex w-full items-center gap-2.5 rounded-md px-3 py-2.5 text-sm text-[#344054] transition-colors hover:bg-[#F9FAFB]"
-         >
-            <XCircle size={16} className="text-[#667085]" />
-            Reject
-         </button>
-      </div>
-   );
+  return (
+    <div className="absolute right-0 top-full mt-2 w-[180px] z-50 rounded-lg border border-[#EAECF0] bg-white p-1.5 shadow-lg">
+      <button
+        onClick={onAssign}
+        className="flex w-full items-center gap-2.5 rounded-md px-3 py-2.5 text-sm text-[#344054] transition-colors hover:bg-[#F9FAFB]"
+      >
+        <PenSquare size={16} className="text-[#667085]" />
+        Assign PSP
+      </button>
+      <button
+        onClick={onReschedule}
+        className="flex w-full items-center gap-2.5 rounded-md px-3 py-2.5 text-sm text-[#344054] transition-colors hover:bg-[#F9FAFB]"
+      >
+        <Clock size={16} className="text-[#667085]" />
+        Reschedule
+      </button>
+      <button
+        onClick={onReject}
+        className="flex w-full items-center gap-2.5 rounded-md px-3 py-2.5 text-sm text-[#344054] transition-colors hover:bg-[#F9FAFB]"
+      >
+        <XCircle size={16} className="text-[#667085]" />
+        Reject
+      </button>
+    </div>
+  );
 };
 
 const UpcomingTab = ({ renderTabNav }) => {
@@ -218,14 +218,14 @@ const UpcomingTab = ({ renderTabNav }) => {
 
   // Close menus when clicking outside
   useEffect(() => {
-   const handleClickOutside = (event) => {
-     if (menuRef.current && !menuRef.current.contains(event.target)) {
-       setOpenMenuId(null);
-     }
-   };
-   document.addEventListener("mousedown", handleClickOutside);
-   return () => document.removeEventListener("mousedown", handleClickOutside);
- }, []);
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setOpenMenuId(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Filter functionality based on search
   const filteredJobs = useMemo(() => {
@@ -262,7 +262,7 @@ const UpcomingTab = ({ renderTabNav }) => {
             className="w-full rounded-lg border border-[#D0D5DD] bg-white py-2.5 pl-10 pr-3.5 text-sm text-[#101828] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] placeholder:text-[#667085] focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia"
           />
         </div>
-        
+
         <div className="flex items-center gap-3 w-full sm:w-auto">
           <button
             type="button"
@@ -276,7 +276,7 @@ const UpcomingTab = ({ renderTabNav }) => {
             onClick={() => setIsFilterSheetOpen(true)}
             className="inline-flex flex-1 sm:flex-none items-center justify-center gap-2 rounded-lg border border-[#D0D5DD] bg-white px-4 py-2.5 text-sm font-semibold text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] transition-colors hover:bg-gray-50"
           >
-            <Filter size={16} className="shrink-0 text-[#667085]" strokeWidth={2.5} />
+            <Settings2 size={18} className="shrink-0 text-[#667085]" strokeWidth={2.5} />
             <span className="truncate">Filters</span>
           </button>
         </div>
@@ -289,14 +289,17 @@ const UpcomingTab = ({ renderTabNav }) => {
             key={index}
             className="rounded-xl border border-[#EAECF0] bg-white p-5 shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] flex items-start gap-4"
           >
-            <div className={`flex size-12 shrink-0 items-center justify-center rounded-lg ${kpi.iconBg}`}>
-              {kpi.icon}
-            </div>
-            <div>
-              <p className="text-base font-medium text-[#101828] mb-1">
-                {kpi.title}
-              </p>
-              <div className="flex items-baseline gap-2">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <div className={`flex size-12 shrink-0 items-center justify-center rounded-lg ${kpi.iconBg}`}>
+                  {kpi.icon}
+                </div>
+
+                <p className="text-base font-medium text-[#101828]">
+                  {kpi.title}
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
                 <span className="text-3xl font-semibold tracking-tight text-[#101828]">
                   {kpi.value}
                 </span>
@@ -306,12 +309,13 @@ const UpcomingTab = ({ renderTabNav }) => {
               </div>
             </div>
           </div>
+
         ))}
       </div>
 
       {/* Main Content Area: Tabs + Table separate containers */}
       <div className="flex min-h-0 flex-col gap-5 overflow-hidden shrink">
-        
+
         {/* Render Tab Navigation passed parent Layout */}
         <div className="flex gap-6 rounded-xl border border-[#EAECF0] bg-white px-4 sm:px-6 pt-3 shrink-0 overflow-x-auto scrollbar-hide">
           {renderTabNav()}
@@ -334,7 +338,7 @@ const UpcomingTab = ({ renderTabNav }) => {
             <tbody className="divide-y divide-[#EAECF0] bg-white">
               {filteredJobs.map((job) => (
                 <tr key={job.id} className="hover:bg-[#F9FAFB]/50 transition-colors">
-                  
+
                   {/* Service Column */}
                   <td className={tdClass}>
                     <p className="font-medium text-[#101828] mb-1">{job.serviceName}</p>
@@ -342,13 +346,10 @@ const UpcomingTab = ({ renderTabNav }) => {
                       <span>JID: {job.serviceId}</span>
                       <span className="w-[3px] h-[3px] rounded-full bg-[#D0D5DD]"></span>
                       <span className="flex items-center gap-0.5">
-                         <span className="text-[#98A2B3]">
-                            <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M4.99994 6.66667C5.92042 6.66667 6.66661 5.92047 6.66661 5C6.66661 4.07953 5.92042 3.33333 4.99994 3.33333C4.07946 3.33333 3.33327 4.07953 3.33327 5C3.33327 5.92047 4.07946 6.66667 4.99994 6.66667Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
-                              <path d="M5.00006 10.8333C6.66673 9.16667 8.33339 7.1819 8.33339 5C8.33339 4.11594 7.9822 3.2681 7.35708 2.64298C6.73196 2.01786 5.88412 1.66667 5.00006 1.66667C4.116 1.66667 3.26815 2.01786 2.64303 2.64298C2.01791 3.2681 1.66673 4.11594 1.66673 5C1.66673 7.1819 3.33339 9.16667 5.00006 10.8333Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                         </span>
-                         {job.location}
+                        <span className="text-[#98A2B3]">
+                          <MapPin size={14} className="shrink-0" />
+                        </span>
+                        {job.location}
                       </span>
                     </div>
                   </td>
@@ -368,16 +369,16 @@ const UpcomingTab = ({ renderTabNav }) => {
                   {/* Caregiver Column */}
                   <td className={tdClass}>
                     {job.caregiverAvatar ? (
-                        <div className="flex items-center gap-2.5">
+                      <div className="flex items-center gap-2.5">
                         <img
-                           src={job.caregiverAvatar}
-                           alt=""
-                           className="size-8 shrink-0 rounded-full object-cover ring-1 ring-[#EAECF0]"
+                          src={job.caregiverAvatar}
+                          alt=""
+                          className="size-8 shrink-0 rounded-full object-cover ring-1 ring-[#EAECF0]"
                         />
                         <span className="text-[#344054] underline decoration-[#D0D5DD] underline-offset-4">{job.caregiverName}</span>
-                        </div>
+                      </div>
                     ) : (
-                       <span className="text-[#667085]">{job.caregiverName}</span>
+                      <span className="text-[#667085]">{job.caregiverName}</span>
                     )}
                   </td>
 
@@ -395,40 +396,40 @@ const UpcomingTab = ({ renderTabNav }) => {
 
                   {/* Duration Column */}
                   <td className={tdClass}>
-                     <div className="flex flex-col gap-0.5">
-                        <span className="text-sm font-medium text-[#344054]">{job.durationHrs}</span>
-                        <span className="text-xs text-[#667085]">{job.durationTime}</span>
-                     </div>
+                    <div className="flex flex-col gap-0.5">
+                      <span className="text-sm font-medium text-[#344054]">{job.durationHrs}</span>
+                      <span className="text-xs text-[#667085]">{job.durationTime}</span>
+                    </div>
                   </td>
 
                   {/* Actions Column */}
                   <td className="px-4 py-4 align-middle text-center first:pl-6 last:pr-6">
                     <div className="relative flex items-center justify-center gap-2" ref={openMenuId === job.id ? menuRef : null}>
-                        <button
-                           type="button"
-                           onClick={() => setSelectedJob(job)}
-                           className="inline-flex size-8 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085] transition-colors hover:bg-gray-50 shadow-[0_1px_2px_0_rgba(16,24,40,0.05)]"
-                           aria-label="View Details"
-                        >
-                           <Eye size={16} strokeWidth={2} />
-                        </button>
-                        
-                        <button
-                           type="button"
-                           onClick={() => setOpenMenuId(openMenuId === job.id ? null : job.id)}
-                           className="inline-flex size-8 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085] transition-colors hover:bg-gray-50 shadow-[0_1px_2px_0_rgba(16,24,40,0.05)]"
-                           aria-label="More actions"
-                        >
-                           <MoreHorizontal size={16} strokeWidth={2} />
-                        </button>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedJob(job)}
+                        className="inline-flex size-8 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085] transition-colors hover:bg-gray-50 shadow-[0_1px_2px_0_rgba(16,24,40,0.05)]"
+                        aria-label="View Details"
+                      >
+                        <Eye size={16} strokeWidth={2} />
+                      </button>
 
-                        {openMenuId === job.id && (
-                           <ActionMenu 
-                              onAssign={() => { console.log(`Assign PSP requested for ${job.id}`); setOpenMenuId(null); }}
-                              onReschedule={() => { console.log(`Reschedule requested for ${job.id}`); setOpenMenuId(null); }}
-                              onReject={() => { console.log(`Reject requested for ${job.id}`); setOpenMenuId(null); }}
-                           />
-                        )}
+                      <button
+                        type="button"
+                        onClick={() => setOpenMenuId(openMenuId === job.id ? null : job.id)}
+                        className="inline-flex size-8 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085] transition-colors hover:bg-gray-50 shadow-[0_1px_2px_0_rgba(16,24,40,0.05)]"
+                        aria-label="More actions"
+                      >
+                        <MoreHorizontal size={16} strokeWidth={2} />
+                      </button>
+
+                      {openMenuId === job.id && (
+                        <ActionMenu
+                          onAssign={() => { console.log(`Assign PSP requested for ${job.id}`); setOpenMenuId(null); }}
+                          onReschedule={() => { console.log(`Reschedule requested for ${job.id}`); setOpenMenuId(null); }}
+                          onReject={() => { console.log(`Reject requested for ${job.id}`); setOpenMenuId(null); }}
+                        />
+                      )}
                     </div>
                   </td>
 
@@ -466,31 +467,31 @@ const UpcomingTab = ({ renderTabNav }) => {
         <div className="space-y-4">
           <div>
             <label className="mb-1.5 block text-sm font-medium text-[#344054]">
-               Territory
+              Territory
             </label>
             <div className="relative">
-               <select defaultValue="" className="h-11 w-full appearance-none rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] focus:border-[#F04438] focus:outline-none focus:ring-1 focus:ring-[#F04438] cursor-pointer">
-                 <option value="" disabled hidden>Select Territory</option>
-                 <option value="Downtown">Downtown</option>
-                 <option value="Westside">Westside</option>
-                 <option value="Northside">Northside</option>
-               </select>
-               <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
+              <select defaultValue="" className="h-11 w-full appearance-none rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] focus:border-[#F04438] focus:outline-none focus:ring-1 focus:ring-[#F04438] cursor-pointer">
+                <option value="" disabled hidden>Select Territory</option>
+                <option value="Downtown">Downtown</option>
+                <option value="Westside">Westside</option>
+                <option value="Northside">Northside</option>
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
             </div>
           </div>
 
           <div>
             <label className="mb-1.5 block text-sm font-medium text-[#344054]">
-               Services
+              Services
             </label>
             <div className="relative">
-               <select defaultValue="" className="h-11 w-full appearance-none rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] focus:border-[#F04438] focus:outline-none focus:ring-1 focus:ring-[#F04438] cursor-pointer">
-                 <option value="" disabled hidden>Select Services</option>
-                 <option value="Cleaning">Cleaning</option>
-                 <option value="Doctor Visit">Doctor Visit</option>
-                 <option value="Grocery">Grocery</option>
-               </select>
-               <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
+              <select defaultValue="" className="h-11 w-full appearance-none rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] focus:border-[#F04438] focus:outline-none focus:ring-1 focus:ring-[#F04438] cursor-pointer">
+                <option value="" disabled hidden>Select Services</option>
+                <option value="Cleaning">Cleaning</option>
+                <option value="Doctor Visit">Doctor Visit</option>
+                <option value="Grocery">Grocery</option>
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
             </div>
           </div>
 
@@ -500,45 +501,45 @@ const UpcomingTab = ({ renderTabNav }) => {
             </label>
             <div className="relative">
               <select defaultValue="" className="h-11 w-full appearance-none rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] focus:border-[#F04438] focus:outline-none focus:ring-1 focus:ring-[#F04438] cursor-pointer">
-                 <option value="" disabled hidden>MM-DD-YYYY ~ MM-DD-YYYY</option>
-                 <option value="All">All</option>
-                 <option value="Today">Today</option>
-                 <option value="Tomorrow">Tomorrow</option>
-                 <option value="This Week">This Week</option>
-                 <option value="Next 7 Days">Next 7 Days</option>
-                 <option value="Custom Range">Custom Range</option>
+                <option value="" disabled hidden>MM-DD-YYYY ~ MM-DD-YYYY</option>
+                <option value="All">All</option>
+                <option value="Today">Today</option>
+                <option value="Tomorrow">Tomorrow</option>
+                <option value="This Week">This Week</option>
+                <option value="Next 7 Days">Next 7 Days</option>
+                <option value="Custom Range">Custom Range</option>
               </select>
               <CalendarDays className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
-            </div>
-          </div>
-          
-          <div>
-            <label className="mb-1.5 block text-sm font-medium text-[#344054]">
-               PSP Assignment
-            </label>
-            <div className="relative">
-               <select defaultValue="" className="h-11 w-full appearance-none rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] focus:border-[#F04438] focus:outline-none focus:ring-1 focus:ring-[#F04438] cursor-pointer">
-                 <option value="" disabled hidden>Select PSP assignment</option>
-                 <option value="All">All</option>
-                 <option value="Assigned">Assigned</option>
-                 <option value="Unassigned">Unassigned</option>
-               </select>
-               <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
             </div>
           </div>
 
           <div>
             <label className="mb-1.5 block text-sm font-medium text-[#344054]">
-               Status
+              PSP Assignment
             </label>
             <div className="relative">
-               <select defaultValue="" className="h-11 w-full appearance-none rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] focus:border-[#F04438] focus:outline-none focus:ring-1 focus:ring-[#F04438] cursor-pointer">
-                 <option value="" disabled hidden>Select Status</option>
-                 <option value="All">All</option>
-                 <option value="Scheduled">Scheduled</option>
-                 <option value="Rescheduled">Rescheduled</option>
-               </select>
-               <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
+              <select defaultValue="" className="h-11 w-full appearance-none rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] focus:border-[#F04438] focus:outline-none focus:ring-1 focus:ring-[#F04438] cursor-pointer">
+                <option value="" disabled hidden>Select PSP assignment</option>
+                <option value="All">All</option>
+                <option value="Assigned">Assigned</option>
+                <option value="Unassigned">Unassigned</option>
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
+            </div>
+          </div>
+
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-[#344054]">
+              Status
+            </label>
+            <div className="relative">
+              <select defaultValue="" className="h-11 w-full appearance-none rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] focus:border-[#F04438] focus:outline-none focus:ring-1 focus:ring-[#F04438] cursor-pointer">
+                <option value="" disabled hidden>Select Status</option>
+                <option value="All">All</option>
+                <option value="Scheduled">Scheduled</option>
+                <option value="Rescheduled">Rescheduled</option>
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
             </div>
           </div>
 

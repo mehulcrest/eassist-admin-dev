@@ -4,7 +4,7 @@ import {
   CalendarDays,
   ChevronDown,
   Clock,
-  Filter,
+  Settings2,
   MapPin,
   Phone,
   RefreshCw,
@@ -28,7 +28,7 @@ const TIMELINE_JOBS = [
     duration: "1.5 hr",
     statusText: "Completed",
     statusType: "text",
-    statusColor: "text-[#027A48]",
+    statusColor: "text-[#039855]",
     member: { name: "Margaret Thompson", avatar: userProfile, address: "123 Oak Street, Apt 4B" },
     caregiver: { name: "Maria Santos", avatar: userProfile },
     events: [
@@ -142,7 +142,7 @@ const TIMELINE_JOBS = [
     duration: "3 hr",
     statusText: "Completed",
     statusType: "text",
-    statusColor: "text-[#027A48]",
+    statusColor: "text-[#039855]",
     member: { name: "Robert Chen", avatar: userProfile, address: "45 Elm Ave, Suite 3" },
     caregiver: { name: "John Carter", avatar: userProfile },
     events: [
@@ -200,7 +200,7 @@ const TIMELINE_JOBS = [
     duration: "2 hr",
     statusText: "In Progress",
     statusType: "pill",
-    statusColor: "bg-[#EFF8FF] text-[#175CD3]",
+    statusColor: "text-[#007AFF]",
     member: { name: "Helen Parker", avatar: userProfile, address: "89 Pine St" },
     caregiver: { name: "John Carter", avatar: userProfile },
     events: [
@@ -237,7 +237,7 @@ const TIMELINE_JOBS = [
     duration: "2 hr",
     statusText: "In Progress",
     statusType: "pill",
-    statusColor: "bg-[#EFF8FF] text-[#175CD3]",
+    statusColor: "text-[#007AFF]",
     member: { name: "Robert Chen", avatar: userProfile, address: "45 Elm Ave" },
     caregiver: { name: "Maria Santos", avatar: userProfile },
     events: [
@@ -256,7 +256,7 @@ const TIMELINE_JOBS = [
     duration: "2 hr",
     statusText: "In Progress",
     statusType: "pill",
-    statusColor: "bg-[#EFF8FF] text-[#175CD3]",
+    statusColor: "text-[#007AFF]",
     member: { name: "Helen Parker", avatar: userProfile, address: "89 Pine St" },
     caregiver: { name: "John Carter", avatar: userProfile },
     events: [
@@ -270,7 +270,7 @@ const TIMELINE_JOBS = [
    GPS Map Placeholder
 ───────────────────────────────────────────── */
 const MapPlaceholder = () => (
-  <div className="h-[90px] w-[160px] shrink-0 overflow-hidden rounded-lg border border-[#EAECF0] bg-[#E8EDF3]">
+  <div className="h-[95px] w-[230px] shrink-0 overflow-hidden rounded-lg border border-[#EAECF0] bg-[#E8EDF3]">
     <div className="relative h-full w-full">
       {/* road lines */}
       <div className="absolute inset-0 opacity-40">
@@ -281,14 +281,14 @@ const MapPlaceholder = () => (
       {/* pin */}
       <div className="absolute bottom-[28px] left-1/2 -translate-x-1/2 flex flex-col items-center">
         <div className="flex size-5 items-center justify-center rounded-full bg-[#F04438] shadow-md">
-          <MapPin size={11} className="text-white" />
+          <MapPin size={15} className="text-white" />
         </div>
         <div className="h-1.5 w-0.5 bg-[#F04438]" />
       </div>
       {/* label */}
-      <div className="absolute bottom-1 right-1 rounded bg-white/70 px-1 py-0.5 text-[8px] font-medium text-[#344054]">
+      {/* <div className="absolute bottom-1 right-1 rounded bg-white/70 px-1 py-0.5 text-[8px] font-medium text-[#344054]">
         Sunnybrook Health
-      </div>
+      </div> */}
     </div>
   </div>
 );
@@ -300,33 +300,39 @@ const TimelineEvent = ({ event, isLast }) => (
   <div className="flex gap-0">
     {/* Left: dot + dashed line */}
     <div className="flex flex-col items-center mr-4 shrink-0">
-      <div className="flex size-5 items-center justify-center shrink-0">
-        <div className="size-3 rounded-full border-2 border-[#F04438] bg-white" />
+      <div className="flex size-3 items-center justify-center shrink-0">
+        <div className="size-3 rounded-md border-2 border-[#F04438] bg-white" />
       </div>
       {!isLast && (
-        <div className="mt-1 w-0 flex-1 border-l-2 border-dashed border-[#D0D5DD] mb-0" style={{ minHeight: 40 }} />
+        <div className="mt-1 w-0 flex-1 border-l-2 border-dashed border-[#F7C1C1] mb-0" style={{ minHeight: 40 }} />
       )}
     </div>
 
+
     {/* Right: content */}
+
+    <div className="flex flex-col items-center mr-4 shrink-0">
+      <span className="text-sm font-semibold text-[#344054] shrink-0 min-w-[72px]">
+        {event.time}
+      </span>
+    </div>
+
     <div className="min-w-0 flex-1 pb-8">
       {/* Title row */}
-      <div className="flex items-baseline gap-1.5 flex-wrap">
-        <span className="text-sm font-semibold text-[#344054] shrink-0 min-w-[72px]">
-          {event.time}
-        </span>
+      <div className="flex items-baseline gap-2 flex-wrap">
+
         <span className={`text-sm font-semibold ${event.isCritical ? "text-[#12B76A]" : "text-[#101828]"}`}>
           {event.title}
         </span>
         {event.tag && (
-          <span className="text-sm text-[#667085]">[{event.tag}]</span>
+          <span className="text-sm text-[#667085] ">[{event.tag}]</span>
         )}
       </div>
 
       {/* GPS lines */}
       {event.gpsExtra && (
-        <div className="mt-1 flex items-start gap-4">
-          <div className="space-y-0.5">
+        <div className="mt-2 flex flex-col sm:flex-row items-center gap-8">
+          <div className="min-w-0  space-y-2">
             <p className="text-sm text-[#475467]">
               <span className="font-semibold underline underline-offset-2 cursor-pointer hover:text-[#F04438]">
                 {event.gpsExtra.bold}
@@ -335,21 +341,27 @@ const TimelineEvent = ({ event, isLast }) => (
             </p>
             <p className="text-sm text-[#475467]">{event.gpsExtra.line2}</p>
             {event.chip && (
-              <span className="mt-1 inline-flex items-center rounded-full bg-[#F2F4F7] px-2.5 py-0.5 text-xs font-medium text-[#344054]">
-                {event.chip}
-              </span>
+              <div className="mt-1">
+                <span className="inline-flex items-center rounded-full bg-[#F2F4F7] px-3 py-1 text-xs font-medium text-[#344054] border border-[#EAECF0]">
+                  {event.chip}
+                </span>
+              </div>
             )}
           </div>
-          {event.mapImg && <MapPlaceholder />}
+          {event.mapImg && (
+            <div className="shrink-0 w-full sm:w-auto">
+              <MapPlaceholder />
+            </div>
+          )}
         </div>
       )}
 
       {/* Avatar + inline name line (PSP Accepted / Service Started style) */}
       {event.avatar && event.lines && (
-        <div className="mt-1 flex items-center gap-1.5">
+        <div className="mt-1 flex items-center gap-2">
           <img src={event.avatar} alt="" className="size-5 rounded-full object-cover ring-1 ring-[#EAECF0]" />
           <p className="text-sm text-[#475467]">
-            <span className="font-medium text-[#344054] underline underline-offset-2 cursor-pointer hover:text-[#F04438] mr-1">
+            <span className="font-medium text-[#667085] underline underline-offset-2 cursor-pointer hover:text-[#F04438] mr-1">
               {event.avatarName}
             </span>
             {event.lines[0]}
@@ -366,7 +378,7 @@ const TimelineEvent = ({ event, isLast }) => (
       {event.link && (
         <button
           type="button"
-          className="mt-1 text-sm font-bold text-[#101828] underline underline-offset-2 hover:text-[#F04438] transition-colors"
+          className="mt-3 text-sm font-medium text-[#333] underline underline-offset-2 hover:text-[#F04438] transition-colors"
         >
           {event.link}
         </button>
@@ -374,7 +386,7 @@ const TimelineEvent = ({ event, isLast }) => (
 
       {/* Chip (non-GPS) */}
       {event.chip && !event.gpsExtra && (
-        <span className="mt-1.5 inline-flex items-center rounded-full bg-[#F2F4F7] px-2.5 py-0.5 text-xs font-medium text-[#344054]">
+        <span className="mt-3 inline-flex items-center rounded-full bg-[#F2F4F7] px-2.5 py-0.5 text-xs font-medium text-[#344054]">
           {event.chip}
         </span>
       )}
@@ -389,36 +401,52 @@ const JobListCard = ({ job, isSelected, onClick }) => (
   <button
     type="button"
     onClick={onClick}
-    className={`w-full border-b border-[#EAECF0] px-5 py-4 text-left transition-colors ${
-      isSelected
-        ? "border-l-[3px] border-l-[#F04438] bg-[#FEF3F2]/30"
-        : "border-l-[3px] border-l-transparent bg-white hover:bg-gray-50"
-    }`}
+    className={`w-full border-b border-[#EAECF0] px-5 py-4 text-left transition-colors ${isSelected
+      ? "border-l-[3px] border-l-[#F04438] bg-[#FEF3F2]/30"
+      : "border-l-[3px] border-l-transparent bg-white hover:bg-gray-50"
+      }`}
   >
-    <div className="flex items-start gap-4">
-      {/* ID + date */}
-      <div className="flex w-[80px] shrink-0 flex-col">
+    <div className="flex flex-col sm:flex-row items-center gap-4">
+      {/* ID + date column */}
+      <div className="flex w-full sm:w-[80px] shrink-0 flex-row sm:flex-col justify-between sm:justify-start items-center sm:items-center gap-2">
         <span className="text-sm font-bold text-[#344054]">{job.id}</span>
-        <span className="mt-0.5 text-xs text-[#667085]">{job.date}</span>
+        <span className="text-xs text-[#667085]">{job.date}</span>
       </div>
 
       {/* Service info */}
-      <div className="min-w-0 flex-1 space-y-1">
-        <p className="text-sm font-semibold text-[#101828]">{job.serviceName}</p>
-        <div className="flex items-center gap-1.5">
-          <img src={job.caregiverAvatar} alt="" className="size-[18px] rounded-full object-cover ring-1 ring-[#EAECF0]" />
-          <span className="text-xs font-medium text-[#175CD3] underline underline-offset-2">{job.caregiverName}</span>
+      <div className="min-w-0 flex-1 space-y-2 w-full">
+        <div className="flex items-center justify-between gap-2 sm:block">
+          <p className="text-sm font-semibold text-[#101828] truncate">{job.serviceName}</p>
+          {/* Status for mobile (inline with title) */}
+          <div className="sm:hidden shrink-0">
+            {job.statusType === "pill" ? (
+              <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold ${job.statusColor}`}>
+                {job.statusText}
+              </span>
+            ) : (
+              <span className={`text-[10px] font-semibold ${job.statusColor}`}>
+                {job.statusText}
+              </span>
+            )}
+          </div>
         </div>
-        <div className="flex items-center gap-1 text-xs text-[#667085]">
-          <Clock size={11} className="shrink-0 text-[#98A2B3]" />
-          <span>{job.timeRange}</span>
-          <span className="text-[#D0D5DD] mx-0.5">|</span>
-          <span>{job.duration}</span>
+
+        <div className="flex items-center gap-1.5">
+          <img src={job.caregiverAvatar} alt="" className="size-[20px] rounded-full object-cover ring-1 ring-[#EAECF0]" />
+          <span className="text-xs font-medium text-[#667085] underline underline-offset-2 truncate">{job.caregiverName}</span>
+        </div>
+        <div className="flex items-center gap-1 text-xs text-[#667085] flex-wrap">
+          <div className="flex items-center gap-1 shrink-0">
+            <Clock size={13} className="shrink-0 text-[#98A2B3]" />
+            <span>{job.timeRange}</span>
+          </div>
+          <span className="hidden sm:inline text-[#D0D5DD] mx-0.5">|</span>
+          <span className="shrink-0">{job.duration}</span>
         </div>
       </div>
 
-      {/* Status */}
-      <div className="shrink-0 self-start pt-0.5">
+      {/* Status for desktop (pushed to right) */}
+      <div className="hidden sm:block shrink-0 self-start pt-0.5">
         {job.statusType === "pill" ? (
           <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${job.statusColor}`}>
             {job.statusText}
@@ -483,7 +511,7 @@ const TimelineTab = ({ renderTabNav }) => {
             Refresh
           </button>
           <button type="button" onClick={() => setIsFilterSheetOpen(true)} className="inline-flex flex-1 sm:flex-none items-center justify-center gap-2 rounded-lg border border-[#D0D5DD] bg-white px-4 py-2.5 text-sm font-semibold text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] hover:bg-gray-50 transition-colors">
-            <Filter size={16} className="text-[#667085]" strokeWidth={2.5} />
+            <Settings2 size={18} className="text-[#667085]" strokeWidth={2.5} />
             Filters
           </button>
         </div>
@@ -499,11 +527,11 @@ const TimelineTab = ({ renderTabNav }) => {
 
         {/* 40/60 Split */}
         <div className="flex min-h-0 flex-1 flex-col lg:flex-row gap-5 overflow-hidden">
-<div className="flex lg:w-[40%] shrink-0 flex-col overflow-hidden rounded-xl border border-[#EAECF0] bg-white h-[350px] lg:h-auto">
+          <div className="flex lg:w-[40%] shrink-0 flex-col overflow-hidden rounded-xl border border-[#EAECF0] bg-white h-[350px] lg:h-auto">
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-[#EAECF0] px-5 py-3.5 shrink-0">
-              <h3 className="text-sm font-bold text-[#101828]">Job list</h3>
-              <span className="text-xs text-[#667085]">Last updated: 30 min ago</span>
+            <div className="flex items-center justify-between border-b border-[#EAECF0] px-5 py-4 shrink-0">
+              <h3 className="text-lg font-bold text-[#101828]">Job list</h3>
+              <span className="text-xs text-[#667085]"><b>Last updated:</b> 30 min ago</span>
             </div>
             {/* Scrollable list */}
             <div className="flex-1 overflow-y-auto">
@@ -527,18 +555,18 @@ const TimelineTab = ({ renderTabNav }) => {
             {selectedJob && (
               <>
                 {/* Detail header */}
-                <div className="flex items-center justify-between border-b border-[#EAECF0] px-6 py-4 shrink-0">
-                  <h2 className="text-lg font-bold text-[#101828]">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-[#EAECF0] px-4 sm:px-6 py-3 shrink-0">
+                  <h2 className="text-lg font-bold text-[#101828] leading-snug">
                     {selectedJob.id}
                     <span className="font-normal text-[#D0D5DD] mx-2">•</span>
-                    {selectedJob.serviceName}
+                    <span className="break-words">{selectedJob.serviceName}</span>
                   </h2>
                   <button
                     type="button"
                     onClick={() => setIsInterveneOpen(true)}
-                    className="inline-flex items-center gap-2 rounded-lg bg-[#F04438] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#D92D20] transition-colors"
+                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg bg-[#F04438] px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#D92D20] transition-colors shrink-0"
                   >
-                    <Phone size={15} strokeWidth={2} />
+                    <Phone size={16} strokeWidth={2} />
                     Intervene
                   </button>
                 </div>
@@ -547,17 +575,17 @@ const TimelineTab = ({ renderTabNav }) => {
                 <div className="flex-1 overflow-y-auto px-6 py-5">
 
                   {/* Member + Service Provider */}
-                  <div className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="mb-7 grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <p className="mb-2.5 text-sm font-semibold text-[#344054]">Member</p>
                       <div className="flex items-start gap-2.5">
                         <img src={selectedJob.member.avatar} alt="" className="size-9 rounded-full object-cover ring-1 ring-[#EAECF0] shrink-0" />
                         <div>
-                          <button type="button" className="text-sm font-semibold text-[#101828] underline underline-offset-2 hover:text-[#F04438] transition-colors">
+                          <button type="button" className="text-sm font-semibold text-[#667085] underline underline-offset-2 hover:text-[#F04438] transition-colors">
                             {selectedJob.member.name}
                           </button>
                           <div className="mt-0.5 flex items-start gap-1 text-xs text-[#667085]">
-                            <MapPin size={11} className="mt-0.5 shrink-0" />
+                            <MapPin size={13} className="mt-0.5 shrink-0" />
                             <span>{selectedJob.member.address}</span>
                           </div>
                         </div>
@@ -569,7 +597,7 @@ const TimelineTab = ({ renderTabNav }) => {
                       <div className="flex items-start gap-2.5">
                         <img src={selectedJob.caregiver.avatar} alt="" className="size-9 rounded-full object-cover ring-1 ring-[#EAECF0] shrink-0" />
                         <div className="mt-1">
-                          <button type="button" className="text-sm font-semibold text-[#101828] underline underline-offset-2 hover:text-[#F04438] transition-colors">
+                          <button type="button" className="text-sm font-semibold text-[#667085] underline underline-offset-2 hover:text-[#F04438] transition-colors">
                             {selectedJob.caregiver.name}
                           </button>
                         </div>

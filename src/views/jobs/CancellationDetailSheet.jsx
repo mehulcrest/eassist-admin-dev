@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
   ChevronDown,
-  MessageCircle,
+  MessageCircleMore,
   Phone,
   X,
 } from "lucide-react";
@@ -15,12 +15,12 @@ const SectionHeading = ({ children }) => (
 );
 
 const DetailLabel = ({ children }) => (
-  <p className="text-xs font-medium text-[#667085] mb-0.5">{children}</p>
+  <p className="text-xs font-medium text-[#333333] mb-0.5">{children}</p>
 );
 
 /* Values should be regular weight (NOT bold) to match Figma */
 const DetailValue = ({ children, className = "" }) => (
-  <p className={`text-sm text-[#344054] ${className}`}>{children}</p>
+  <p className={`text-sm text-[#667085] ${className}`}>{children}</p>
 );
 
 const Divider = () => <div className="border-t border-[#F2F4F7]" />;
@@ -47,7 +47,7 @@ const RefundTooltip = ({ breakdown }) => (
    Timeline event row — proper alignment
 ───────────────────────────────────────────── */
 const DetailTimelineEvent = ({ event, isLast }) => (
-  <div className="flex pb-4">
+  <div className="flex">
     {/* ── Left col: fixed-width dot + dashed connector ── */}
     <div
       className="flex shrink-0 flex-col items-center"
@@ -60,47 +60,54 @@ const DetailTimelineEvent = ({ event, isLast }) => (
       {!isLast && (
         <div
           className="mt-1 flex-1"
-          style={{ width: 0, borderLeft: "2px dashed #D0D5DD", minHeight: 32 }}
+          style={{ width: 0, borderLeft: "2px dashed #F7C1C1", minHeight: 32 }}
         />
       )}
     </div>
 
     {/* ── Right col: all content ── */}
-    <div className="min-w-0 flex-1 pb-2">
-      {/* Time + Date on the same row */}
-      <div className="mb-1 flex items-baseline gap-3">
+    <div className="min-w-0 flex items-start pb-4">
+      <div className="flex flex-col items-center mr-4 shrink-0">
+        {/* <span className="text-sm font-semibold text-[#344054] shrink-0 min-w-[72px]">
+                {event.time}
+              </span> */}
         <span className="text-sm font-semibold text-[#344054] shrink-0">{event.time}</span>
-        <span className="text-xs text-[#667085]">{event.date}</span>
       </div>
 
-      {/* Title */}
-      <p className={`mb-1 text-sm font-semibold ${
-        event.isCancelled ? "text-[#F04438]" : "text-[#101828]"
-      }`}>
-        {event.title}
-      </p>
-
-      {/* Plain description */}
-      {!event.avatar && event.desc && (
-        <p className="text-sm text-[#475467]">{event.desc}</p>
-      )}
-
-      {/* Avatar + person description */}
-      {event.avatar && event.desc && (
-        <div className="flex items-center gap-1.5">
-          <img
-            src={event.avatar}
-            alt=""
-            className="size-5 shrink-0 rounded-full object-cover ring-1 ring-[#EAECF0]"
-          />
-          <p className="text-sm text-[#475467]">
-            <span className="mr-1 font-semibold text-[#344054] underline underline-offset-2">
-              {event.actorName}
-            </span>
-            {event.desc}
-          </p>
+      <div className="flex flex-col gap-0.5">
+        {/* Time + Date on the same row */}
+        <div className="mb-1 flex items-baseline gap-3">
+          <span className="text-xs text-[#667085]">{event.date}</span>
         </div>
-      )}
+
+        {/* Title */}
+        <p className={`mb-1 text-sm font-semibold ${event.isCancelled ? "text-[#F04438]" : "text-[#101828]"
+          }`}>
+          {event.title}
+        </p>
+
+        {/* Plain description */}
+        {!event.avatar && event.desc && (
+          <p className="text-sm text-[#475467]">{event.desc}</p>
+        )}
+
+        {/* Avatar + person description */}
+        {event.avatar && event.desc && (
+          <div className="flex items-center gap-1.5">
+            <img
+              src={event.avatar}
+              alt=""
+              className="size-5 shrink-0 rounded-full object-cover ring-1 ring-[#EAECF0]"
+            />
+            <p className="text-sm text-[#475467]">
+              <span className="mr-1 font-semibold text-[#344054] underline underline-offset-2">
+                {event.actorName}
+              </span>
+              {event.desc}
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   </div>
 );
@@ -129,10 +136,10 @@ const TakeActionMenu = ({ onClose }) => (
    Static data
 ───────────────────────────────────────────── */
 const REFUND_BREAKDOWN = [
-  { label: "Service Fee",          value: "$50.00" },
-  { label: "Cancellation Fee",     value: "$5.00"  },
-  { label: "Platform Fee Retained",value: "$4.43"  },
-  { label: "Refund Amount",        value: "$44.57" },
+  { label: "Service Fee", value: "$50.00" },
+  { label: "Cancellation Fee", value: "$5.00" },
+  { label: "Platform Fee Retained", value: "$4.43" },
+  { label: "Refund Amount", value: "$44.57" },
 ];
 
 const TIMELINE_EVENTS = [
@@ -174,7 +181,7 @@ const ContactButtons = () => (
       <Phone size={15} strokeWidth={2} />
     </button>
     <button type="button" className="flex size-8 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085] hover:bg-gray-50 transition-colors shadow-[0_1px_2px_0_rgba(16,24,40,0.05)]">
-      <MessageCircle size={15} strokeWidth={2} />
+      <MessageCircleMore size={15} strokeWidth={2} />
     </button>
   </div>
 );
@@ -184,7 +191,7 @@ const ContactButtons = () => (
    Props: isOpen, onClose, row
 ───────────────────────────────────────────── */
 const CancellationDetailSheet = ({ isOpen, onClose, row }) => {
-  const [showTooltip, setShowTooltip]     = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
   const [showActionMenu, setShowActionMenu] = useState(false);
 
   if (!isOpen || !row) return null;
@@ -226,7 +233,7 @@ const CancellationDetailSheet = ({ isOpen, onClose, row }) => {
           {/* Member Information */}
           <div>
             <SectionHeading>Member Information</SectionHeading>
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex  gap-3 sm:flex-row sm:items-center justify-between">
               <div className="flex items-center gap-2.5 min-w-0">
                 <img
                   src={row.memberAvatar ?? userProfile}
@@ -248,7 +255,7 @@ const CancellationDetailSheet = ({ isOpen, onClose, row }) => {
           {/* PSP Information */}
           <div>
             <SectionHeading>PSP Information</SectionHeading>
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex  gap-3 sm:flex-row sm:items-center justify-between">
               <div className="flex items-center gap-2.5 min-w-0">
                 <img
                   src={row.caregiverAvatar ?? userProfile}
@@ -350,11 +357,10 @@ const CancellationDetailSheet = ({ isOpen, onClose, row }) => {
             <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-4 mb-4">
               <div>
                 <DetailLabel>Refund Status</DetailLabel>
-                <span className={`mt-0.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                  row.refund === "Full Refund"
-                    ? "bg-[#ECFDF3] text-[#027A48]"
-                    : "bg-[#FEF3F2] text-[#F04438]"
-                }`}>
+                <span className={`mt-0.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${row.refund === "Full Refund"
+                  ? "bg-[#ECFDF3] text-[#027A48]"
+                  : "bg-[#FEF3F2] text-[#F04438]"
+                  }`}>
                   {row.refund}
                 </span>
               </div>
@@ -368,7 +374,7 @@ const CancellationDetailSheet = ({ isOpen, onClose, row }) => {
                 >
                   <button
                     type="button"
-                    className="text-sm text-[#344054] underline underline-offset-2 hover:text-[#F04438] transition-colors"
+                    className="text-sm text-[#667085] underline underline-offset-2 hover:text-[#F04438] transition-colors"
                   >
                     $44.57
                   </button>
@@ -377,22 +383,7 @@ const CancellationDetailSheet = ({ isOpen, onClose, row }) => {
               </div>
             </div>
 
-            <div className="mb-4">
-              <DetailLabel>Detailed Note</DetailLabel>
-              <DetailValue className="text-[#475467]">
-                Member requested cancellation due to travel
-              </DetailValue>
-            </div>
 
-            <div className="mb-4">
-              <DetailLabel>Cancellation Time</DetailLabel>
-              <div className="mt-0.5 flex items-center gap-2.5 flex-wrap">
-                <DetailValue>Today, Mar 12, 2026 • 09:00 AM</DetailValue>
-                <span className="inline-flex items-center rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-700">
-                  {row.timeBeforeStart}
-                </span>
-              </div>
-            </div>
 
             <div>
               <DetailLabel>Notes / Logs</DetailLabel>
@@ -402,7 +393,7 @@ const CancellationDetailSheet = ({ isOpen, onClose, row }) => {
                   "Refund processed successfully",
                   "Refund tag added to booking",
                 ].map((note, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-[#475467]">
+                  <li key={i} className="flex items-start gap-2 text-sm text-[#667085]">
                     <span className="mt-[7px] size-[5px] rounded-full bg-[#475467] shrink-0" />
                     {note}
                   </li>
@@ -430,7 +421,7 @@ const CancellationDetailSheet = ({ isOpen, onClose, row }) => {
         </div>
 
         {/* ── Footer ── */}
-        <div className="flex flex-col gap-3 border-t border-[#EAECF0] px-6 py-4 shrink-0 sm:flex-row">
+        <div className="flex  gap-3 border-t border-[#EAECF0] px-6 py-4 shrink-0 sm:flex-row">
           <div className="relative flex-1">
             <button
               type="button"

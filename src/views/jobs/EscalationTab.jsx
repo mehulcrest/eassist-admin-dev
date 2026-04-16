@@ -7,10 +7,10 @@ import {
   CheckCircle2,
   ChevronDown,
   Eye,
-  Filter,
+  Settings2,
   RefreshCw,
   Search,
-  Zap,
+  Clock, MapPin
 } from "lucide-react";
 import SideSheet from "../../components/SideSheet";
 import userProfile from "../../assets/userProfile.png";
@@ -30,7 +30,7 @@ const KPI_DATA = [
     title: "Open Escalations",
     value: "6",
     subtitle: "Cases currently",
-    icon: <Zap className="text-[#F79009]" size={22} />,
+    icon: <Clock className="text-[#F79009]" size={22} />,
     iconBg: "bg-[#FFFAEB]",
   },
   {
@@ -118,15 +118,15 @@ const ESCALATION_DATA = [
    Badge helpers
 ───────────────────────────────────────────── */
 const severityBadge = {
-  Low:    "bg-gray-100 text-gray-500",
+  Low: "bg-gray-100 text-gray-500",
   Medium: "bg-amber-50 text-amber-600",
-  High:   "bg-red-50 text-red-500",
+  High: "bg-red-50 text-red-500",
 };
 
 const statusBadge = {
   "In Progress": "bg-amber-50 text-amber-600",
-  New:           "bg-blue-50 text-blue-600",
-  Resolved:      "bg-green-50 text-green-600",
+  New: "bg-blue-50 text-blue-600",
+  Resolved: "bg-green-50 text-green-600",
 };
 
 /* ─────────────────────────────────────────────
@@ -141,14 +141,19 @@ const tdClass =
    KPI Card
 ───────────────────────────────────────────── */
 const KpiCard = ({ kpi }) => (
-  <div className="flex items-center gap-4 rounded-xl border border-[#EAECF0] bg-white px-5 py-4 shadow-[0_1px_2px_0_rgba(16,24,40,0.05)]">
-    <div className={`flex size-11 shrink-0 items-center justify-center rounded-lg ${kpi.iconBg}`}>
-      {kpi.icon}
-    </div>
-    <div className="min-w-0">
-      <p className="text-base font-semibold text-[#101828]">{kpi.title}</p>
-      <div className="flex items-baseline gap-2">
-        <span className="text-2xl font-bold text-[#101828]">{kpi.value}</span>
+  <div className="flex items-center gap-4 rounded-xl border border-[#EAECF0] bg-white p-5 shadow-[0_1px_2px_0_rgba(16,24,40,0.05)]">
+
+    <div className="flex flex-col gap-2">
+      <div className="flex items-center gap-2">
+        <div className={`flex size-12 shrink-0 items-center justify-center rounded-lg ${kpi.iconBg}`}>
+          {kpi.icon}
+        </div>
+        <p className="text-base font-medium text-[#101828]">
+          {kpi.title}
+        </p>
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="text-3xl font-bold text-[#101828]">{kpi.value}</span>
         <span className="text-sm text-[#667085]">{kpi.subtitle}</span>
       </div>
     </div>
@@ -159,10 +164,7 @@ const KpiCard = ({ kpi }) => (
    Location pin SVG
 ───────────────────────────────────────────── */
 const LocationPin = () => (
-  <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#98A2B3]">
-    <path d="M4.99994 6.66667C5.92042 6.66667 6.66661 5.92047 6.66661 5C6.66661 4.07953 5.92042 3.33333 4.99994 3.33333C4.07946 3.33333 3.33327 4.07953 3.33327 5C3.33327 5.92047 4.07946 6.66667 4.99994 6.66667Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M5.00006 10.8333C6.66673 9.16667 8.33339 7.1819 8.33339 5C8.33339 4.11594 7.9822 3.2681 7.35708 2.64298C6.73196 2.01786 5.88412 1.66667 5.00006 1.66667C4.116 1.66667 3.26815 2.01786 2.64303 2.64298C2.01791 3.2681 1.66673 4.11594 1.66673 5C1.66673 7.1819 3.33339 9.16667 5.00006 10.8333Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
+  <MapPin size={14} className="shrink-0" />
 );
 
 /* ─────────────────────────────────────────────
@@ -260,7 +262,7 @@ const EscalationTab = ({ renderTabNav }) => {
             onClick={() => setIsFilterSheetOpen(true)}
             className="inline-flex flex-1 sm:flex-none items-center justify-center gap-2 rounded-lg border border-[#D0D5DD] bg-white px-4 py-2.5 text-sm font-semibold text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] hover:bg-gray-50 transition-colors"
           >
-            <Filter size={16} className="text-[#667085]" strokeWidth={2.5} />
+            <Settings2 size={18} className="text-[#667085]" strokeWidth={2.5} />
             Filters
           </button>
         </div>
@@ -331,9 +333,8 @@ const EscalationTab = ({ renderTabNav }) => {
 
                     {/* Severity */}
                     <td className={tdClass}>
-                      <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                        severityBadge[row.severity] ?? "bg-gray-100 text-gray-500"
-                      }`}>
+                      <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${severityBadge[row.severity] ?? "bg-gray-100 text-gray-500"
+                        }`}>
                         {row.severity}
                       </span>
                     </td>
@@ -354,9 +355,8 @@ const EscalationTab = ({ renderTabNav }) => {
 
                     {/* Status */}
                     <td className={tdClass}>
-                      <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                        statusBadge[row.status] ?? "bg-gray-100 text-gray-500"
-                      }`}>
+                      <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${statusBadge[row.status] ?? "bg-gray-100 text-gray-500"
+                        }`}>
                         {row.status}
                       </span>
                     </td>
