@@ -20,7 +20,7 @@ const ServicesCoverageTab = () => {
           <div className="space-y-6 p-5">
             <div>
               <label className="mb-2 block text-sm font-medium text-[#344054]">
-                Service Category <span className="text-[#F04438]">*</span>
+                Service Category <span className="text-redRejected">*</span>
               </label>
               <div className="relative">
                 <select className={selectClassName} defaultValue="">
@@ -35,7 +35,7 @@ const ServicesCoverageTab = () => {
 
             <div>
               <label className="mb-2 block text-sm font-medium text-[#344054]">
-                Service Type <span className="text-[#F04438]">*</span>
+                Service Type <span className="text-redRejected">*</span>
               </label>
               <div className="relative">
                 <select className={selectClassName} defaultValue="">
@@ -59,14 +59,14 @@ const ServicesCoverageTab = () => {
                   type="button"
                   className="flex p-6 w-full flex-col items-center justify-center rounded-lg border border-dashed border-[#F2B8B5] bg-[#FFF5F54D] text-center"
                 >
-                  <span className="mb-2 inline-flex size-10 items-center justify-center rounded-full bg-[#FEE4E2] text-[#F04438]">
+                  <span className="mb-2 inline-flex size-10 items-center justify-center rounded-full bg-[#FEE4E2] text-redRejected">
                     <UploadCloud size={20} />
                   </span>
                   <span className="text-sm font-semibold text-[#344054]">Drop File Here</span>
                   <span className="mt-1 text-xs text-[#667085]">
                     Drag and drop your PDF, PNG, JPG, images here or browse | Max File Size: 10 MB
                   </span>
-                  <span className="mt-1 text-xs font-semibold text-[#F04438] underline underline-offset-2">Browse File</span>
+                  <span className="mt-1 text-xs font-semibold text-redRejected underline underline-offset-2">Browse File</span>
                 </button>
               </div>
 
@@ -95,7 +95,7 @@ const ServicesCoverageTab = () => {
           <div className="space-y-5 p-5 flex flex-col flex-1">
             <div>
               <label className="mb-2 block text-sm font-medium text-[#344054]">
-                Operating Region / Territory <span className="text-[#F04438]">*</span>
+                Operating Region / Territory <span className="text-redRejected">*</span>
               </label>
               <div className="relative">
                 <select className={selectClassName} defaultValue="">
@@ -110,10 +110,10 @@ const ServicesCoverageTab = () => {
 
             <div>
               <label className="mb-2 block text-sm font-medium text-[#344054]">
-                Location <span className="text-[#F04438]">*</span>
+                Location <span className="text-redRejected">*</span>
               </label>
               <div className="relative">
-                <MapPin className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[#F04438]" />
+                <MapPin className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-redRejected" />
                 <input 
                   type="text" 
                   defaultValue="Toronto, ON" 
@@ -163,7 +163,7 @@ const ServicesCoverageTab = () => {
                   max="30" 
                   value={radius} 
                   onChange={(e) => setRadius(parseInt(e.target.value, 10))}
-                  className="w-full h-2 bg-[#FEE4E2] rounded-lg appearance-none cursor-pointer accent-[#F04438]"
+                  className="w-full h-2 bg-[#FEE4E2] rounded-lg appearance-none cursor-pointer accent-redRejected"
                 />
                 <div className="mt-3 flex justify-between text-xs font-medium text-[#344054]">
                   <span>5 km</span>

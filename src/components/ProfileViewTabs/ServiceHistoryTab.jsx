@@ -167,7 +167,7 @@ const qualityMeta = {
     description: "Limited PSPs available within budget entered by Member.",
   },
   Weak: {
-    dot: "bg-[#F04438]",
+    dot: "bg-redRejected",
     text: "text-[#344054]",
     title: "Weak Match Quality",
     description: "Few PSPs available within budget entered by Member.",

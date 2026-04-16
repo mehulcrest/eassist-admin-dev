@@ -49,7 +49,7 @@ const PSPsSideSheet = ({ isOpen, onClose, type = "total" }) => {
           <button
             type="button"
             onClick={onClose}
-            className="h-11 rounded-lg bg-[#F04438] hover:bg-[#D92D20] transition-colors text-sm font-semibold text-white"
+            className="h-11 rounded-lg bg-redRejected hover:bg-[#D92D20] transition-colors text-sm font-semibold text-white"
           >
             Got it
           </button>

@@ -25,6 +25,10 @@ export default {
         inputPlaceholder: "#A4A4A4",
 
         tableHeader: "#F4EEEE",
+
+        greenVerified: "#039855",
+        orangeReview: "#DC6803",
+        redRejected: "#F04438",
       },
 
       width: {

@@ -3,10 +3,10 @@ import { useState, useRef, useEffect } from "react";
 import SideSheet from "../SideSheet";
 
 const STATUS_CONFIG = {
-  Paid: "text-[#039855]",
+  Paid: "text-greenVerified",
   Failed: "text-[#D92D20]",
   Completed: "text-[#007AFF]",
-  Refunded: "text-[#DC6803]",
+  Refunded: "text-orangeReview",
 };
 
 const DetailRow = ({ label, value, valueClass = "text-[#344054]" }) => (

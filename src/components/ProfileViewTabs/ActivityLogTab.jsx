@@ -26,15 +26,15 @@ const TIME_RANGE_OPTIONS = [
 const ACTIVITY_TYPE_META = {
   "Verification Update": {
     bg: "bg-[#ECFDF3]",
-    text: "text-[#039855]",
+    text: "text-greenVerified",
   },
   "Complaints & Reviews": {
     bg: "bg-[#FEF3F2]",
-    text: "text-[#F04438]",
+    text: "text-redRejected",
   },
   "Profile Update": {
     bg: "bg-[#FFFAEB]",
-    text: "text-[#DC6803]",
+    text: "text-orangeReview",
   },
   "System Event": {
     bg: "bg-[#F2F4F7]",

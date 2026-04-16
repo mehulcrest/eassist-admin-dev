@@ -6,6 +6,7 @@ import AddMemberView from "../views/members/AddMemberView";
 import MemberProfileView from "../views/members/MemberProfileView";
 import PSPIndividuals from "../pages/PSPIndividuals";
 import AddPSPView from "../views/psp-individuals/AddPSPView";
+import PSPIndividualProfileView from "../views/psp-individuals/PSPIndividualProfileView";
 import MainLayout from "../layouts/MainLayout";
 import AuthGuard from "../guards/AuthGuard";
 
@@ -35,6 +36,7 @@ const routeConfig = [
       { path: "psp-individuals/new", element: <AddPSPView /> },
       { path: "jobs", element: <Jobs /> },
       { path: "job/:id", element: <div className="p-6">Job Details View Placeholder</div> },
+      { path: "psp-individuals/:id", element: <PSPIndividualProfileView /> },
     ],
   },
 ];

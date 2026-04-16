@@ -4,7 +4,7 @@ const inputClassName =
 const FileUploadRow = ({ label, required = true }) => (
   <div className="rounded-xl border border-[#EAECF0] p-3.5">
     <label className="mb-2 block text-xs font-medium text-[#344054]">
-      {label} {required && <span className="text-[#F04438]">*</span>}
+      {label} {required && <span className="text-redRejected">*</span>}
     </label>
     <div className="flex h-10 items-center rounded-lg border border-[#D0D5DD] overflow-hidden bg-white">
       <label className="shrink-0 cursor-pointer bg-[#F9FAFB] px-4 py-2 text-xs font-medium text-[#344054] border-r border-[#D0D5DD] hover:bg-[#F2F4F7] transition-colors">
@@ -51,42 +51,42 @@ const VerificationPayoutTab = () => {
         <div className="space-y-4 p-4">
           <div>
             <label className="mb-1.5 block text-xs font-medium text-[#344054]">
-              Account Holder Name <span className="text-[#F04438]">*</span>
+              Account Holder Name <span className="text-redRejected">*</span>
             </label>
             <input type="text" placeholder="Enter account holder name" className={inputClassName} />
           </div>
 
           <div>
             <label className="mb-1.5 block text-xs font-medium text-[#344054]">
-              Bank Name <span className="text-[#F04438]">*</span>
+              Bank Name <span className="text-redRejected">*</span>
             </label>
             <input type="text" placeholder="Enter bank name" className={inputClassName} />
           </div>
 
           <div>
             <label className="mb-1.5 block text-xs font-medium text-[#344054]">
-              Account Number <span className="text-[#F04438]">*</span>
+              Account Number <span className="text-redRejected">*</span>
             </label>
             <input type="text" placeholder="Enter account number" className={inputClassName} />
           </div>
 
           <div>
             <label className="mb-1.5 block text-xs font-medium text-[#344054]">
-              Routing Code <span className="text-[#F04438]">*</span>
+              Routing Code <span className="text-redRejected">*</span>
             </label>
             <input type="text" placeholder="Enter bank routing code" className={inputClassName} />
           </div>
 
           <div>
             <label className="mb-1.5 block text-xs font-medium text-[#344054]">
-              Tax ID / PAN / Business Tax Number <span className="text-[#F04438]">*</span>
+              Tax ID / PAN / Business Tax Number <span className="text-redRejected">*</span>
             </label>
             <input type="text" placeholder="Enter valid Tax ID / PAN / Business Tax Number" className={inputClassName} />
           </div>
 
           <div className="space-y-2 rounded-xl border border-[#EAECF0] p-3.5">
             <label className="block text-xs font-medium text-[#344054]">
-              Void Cheque <span className="text-[#F04438]">*</span>
+              Void Cheque <span className="text-redRejected">*</span>
             </label>
             <div className="flex h-10 items-center rounded-lg border border-[#D0D5DD] overflow-hidden bg-white">
               <label className="shrink-0 cursor-pointer bg-[#F9FAFB] px-4 py-2 text-xs font-medium text-[#344054] border-r border-[#D0D5DD] hover:bg-[#F2F4F7] transition-colors">

@@ -103,7 +103,7 @@ const AddMemberView = () => {
                 type="button"
                 className="flex p-4 w-full flex-col items-center justify-center rounded-lg border border-dashed border-[#F2B8B5] bg-[#FFF5F54D] text-center"
               >
-                <span className="mb-2 inline-flex size-7 items-center justify-center rounded-full bg-[#FEE4E2] text-[#F04438]">
+                <span className="mb-2 inline-flex size-7 items-center justify-center rounded-full bg-[#FEE4E2] text-redRejected">
                   <UploadCloud size={16} />
                 </span>
                 <span className="text-sm font-semibold text-[#344054]">Drop File Here</span>
@@ -650,7 +650,7 @@ const AddMemberView = () => {
               type="button"
               className="flex h-28 w-full flex-col items-center justify-center rounded-lg border border-dashed border-[#F2B8B5] bg-[#FFF8F7] text-center"
             >
-              <span className="mb-2 inline-flex size-7 items-center justify-center rounded-full bg-[#FEE4E2] text-[#F04438]">
+              <span className="mb-2 inline-flex size-7 items-center justify-center rounded-full bg-[#FEE4E2] text-redRejected">
                 <UploadCloud size={16} />
               </span>
               <span className="text-sm font-semibold text-[#344054]">Drop File Here</span>

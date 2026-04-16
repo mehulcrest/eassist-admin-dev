@@ -30,7 +30,7 @@ const BILLING_HISTORY = [
     plan: "Premium",
     billingPeriod: "Mar 12 – Apr 11, 2026",
     loyaltyActivity: "+20 Points Earned",
-    loyaltyColor: "text-[#039855]",
+    loyaltyColor: "text-greenVerified",
     paymentDate: "Mar 12, 2026",
     totalAmount: "$22.49",
     status: "Paid",
@@ -82,10 +82,10 @@ const BILLING_HISTORY = [
 ];
 
 const STATUS_CONFIG = {
-  Paid: { bg: "bg-[#ECFDF3]", text: "text-[#039855]" },
+  Paid: { bg: "bg-[#ECFDF3]", text: "text-greenVerified" },
   Failed: { bg: "bg-[#FEF3F2]", text: "text-[#D92D20]" },
   Completed: { bg: "bg-[#F0F9FF]", text: "text-[#007AFF]" },
-  Refunded: { bg: "bg-[#FFFAEB]", text: "text-[#DC6803]" },
+  Refunded: { bg: "bg-[#FFFAEB]", text: "text-orangeReview" },
 };
 
 /* ─── Sub-components (all arrow functions) ──────────────────────────────── */
@@ -183,7 +183,7 @@ const SubscriptionBillingTab = () => {
             <ul className="flex flex-col gap-2.5">
               {PLAN.benefits.map((b) => (
                 <li key={b} className="flex items-start gap-2 text-sm text-[#344054]">
-                  <span className="mt-1.5 block size-[5px] shrink-0 rounded-full bg-[#F04438]" />
+                  <span className="mt-1.5 block size-[5px] shrink-0 rounded-full bg-redRejected" />
                   {b}
                 </li>
               ))}
@@ -223,7 +223,7 @@ const SubscriptionBillingTab = () => {
             <div className="shrink-0 w-full sm:w-auto">
               <button
                 type="button"
-                className="w-full sm:w-auto rounded-lg bg-[#F04438] px-[18px] py-[10px] text-sm font-semibold text-white shadow-[0px_1px_2px_rgba(16,24,40,0.05)] transition-colors hover:bg-[#D92D20] whitespace-nowrap"
+                className="w-full sm:w-auto rounded-lg bg-redRejected px-[18px] py-[10px] text-sm font-semibold text-white shadow-[0px_1px_2px_rgba(16,24,40,0.05)] transition-colors hover:bg-[#D92D20] whitespace-nowrap"
               >
                 Manage Subscription
               </button>

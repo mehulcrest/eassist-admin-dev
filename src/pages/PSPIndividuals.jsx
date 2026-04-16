@@ -91,9 +91,9 @@ const StatusToggle = ({ active, onChange }) => (
 
 const VerificationBadge = ({ status }) => {
   const meta = {
-    "Verified": { bg: "bg-[#ECFDF3]", text: "text-[#039855]" },
-    "Expired Docs": { bg: "bg-[#FEF3F2]", text: "text-[#F04438]" },
-    "Pending": { bg: "bg-[#FFFAEB]", text: "text-[#DC6803]" },
+    "Verified": { bg: "bg-[#ECFDF3]", text: "text-greenVerified" },
+    "Expired Docs": { bg: "bg-[#FEF3F2]", text: "text-redRejected" },
+    "Pending": { bg: "bg-[#FFFAEB]", text: "text-orangeReview" },
     "Rejected": { bg: "bg-[#EFF8FF]", text: "text-[#175CD3]" },
   };
   const config = meta[status] || meta["Pending"];
@@ -106,9 +106,9 @@ const VerificationBadge = ({ status }) => {
 
 const AvailabilityText = ({ status }) => {
   const meta = {
-    "Online": "text-[#039855]",
+    "Online": "text-greenVerified",
     "Offline": "text-[#667085]",
-    "On Leave": "text-[#F04438]",
+    "On Leave": "text-redRejected",
   };
   const color = meta[status] || meta["Offline"];
   return (
@@ -188,7 +188,7 @@ const PSPIndividuals = () => {
           <button
             type="button"
             onClick={() => navigate("/psp-individuals/new")}
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#F04438] hover:bg-[#D92D20] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] sm:flex-none transition-colors"
+            className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-redRejected hover:bg-[#D92D20] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] sm:flex-none transition-colors"
           >
             <Plus size={18} className="shrink-0" strokeWidth={2.5} />
             Add New
@@ -333,6 +333,11 @@ const PSPIndividuals = () => {
                     <Td>
                       <button
                         type="button"
+                        onClick={() =>
+                          navigate(`/psp-individuals/${encodeURIComponent(m.id)}`, {
+                            state: { psp: m },
+                          })
+                        }
                         className="inline-flex size-9 items-center justify-center rounded-lg border border-lineMuted text-[#667085] transition hover:bg-[#F2F4F7] hover:text-[#344054]"
                         aria-label={`View ${m.name}`}
                       >
@@ -379,7 +384,7 @@ const PSPIndividuals = () => {
                 onClick={() => setPage(n)}
                 className={`min-w-[36px] rounded-lg px-3 py-2 text-sm font-semibold ${
                   n === safePage
-                    ? "bg-[#F04438] text-white shadow-[0_1px_2px_0_rgba(16,24,40,0.05)]"
+                    ? "bg-redRejected text-white shadow-[0_1px_2px_0_rgba(16,24,40,0.05)]"
                     : "border border-[#D0D5DD] text-[#344054] hover:bg-[#F9FAFB]"
                 }`}
               >
@@ -409,7 +414,7 @@ const PSPIndividuals = () => {
           <div className="flex gap-3">
             <button
               type="button"
-              className="h-11 flex-1 rounded-lg bg-[#F04438] hover:bg-[#D92D20] text-sm font-semibold text-white transition-colors"
+              className="h-11 flex-1 rounded-lg bg-redRejected hover:bg-[#D92D20] text-sm font-semibold text-white transition-colors"
             >
               Apply
             </button>

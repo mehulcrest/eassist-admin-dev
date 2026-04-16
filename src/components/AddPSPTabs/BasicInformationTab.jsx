@@ -28,27 +28,27 @@ const BasicInformationTab = () => {
                 type="button"
                 className="flex p-4 w-full flex-col items-center justify-center rounded-lg border border-dashed border-[#F2B8B5] bg-[#FFF5F54D] text-center"
               >
-                <span className="mb-2 inline-flex size-7 items-center justify-center rounded-full bg-[#FEE4E2] text-[#F04438]">
+                <span className="mb-2 inline-flex size-7 items-center justify-center rounded-full bg-[#FEE4E2] text-redRejected">
                   <UploadCloud size={16} />
                 </span>
                 <span className="text-sm font-semibold text-[#344054]">Drop File Here</span>
                 <span className="mt-1 text-xs text-[#667085]">
                   Drag and drop your PNG, JPG, images here or browse
                 </span>
-                <span className="text-xs font-semibold text-[#F04438] underline underline-offset-2">Browse File</span>
+                <span className="text-xs font-semibold text-redRejected underline underline-offset-2">Browse File</span>
               </button>
             </div>
 
             <div className="grid gap-5 md:grid-cols-2">
               <div>
                 <label className="mb-2 block text-sm font-medium text-[#344054]">
-                  Full Name <span className="text-[#F04438]">*</span>
+                  Full Name <span className="text-redRejected">*</span>
                 </label>
                 <input type="text" placeholder="Enter full name" className={inputClassName} />
               </div>
               <div>
                 <label className="mb-2 block text-sm font-medium text-[#344054]">
-                  Account Status <span className="text-[#F04438]">*</span>
+                  Account Status <span className="text-redRejected">*</span>
                 </label>
                 <div className="flex h-10 items-center">
                   <button
@@ -66,7 +66,7 @@ const BasicInformationTab = () => {
             <div className="grid gap-5 md:grid-cols-2">
               <div>
                 <label className="mb-2 block text-sm font-medium text-[#344054]">
-                  Phone <span className="text-[#F04438]">*</span>
+                  Phone <span className="text-redRejected">*</span>
                 </label>
                 <div className="grid grid-cols-[84px_1fr] gap-3">
                   <div className="relative">
@@ -82,7 +82,7 @@ const BasicInformationTab = () => {
               </div>
               <div>
                 <label className="mb-2 block text-sm font-medium text-[#344054]">
-                  Email <span className="text-[#F04438]">*</span>
+                  Email <span className="text-redRejected">*</span>
                 </label>
                 <input type="email" placeholder="info@gmail.com" className={inputClassName} />
               </div>
@@ -91,7 +91,7 @@ const BasicInformationTab = () => {
             <div className="grid gap-5 md:grid-cols-2">
               <div>
                 <label className="mb-2 block text-sm font-medium text-[#344054]">
-                  Gender <span className="text-[#F04438]">*</span>
+                  Gender <span className="text-redRejected">*</span>
                 </label>
                 <div className="relative">
                   <select className={selectClassName} defaultValue="">
@@ -105,7 +105,7 @@ const BasicInformationTab = () => {
               </div>
               <div>
                 <label className="mb-2 block text-sm font-medium text-[#344054]">
-                  Date of Birth <span className="text-[#F04438]">*</span>
+                  Date of Birth <span className="text-redRejected">*</span>
                 </label>
                 <div className="relative">
                   <input
@@ -132,7 +132,7 @@ const BasicInformationTab = () => {
             <div className="grid gap-5 md:grid-cols-2">
               <div>
                 <label className="mb-2 block text-sm font-medium text-[#344054]">
-                  Password <span className="text-[#F04438]">*</span>
+                  Password <span className="text-redRejected">*</span>
                 </label>
                 <div className="relative">
                   <input
@@ -151,7 +151,7 @@ const BasicInformationTab = () => {
               </div>
               <div>
                 <label className="mb-2 block text-sm font-medium text-[#344054]">
-                  Confirm Password <span className="text-[#F04438]">*</span>
+                  Confirm Password <span className="text-redRejected">*</span>
                 </label>
                 <div className="relative">
                   <input
@@ -188,7 +188,7 @@ const BasicInformationTab = () => {
             <div>
               <div className="mb-2 flex items-center justify-between">
                 <label className="block text-sm font-medium text-[#344054]">
-                  Languages Spoken <span className="text-[#F04438]">*</span>
+                  Languages Spoken <span className="text-redRejected">*</span>
                 </label>
                 <span className="text-[12px] text-[#667085]">Improves matching with customers</span>
               </div>
@@ -214,7 +214,7 @@ const BasicInformationTab = () => {
           <div className="space-y-5 p-5">
             <div>
               <label className="mb-2 block text-sm font-medium text-[#344054]">
-                Street Address <span className="text-[#F04438]">*</span>
+                Street Address <span className="text-redRejected">*</span>
               </label>
               <input type="text" placeholder="Enter street address" className={inputClassName} />
             </div>
@@ -226,7 +226,7 @@ const BasicInformationTab = () => {
             ].map(({ label, placeholder }) => (
               <div key={label}>
                 <label className="mb-2 block text-sm font-medium text-[#344054]">
-                  {label} <span className="text-[#F04438]">*</span>
+                  {label} <span className="text-redRejected">*</span>
                 </label>
                 <div className="relative">
                   <select className={selectClassName} defaultValue="">
@@ -239,7 +239,7 @@ const BasicInformationTab = () => {
 
             <div>
               <label className="mb-2 block text-sm font-medium text-[#344054]">
-                Postal Code <span className="text-[#F04438]">*</span>
+                Postal Code <span className="text-redRejected">*</span>
               </label>
               <input type="text" placeholder="Enter postal code e.g. 94103" className={inputClassName} />
             </div>
