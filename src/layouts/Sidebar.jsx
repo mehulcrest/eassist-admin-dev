@@ -20,6 +20,9 @@ const isMembersSectionPath = (pathname) =>
   pathname.startsWith("/members/") ||
   pathname.startsWith("/member/");
 
+  const isJobsSectionPath = (pathname) =>
+  pathname === "/jobs" || pathname.startsWith("/job/");
+
 const Sidebar = ({ isOpen, onClose }) => {
   const { pathname } = useLocation();
 
@@ -33,7 +36,12 @@ const Sidebar = ({ isOpen, onClose }) => {
     },
     { label: "PSP Individuals", icon: UserRound, to: "/psp-individuals" },
     { label: "PSP Businesses", icon: Building2 },
-    { label: "Jobs", icon: BriefcaseBusiness },
+    { 
+      label: "Jobs", 
+      icon: BriefcaseBusiness, 
+      to: "/jobs",
+      isActiveOverride: isJobsSectionPath 
+    },
     { label: "Territories", icon: MapPinned },
     { label: "Payments", icon: WalletCards },
     { label: "Complaints", icon: MessageSquareWarning },
