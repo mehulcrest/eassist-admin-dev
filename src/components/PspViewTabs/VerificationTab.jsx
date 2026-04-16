@@ -13,7 +13,7 @@ import { useMemo, useState } from "react";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 import ReviewDocumentSideSheet from "./ReviewDocumentSideSheet";
 
-const CARD = "rounded-xl border border-[#E4E7EC] bg-white shadow-[0_1px_3px_0_rgba(16,24,40,0.06)]";
+const CARD = "rounded-xl border border-line bg-white shadow-[0_1px_3px_0_rgba(16,24,40,0.06)]";
 const CARD_HEADER = "border-b border-[#EAECF0] px-5 py-4 sm:px-6";
 const CARD_BODY = "p-5 sm:p-6";
 

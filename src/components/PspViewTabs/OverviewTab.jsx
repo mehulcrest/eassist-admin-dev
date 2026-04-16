@@ -16,7 +16,7 @@ import SideSheet from "../SideSheet";
 
 /** Card shell — matches design: white, light border, ~12px radius, soft shadow, generous padding */
 const CARD =
-  "rounded-xl border border-[#E4E7EC] bg-white shadow-[0_1px_3px_0_rgba(16,24,40,0.06)]";
+  "rounded-xl border border-line bg-white shadow-[0_1px_3px_0_rgba(16,24,40,0.06)]";
 const CARD_HEADER = "border-b border-[#EAECF0] px-5 py-4 sm:px-6";
 const CARD_BODY = "p-5 sm:p-6";
 
@@ -41,7 +41,7 @@ const StatusToggle = ({ active, onChange }) => (
     aria-checked={active}
     onClick={() => onChange(!active)}
     className={`relative inline-flex h-6 w-11 shrink-0 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-redRejected focus-visible:ring-offset-2 ${
-      active ? "bg-[#12B76A]" : "bg-[#E4E7EC]"
+      active ? "bg-[#12B76A]" : "bg-line"
     }`}
   >
     <span
@@ -442,7 +442,7 @@ const OverviewTab = ({ profile }) => {
                 {svc.coverageRadiusKm} Km
               </span>
             </div>
-            <div className="relative h-[290px] w-full overflow-hidden rounded-lg border border-[#EAECF0] bg-[#E4E7EC]">
+            <div className="relative h-[290px] w-full overflow-hidden rounded-lg border border-[#EAECF0] bg-line">
               <iframe
                 width="100%"
                 height="100%"

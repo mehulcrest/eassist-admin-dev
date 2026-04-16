@@ -20,7 +20,7 @@ const IndividualServiceDetailsView = ({ service, onBack }) => {
     <div className="flex h-full min-h-0 flex-col">
       <div className="min-h-0 flex-1 space-y-4 overflow-y-auto pr-1">
         <div className="grid gap-4 xl:grid-cols-[2fr_1.25fr]">
-          <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+          <section className="overflow-hidden rounded-xl border border-line bg-white">
           <div className="flex items-center gap-2 border-b border-lineMuted px-4 py-3">
             <button type="button" onClick={onBack} className="inline-flex size-8 items-center justify-center rounded-md text-[#344054] hover:bg-[#F2F4F7]">
               <ArrowLeft size={18} />
@@ -64,7 +64,7 @@ const IndividualServiceDetailsView = ({ service, onBack }) => {
           </div>
           </section>
           <section className="space-y-4">
-          <div className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+          <div className="overflow-hidden rounded-xl border border-line bg-white">
             <div className="border-b border-lineMuted px-4 py-3">
               <h4 className="text-[22px] font-semibold leading-[1.05] text-[#1D2939]">Payment Information</h4>
             </div>
@@ -85,7 +85,7 @@ const IndividualServiceDetailsView = ({ service, onBack }) => {
               </div>
             </div>
           </div>
-          <div className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+          <div className="overflow-hidden rounded-xl border border-line bg-white">
             <div className="flex items-center justify-between border-b border-lineMuted px-4 py-3">
               <h4 className="text-[22px] font-semibold leading-none text-[#1D2939]">Invoice</h4>
               <div className="flex items-center gap-2">
@@ -133,7 +133,7 @@ const IndividualServiceDetailsView = ({ service, onBack }) => {
           </div>
           </section>
         </div>
-        <section className="rounded-xl border border-[#E4E7EC] bg-white">
+        <section className="rounded-xl border border-line bg-white">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h4 className="px-4 py-3 text-[22px] font-semibold leading-none text-[#1D2939]">Matching Summary</h4>
             <div className="flex items-center gap-2 pr-4">
@@ -165,7 +165,7 @@ const IndividualServiceDetailsView = ({ service, onBack }) => {
 
             <div className="mt-5">
               <div className="relative h-6">
-                <div className="absolute left-0 right-0 top-2 h-4 overflow-hidden rounded-sm bg-[#E4E7EC]">
+                <div className="absolute left-0 right-0 top-2 h-4 overflow-hidden rounded-sm bg-line">
                   <div className="h-full w-[33%] bg-[#17A117]" />
                   <div className="absolute left-[33%] top-0 h-full w-[33%] bg-[#75C97A]" />
                 </div>

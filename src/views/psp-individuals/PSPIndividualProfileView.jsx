@@ -4,6 +4,12 @@ import userProfile from "../../assets/userProfile.png";
 import OverviewTab from "../../components/PspViewTabs/OverviewTab";
 import PlaceholderTab from "../../components/PspViewTabs/PlaceholderTab";
 import VerificationTab from "../../components/PspViewTabs/VerificationTab";
+import PerformanceTab from "../../components/PspViewTabs/PerformanceTab";
+import ComplianceTab from "../../components/PspViewTabs/ComplianceTab";
+import AssignedJobsTab from "../../components/PspViewTabs/AssignedJobsTab";
+import { AssignedJobDetailPage } from "../../components/PspViewTabs/AssignJobsDetailView";
+import RatingsReviewsTab from "../../components/PspViewTabs/RatingsReviewsTab";
+import ComplaintsTab from "../../components/PspViewTabs/ComplaintsTab";
 
 const PSP_PROFILE_TABS = [
   { id: "overview", label: "Overview" },
@@ -161,7 +167,8 @@ const PSPIndividualProfileView = () => {
   const { state } = useLocation();
   const row = state?.psp;
 
-  const [activeTab, setActiveTab] = useState("overview");
+  const [activeTab, setActiveTab] = useState(state?.activeTab ?? "overview");
+  const [selectedAssignedJob, setSelectedAssignedJob] = useState(null);
 
   const profile = useMemo(() => buildDisplayProfile(id, row), [id, row]);
 
@@ -169,14 +176,14 @@ const PSPIndividualProfileView = () => {
 
   return (
     <div className="flex h-full flex-col gap-4 overflow-hidden">
-      <div className="shrink-0 overflow-hidden rounded-xl border border-[#E4E7EC] bg-white shadow-[0_1px_3px_0_rgba(16,24,40,0.06)]">
+      <div className="shrink-0 overflow-hidden rounded-xl border border-line bg-white shadow-[0_1px_3px_0_rgba(16,24,40,0.06)]">
         <div className="flex gap-6 overflow-x-auto border-b border-[#EAECF0] px-4 py-3.5 scrollbar-none sm:px-5">
           {PSP_PROFILE_TABS.map((tab) => (
             <button
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id)}
-              className={`shrink-0 whitespace-nowrap pb-1 text-sm ${
+              className={`shrink-0 whitespace-nowrap pb-1 text-base ${
                 activeTab === tab.id
                   ? "border-b-2 border-redRejected font-semibold text-redRejected"
                   : "font-medium text-[#667085]"
@@ -191,33 +198,53 @@ const PSPIndividualProfileView = () => {
       <div className="flex-1 min-h-0 overflow-y-auto pr-1">
         {activeTab === "overview" && <OverviewTab profile={profile} />}
         {activeTab === "verification" && <VerificationTab />}
-        {activeTab === "performance" && <PlaceholderTab title="Performance" />}
-        {activeTab === "compliance" && <PlaceholderTab title="Compliance" />}
-        {activeTab === "assigned-jobs" && <PlaceholderTab title="Assigned Jobs" />}
-        {activeTab === "ratings" && <PlaceholderTab title="Ratings & Reviews" />}
-        {activeTab === "complaints" && <PlaceholderTab title="Complaints" />}
+        {activeTab === "performance" && <PerformanceTab />}
+        {activeTab === "compliance" && <ComplianceTab />}
+        {activeTab === "assigned-jobs" &&
+          (selectedAssignedJob ? (
+            <AssignedJobDetailPage
+              job={selectedAssignedJob}
+              onBack={() => setSelectedAssignedJob(null)}
+            />
+          ) : (
+            <div className="h-full overflow-hidden">
+              <AssignedJobsTab onOpenCompletedJob={setSelectedAssignedJob} />
+            </div>
+          ))}
+        {activeTab === "ratings" && (
+          <div className="h-full overflow-hidden">
+            <RatingsReviewsTab />
+          </div>
+        )}
+        {activeTab === "complaints" && (
+          <div className="h-full overflow-hidden">
+            <ComplaintsTab />
+          </div>
+        )}
         {activeTab === "earnings" && <PlaceholderTab title="Earnings & Payout" />}
         {activeTab === "availability" && <PlaceholderTab title="Availability" />}
       </div>
 
-      <div className="shrink-0 border-t border-[#EAECF0] bg-pageColor pt-3">
-        <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end sm:gap-3">
-          <button
-            type="button"
-            onClick={() => navigate("/psp-individuals")}
-            className="h-11 rounded-lg border border-redRejected bg-white px-6 text-sm font-semibold text-redRejected transition hover:bg-[#FEF3F2]"
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            className="h-11 rounded-lg bg-redRejected px-6 text-sm font-semibold text-white transition hover:bg-[#D92D20]"
-          >
-            Edit Profile
-          </button>
+      {activeTab === "overview" && (
+        <div className="shrink-0 border-t border-[#EAECF0] bg-pageColor pt-3">
+          <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end sm:gap-3">
+            <button
+              type="button"
+              onClick={() => navigate("/psp-individuals")}
+              className="h-11 rounded-lg border border-redRejected bg-white px-6 text-sm font-semibold text-redRejected transition hover:bg-[#FEF3F2]"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="h-11 rounded-lg bg-redRejected px-6 text-sm font-semibold text-white transition hover:bg-[#D92D20]"
+            >
+              Edit Profile
+            </button>
+          </div>
         </div>
-        <span className="sr-only">Active tab: {tabLabel}</span>
-      </div>
+      )}
+      <span className="sr-only">Active tab: {tabLabel}</span>
     </div>
   );
 };

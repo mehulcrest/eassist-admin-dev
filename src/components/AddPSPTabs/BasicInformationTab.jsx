@@ -17,7 +17,7 @@ const BasicInformationTab = () => {
   return (
     <div className="grid gap-6 xl:grid-cols-[2fr_1.25fr]">
       <div className="space-y-6">
-        <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+        <section className="overflow-hidden rounded-xl border border-line bg-white">
           <div className="border-b border-[#EAECF0] px-4 py-3">
             <h2 className="text-lg font-semibold text-[#1D2939]">Personal Details</h2>
           </div>
@@ -172,7 +172,7 @@ const BasicInformationTab = () => {
           </div>
         </section>
 
-        <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+        <section className="overflow-hidden rounded-xl border border-line bg-white">
           <div className="border-b border-[#EAECF0] px-4 py-3">
             <h2 className="text-lg font-semibold text-[#1D2939]">Introduction & Languages</h2>
           </div>
@@ -207,7 +207,7 @@ const BasicInformationTab = () => {
       </div>
 
       <div>
-        <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+        <section className="overflow-hidden rounded-xl border border-line bg-white">
           <div className="border-b border-[#EAECF0] px-4 py-3">
             <h2 className="text-lg font-semibold text-[#1D2939]">Address</h2>
           </div>

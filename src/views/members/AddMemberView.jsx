@@ -49,7 +49,7 @@ const AddMemberView = () => {
   return (
     <div className="flex h-full flex-col gap-4 overflow-hidden">
       {/* ── Tab bar — scrolls horizontally on very small screens ── */}
-      <div className="overflow-hidden rounded-lg border border-[#E4E7EC] bg-white">
+      <div className="overflow-hidden rounded-lg border border-line bg-white">
         <div className="flex gap-6 overflow-x-auto border-b border-[#EAECF0] px-4 py-3 scrollbar-none">
           <button
             type="button"
@@ -91,7 +91,7 @@ const AddMemberView = () => {
       {activeTab === "basic" ? (
         <>
           <div className="grid gap-6 xl:grid-cols-[2fr_1fr]">
-        <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+        <section className="overflow-hidden rounded-xl border border-line bg-white">
           <div className="border-b border-[#EAECF0] px-4 py-3">
             <h2 className="text-lg font-semibold text-[#1D2939]">Personal Details</h2>
           </div>
@@ -250,7 +250,7 @@ const AddMemberView = () => {
           </div>
         </section>
 
-        <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+        <section className="overflow-hidden rounded-xl border border-line bg-white">
           <div className="border-b border-[#EAECF0] px-4 py-3">
             <h2 className="text-lg font-semibold text-[#1D2939]">Address</h2>
           </div>
@@ -289,7 +289,7 @@ const AddMemberView = () => {
         </section>
           </div>
 
-          <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+          <section className="overflow-hidden rounded-xl border border-line bg-white">
         <div className="flex items-center justify-between border-b border-[#EAECF0] px-4 py-3">
           <h2 className="text-lg font-semibold text-[#1D2939]">Family Contacts</h2>
           <button
@@ -310,7 +310,7 @@ const AddMemberView = () => {
       ) : null}
 
       {activeTab === "care" ? (
-        <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+        <section className="overflow-hidden rounded-xl border border-line bg-white">
           <div className="space-y-6 p-5">
             <p className="text-sm text-[#475467]">
               Define language, mobility level, and care preferences to support better caregiver
@@ -435,7 +435,7 @@ const AddMemberView = () => {
       ) : null}
 
       {activeTab === "plan" ? (
-        <section className="rounded-xl border border-[#E4E7EC] bg-white p-4">
+        <section className="rounded-xl border border-line bg-white p-4">
           <p className="text-sm text-[#475467]">
             The plan determines service-call fees, loyalty points, and platform benefits.
           </p>
@@ -451,7 +451,7 @@ const AddMemberView = () => {
               className={`rounded-xl border p-4 text-left transition ${
                 selectedPlan === "free"
                   ? "border-gradientVia bg-[#FFF5F5]"
-                  : "border-[#E4E7EC] bg-white"
+                  : "border-line bg-white"
               }`}
             >
               <div className="mb-2 flex items-center justify-between">
@@ -491,7 +491,7 @@ const AddMemberView = () => {
               className={`rounded-xl border p-4 text-left transition ${
                 selectedPlan === "premium"
                   ? "border-gradientVia bg-[#FFF5F5]"
-                  : "border-[#E4E7EC] bg-white"
+                  : "border-line bg-white"
               }`}
             >
               <div className="mb-2 flex items-center justify-between">

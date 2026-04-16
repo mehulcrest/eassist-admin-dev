@@ -25,7 +25,7 @@ const MemberProfileView = () => {
 
   return (
     <div className="flex h-full flex-col gap-4 overflow-hidden">
-      <div className="shrink-0 overflow-hidden rounded-lg border border-[#E4E7EC] bg-white">
+      <div className="shrink-0 overflow-hidden rounded-lg border border-line bg-white">
         <div className="flex gap-6 overflow-x-auto border-b border-[#EAECF0] px-4 py-3 scrollbar-none">
           {tabs.map((tab) => (
             <button

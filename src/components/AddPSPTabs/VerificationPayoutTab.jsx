@@ -32,7 +32,7 @@ const VerificationPayoutTab = () => {
   return (
     <div className="grid gap-4 xl:grid-cols-[1fr_1fr]">
       {/* ── Left Column: Verification Documents ── */}
-      <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+      <section className="overflow-hidden rounded-xl border border-line bg-white">
         <div className="border-b border-[#EAECF0] px-4 py-3.5">
           <h2 className="text-[20px] font-semibold text-[#1D2939]">Verification Documents</h2>
         </div>
@@ -44,7 +44,7 @@ const VerificationPayoutTab = () => {
       </section>
 
       {/* ── Right Column: Payout Information ── */}
-      <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+      <section className="overflow-hidden rounded-xl border border-line bg-white">
         <div className="border-b border-[#EAECF0] px-4 py-3.5">
           <h2 className="text-[20px] font-semibold text-[#1D2939]">Payout Information</h2>
         </div>

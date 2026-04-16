@@ -52,7 +52,7 @@ const AvailabilityTab = () => {
   };
 
   return (
-    <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white flex flex-col">
+    <section className="overflow-hidden rounded-xl border border-line bg-white flex flex-col">
       <div className="border-b border-[#EAECF0] px-4 py-4 md:px-6 md:py-5">
         <h2 className="text-lg font-semibold text-[#1D2939]">Weekly Availability</h2>
         <p className="mt-1 text-sm text-[#475467]">

@@ -37,14 +37,14 @@ const AddPSPView = () => {
   return (
     <div className="flex h-full flex-col gap-4 overflow-hidden">
       {/* ── Tab bar — scrolls horizontally on very small screens ── */}
-      <div className="overflow-hidden rounded-lg border border-[#E4E7EC] bg-white shrink-0">
+      <div className="overflow-hidden rounded-lg border border-line bg-white shrink-0">
         <div className="flex gap-6 overflow-x-auto border-b border-[#EAECF0] px-4 py-3 scrollbar-none">
           {TABS.map((tab) => (
             <button
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id)}
-              className={`shrink-0 whitespace-nowrap pb-1 text-sm ${activeTab === tab.id
+              className={`shrink-0 whitespace-nowrap pb-1 text-base ${activeTab === tab.id
                   ? "border-b-2 border-redRejected font-semibold text-redRejected"
                   : "font-medium text-[#667085]"
                 }`}

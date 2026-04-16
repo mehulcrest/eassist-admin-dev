@@ -3,7 +3,7 @@ import { useMemo, useState, useRef, useCallback, useEffect } from "react";
 import userProfile from "../../assets/userProfile.png";
 import SideSheet from "../SideSheet";
 import DateRangePopover from "../DateRangePopover";
-import ComplaintDetailsSheet from "./ComplaintDetailsSheet";
+import ComplaintDetailsSheet from "../shared/ComplaintDetailsSheet";
 import { Table, TableBody, TableEmpty, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 
 const complaintsData = [

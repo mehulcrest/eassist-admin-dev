@@ -78,7 +78,7 @@ const StatusToggle = ({ active, onChange }) => (
     aria-checked={active}
     onClick={() => onChange(!active)}
     className={`relative inline-flex h-6 w-11 shrink-0 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-gradientVia focus-visible:ring-offset-2 ${
-      active ? "bg-[#12B76A]" : "bg-[#E4E7EC]"
+      active ? "bg-[#12B76A]" : "bg-line"
     }`}
   >
     <span
