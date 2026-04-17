@@ -10,6 +10,9 @@ import AssignedJobsTab from "../../components/PspViewTabs/AssignedJobsTab";
 import { AssignedJobDetailPage } from "../../components/PspViewTabs/AssignJobsDetailView";
 import RatingsReviewsTab from "../../components/PspViewTabs/RatingsReviewsTab";
 import ComplaintsTab from "../../components/PspViewTabs/ComplaintsTab";
+import EarningsPayoutTab from "../../components/PspViewTabs/EarningsPayoutTab";
+import AvailabilityScheduleTab from "../../components/PspViewTabs/AvailabilityScheduleTab";
+import ActivityLogTab from "../../components/PspViewTabs/ActivityLogTab";
 
 const PSP_PROFILE_TABS = [
   { id: "overview", label: "Overview" },
@@ -20,7 +23,8 @@ const PSP_PROFILE_TABS = [
   { id: "ratings", label: "Ratings & Reviews" },
   { id: "complaints", label: "Complaints" },
   { id: "earnings", label: "Earnings & Payout" },
-  { id: "availability", label: "Availability" },
+  { id: "availability", label: "Availability & Schedule" },
+  { id: "activity-log", label: "Activity Log" },
 ];
 
 /** Default detail fields when opening profile by URL (no navigation state). */
@@ -192,7 +196,7 @@ const PSPIndividualProfileView = () => {
               {tab.label}
             </button>
           ))}
-        </div>
+        </div>                                                                                                                                
       </div>
 
       <div className="flex-1 min-h-0 overflow-y-auto pr-1">
@@ -212,7 +216,7 @@ const PSPIndividualProfileView = () => {
             </div>
           ))}
         {activeTab === "ratings" && (
-          <div className="h-full overflow-hidden">
+          <div className="md:h-full md:overflow-hidden">
             <RatingsReviewsTab />
           </div>
         )}
@@ -221,8 +225,13 @@ const PSPIndividualProfileView = () => {
             <ComplaintsTab />
           </div>
         )}
-        {activeTab === "earnings" && <PlaceholderTab title="Earnings & Payout" />}
-        {activeTab === "availability" && <PlaceholderTab title="Availability" />}
+        {activeTab === "earnings" && (
+          <div className="h-full overflow-hidden">
+            <EarningsPayoutTab />
+          </div>
+        )}
+        {activeTab === "availability" && <AvailabilityScheduleTab />}
+        {activeTab === "activity-log" && <ActivityLogTab />}
       </div>
 
       {activeTab === "overview" && (

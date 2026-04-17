@@ -57,7 +57,7 @@ const RatingsReviewsTab = () => {
   }, [query]);
 
   return (
-    <div className="flex h-full min-h-0 flex-col gap-3">
+    <div className="flex flex-col gap-3 md:h-full md:min-h-0">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative w-full sm:max-w-[290px]">
           <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
@@ -101,7 +101,7 @@ const RatingsReviewsTab = () => {
         ))}
       </div>
 
-      <div className="min-h-0 flex-1 overflow-y-auto">
+      <div className="md:min-h-0 md:flex-1 md:overflow-y-auto">
         <TableWrapper>
           <Table minWidth="min-w-[1180px]">
           <TableHead>
