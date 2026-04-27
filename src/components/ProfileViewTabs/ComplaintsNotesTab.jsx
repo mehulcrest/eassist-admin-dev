@@ -4,6 +4,7 @@ import userProfile from "../../assets/userProfile.png";
 import SideSheet from "../SideSheet";
 import DateRangePopover from "../DateRangePopover";
 import ComplaintDetailsSheet from "../shared/ComplaintDetailsSheet";
+import StatusBadge from "../ui/StatusBadge";
 import { Table, TableBody, TableEmpty, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 
 const complaintsData = [
@@ -92,20 +93,21 @@ const complaintsData = [
 ];
 
 const getStatusBadge = (status) => {
-  const meta = {
-    "New": { bg: "bg-[#FEF3F2]", text: "text-[#D92D20]" },
-    "Resolved": { bg: "bg-[#ECFDF3]", text: "text-greenVerified" },
-    "In Review": { bg: "bg-[#F2F4F7]", text: "text-[#344054]" },
-    "Refund Issued": { bg: "bg-[#F0F9FF]", text: "text-[#007AFF]" },
-    "Awaiting Refund": { bg: "bg-[#FFFAEB]", text: "text-orangeReview" },
-    "Closed": { bg: "bg-[#ECFDF3]", text: "text-greenVerified" },
-  };
-  const config = meta[status] || meta["In Review"];
-  return (
-    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${config.bg} ${config.text}`}>
-      {status}
-    </span>
-  );
+  const tone =
+    status === "New"
+      ? "new"
+      : status === "Resolved"
+        ? "resolved"
+        : status === "In Review"
+          ? "inReview"
+          : status === "Refund Issued"
+            ? "refundIssued"
+            : status === "Awaiting Refund"
+              ? "pending"
+              : status === "Closed"
+                ? "closed"
+                : "neutral";
+  return <StatusBadge label={status} tone={tone} />;
 };
 
 

@@ -2,6 +2,7 @@ import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
 import logoImage from "../../assets/logo.png";
 import userProfile from "../../assets/userProfile.png";
+import StatusBadge from "../ui/StatusBadge";
 import { Table, TableBody, TableEmpty, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 
 const PAGE_SIZE_OPTIONS = [10, 25, 50];
@@ -218,14 +219,18 @@ const SelectField = ({ value, onChange, options, className = "" }) => (
 
 const ActivityTypeBadge = ({ label }) => {
   const meta = ACTIVITY_TYPE_META[label] ?? ACTIVITY_TYPE_META["System Event"];
+  const tone =
+    meta.bg === "bg-[#ECFDF3]"
+      ? "success"
+      : meta.bg === "bg-[#FEF3F2]"
+        ? "danger"
+        : meta.bg === "bg-[#FFFAEB]"
+          ? "pending"
+          : meta.bg === "bg-[#FFF7ED]"
+            ? "processing"
+            : "neutral";
 
-  return (
-    <span
-      className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${meta.bg} ${meta.text}`}
-    >
-      {label}
-    </span>
-  );
+  return <StatusBadge label={label} tone={tone} className={meta.text} />;
 };
 
 const ActorAvatar = ({ actor }) => {

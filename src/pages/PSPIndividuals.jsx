@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import userProfile from "../assets/userProfile.png";
 import SideSheet from "../components/SideSheet";
+import StatusBadge from "../components/ui/StatusBadge";
 import {
   Table,
   TableBody,
@@ -90,19 +91,21 @@ const StatusToggle = ({ active, onChange }) => (
 );
 
 const VerificationBadge = ({ status }) => {
-  const meta = {
-    "Verified": { bg: "bg-[#ECFDF3]", text: "text-greenVerified" },
-    "Expired Docs": { bg: "bg-[#FEF3F2]", text: "text-redRejected" },
-    "Pending": { bg: "bg-[#FFFAEB]", text: "text-orangeReview" },
-    "Rejected": { bg: "bg-[#EFF8FF]", text: "text-[#175CD3]" },
-  };
-  const config = meta[status] || meta["Pending"];
   return (
-    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium whitespace-nowrap ${config.bg} ${config.text}`}>
-      {status}
-    </span>
+    <StatusBadge
+      label={status}
+      tone={
+        status === "Verified"
+          ? "verified"
+          : status === "Expired Docs"
+            ? "expired"
+            : status === "Pending"
+              ? "pending"
+              : "rejected"
+      }
+    />
   );
-}
+};
 
 const AvailabilityText = ({ status }) => {
   const meta = {

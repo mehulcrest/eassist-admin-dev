@@ -1,26 +1,17 @@
 import { Star, ChevronDown } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import SideSheet from "../SideSheet";
+import StatusBadge from "../ui/StatusBadge";
 import userProfile from "../../assets/userProfile.png";
 
-const STATUS_META = {
-  New: { bg: "bg-[#FEF3F2]", text: "text-[#D92D20]" },
-  Resolved: { bg: "bg-[#ECFDF3]", text: "text-greenVerified" },
-  "In Review": { bg: "bg-[#F2F4F7]", text: "text-[#344054]" },
-  "Refund Issued": { bg: "bg-[#F0F9FF]", text: "text-[#007AFF]" },
-  "Awaiting Refund": { bg: "bg-[#FFFAEB]", text: "text-orangeReview" },
-  Closed: { bg: "bg-[#ECFDF3]", text: "text-greenVerified" },
-};
-
-const StatusBadge = ({ status }) => {
-  const cfg = STATUS_META[status] || STATUS_META["In Review"];
-  return (
-    <span
-      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${cfg.bg} ${cfg.text}`}
-    >
-      {status}
-    </span>
-  );
+const getToneByStatus = (status) => {
+  if (status === "New") return "new";
+  if (status === "Resolved") return "resolved";
+  if (status === "In Review") return "inReview";
+  if (status === "Refund Issued") return "refundIssued";
+  if (status === "Awaiting Refund") return "pending";
+  if (status === "Closed") return "closed";
+  return "neutral";
 };
 
 const RatingStars = ({ rating }) => {
@@ -196,7 +187,7 @@ const ComplaintDetailsSheet = ({ complaint, isOpen, onClose, onAction }) => {
             </DetailRow>
           ) : null}
           <DetailRow label="Status">
-            <StatusBadge status={complaint.status} />
+            <StatusBadge label={complaint.status} tone={getToneByStatus(complaint.status)} />
           </DetailRow>
           <DetailRow label="Rating">
             <div className="flex items-center gap-2">

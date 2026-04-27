@@ -6,6 +6,7 @@ import {
   X,
 } from "lucide-react";
 import userProfile from "../../assets/userProfile.png";
+import StatusBadge from "../../components/ui/StatusBadge";
 
 /* ─────────────────────────────────────────────
    Sub-components
@@ -305,9 +306,7 @@ const CancellationDetailSheet = ({ isOpen, onClose, row }) => {
               <DetailLabel>Location</DetailLabel>
               <div className="mt-0.5 flex items-center gap-2.5">
                 <DetailValue>123 Oak Street, Apt 4B</DetailValue>
-                <span className="inline-flex items-center rounded-full bg-[#F2F4F7] px-2.5 py-0.5 text-xs font-medium text-[#344054]">
-                  {row.location}
-                </span>
+                <StatusBadge label={row.location} tone="neutral" />
               </div>
             </div>
           </div>
@@ -341,9 +340,7 @@ const CancellationDetailSheet = ({ isOpen, onClose, row }) => {
               {/* Inline: date text + red pill — no extra wrapping */}
               <div className="mt-0.5 flex items-center gap-2.5 flex-wrap">
                 <DetailValue>Today, Mar 12, 2026 • 09:00 AM</DetailValue>
-                <span className="inline-flex items-center rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-700">
-                  {row.timeBeforeStart}
-                </span>
+                <StatusBadge label={row.timeBeforeStart} tone="pending" />
               </div>
             </div>
           </div>
@@ -357,12 +354,11 @@ const CancellationDetailSheet = ({ isOpen, onClose, row }) => {
             <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-4 mb-4">
               <div>
                 <DetailLabel>Refund Status</DetailLabel>
-                <span className={`mt-0.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${row.refund === "Full Refund"
-                  ? "bg-[#ECFDF3] text-[#027A48]"
-                  : "bg-[#FEF3F2] text-[#F04438]"
-                  }`}>
-                  {row.refund}
-                </span>
+                <StatusBadge
+                  label={row.refund}
+                  tone={row.refund === "Full Refund" ? "success" : "failed"}
+                  className="mt-0.5"
+                />
               </div>
               <div>
                 <DetailLabel>Refund Amount</DetailLabel>

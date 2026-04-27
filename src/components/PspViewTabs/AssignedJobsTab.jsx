@@ -4,6 +4,7 @@ import AssignJobsDetailView from "./AssignJobsDetailView";
 import SideSheet from "../SideSheet";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 import Button from "../ui/Button";
+import StatusBadge from "../ui/StatusBadge";
 
 const assignedJobsRows = [
   { id: "J001", job: "Grocery Trip Assistance", member: "Margaret Thompson", status: "Completed", date: "Mar 12, 2026", duration: "1.5 hr", time: "02:15 PM - 03:45 PM", earning: "$130.50", rating: "4.5", avatarTone: "bg-[#F2F4F7]" },
@@ -17,13 +18,6 @@ const assignedJobsRows = [
   { id: "J009", job: "House Cleaning", member: "Mary O'Connor", status: "Canceled", date: "Mar 26, 2026", duration: "0.5 hr", time: "10:00 AM - 10:30 PM", earning: "$30.50", rating: "3.9", avatarTone: "bg-[#FCE7F3]" },
   { id: "J010", job: "Doctor Visit", member: "Carlos Rivera", status: "Scheduled", date: "Feb 14, 2026", duration: "1 hr", time: "02:30 PM - 03:30 PM", earning: "$128.50", rating: "4.0", avatarTone: "bg-[#E0F2FE]" },
 ];
-
-const statusPillClass = {
-  Completed: "bg-[#ECFDF3] text-[#039855]",
-  "In Progress": "bg-[#EFF8FF] text-[#2E90FA]",
-  Scheduled: "bg-[#FFFAEB] text-[#DC6803]",
-  Canceled: "bg-[#FEF3F2] text-[#F04438]",
-};
 
 const getInitials = (name) =>
   name
@@ -133,13 +127,20 @@ const AssignedJobsTab = ({ onOpenCompletedJob }) => {
                     </div>
                   </Td>
                   <Td>
-                    <span
-                      className={`inline-flex items-center whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                        statusPillClass[row.status] ?? "bg-[#F2F4F7] text-[#667085]"
-                      }`}
-                    >
-                      {row.status}
-                    </span>
+                    <StatusBadge
+                      label={row.status}
+                      tone={
+                        row.status === "Completed"
+                          ? "success"
+                          : row.status === "In Progress"
+                            ? "inProgress"
+                            : row.status === "Scheduled"
+                              ? "scheduled"
+                              : row.status === "Canceled"
+                                ? "canceled"
+                                : "neutral"
+                      }
+                    />
                   </Td>
                   <Td>
                     <span className="text-sm text-[#667085]">{row.date}</span>

@@ -4,6 +4,7 @@ import userProfile from "../../assets/userProfile.png";
 import ComplaintDetailsSheet from "../shared/ComplaintDetailsSheet";
 import SideSheet from "../SideSheet";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
+import StatusBadge from "../ui/StatusBadge";
 
 const complaintRows = [
   {
@@ -91,15 +92,6 @@ const complaintRows = [
   },
 ];
 
-const statusClass = {
-  New: "bg-[#FEF3F2] text-[#F04438]",
-  Resolved: "bg-[#ECFDF3] text-[#039855]",
-  "In Review": "bg-[#F2F4F7] text-[#667085]",
-  "Refund Issued": "bg-[#EFF8FF] text-[#2E90FA]",
-  "Awaiting Refund": "bg-[#FFFAEB] text-[#DC6803]",
-  Closed: "bg-[#ECFDF3] text-[#039855]",
-};
-
 const ComplaintsTab = () => {
   const [query, setQuery] = useState("");
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
@@ -178,9 +170,22 @@ const ComplaintsTab = () => {
                 <Td>{row.dateReported}</Td>
                 <Td>{row.source}</Td>
                 <Td>
-                  <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${statusClass[row.status]}`}>
-                    {row.status}
-                  </span>
+                  <StatusBadge
+                    label={row.status}
+                    tone={
+                      row.status === "New"
+                        ? "new"
+                        : row.status === "Resolved"
+                          ? "resolved"
+                          : row.status === "In Review"
+                            ? "inReview"
+                            : row.status === "Refund Issued"
+                              ? "refundIssued"
+                              : row.status === "Awaiting Refund"
+                                ? "pending"
+                                : "closed"
+                    }
+                  />
                 </Td>
                 <Td>{row.rating}</Td>
                 <Td className="text-right">

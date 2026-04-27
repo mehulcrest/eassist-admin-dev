@@ -4,6 +4,7 @@ import PayoutDetailSideSheet from "./PayoutDetailSideSheet";
 import SideSheet from "../SideSheet";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 import Button from "../ui/Button";
+import StatusBadge from "../ui/StatusBadge";
 import Switch from "../ui/Switch";
 
 const payoutRows = [
@@ -78,12 +79,6 @@ const payoutRows = [
     status: "Paid",
   },
 ];
-
-const statusClass = {
-  Processing: "bg-[#FFFAEB] text-[#DC6803]",
-  Paid: "bg-[#ECFDF3] text-[#039855]",
-  Failed: "bg-[#FEF3F2] text-[#F04438]",
-};
 
 const metricCards = [
   {
@@ -207,9 +202,16 @@ const EarningsPayoutTab = () => {
                   <Td className="font-semibold text-[#1D2939]">{row.netPayout}</Td>
                   <Td>{row.paymentDate}</Td>
                   <Td>
-                    <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${statusClass[row.status]}`}>
-                      {row.status}
-                    </span>
+                    <StatusBadge
+                      label={row.status}
+                      tone={
+                        row.status === "Processing"
+                          ? "processing"
+                          : row.status === "Paid"
+                            ? "paid"
+                            : "failed"
+                      }
+                    />
                   </Td>
                   <Td className="text-right">
                     <Button

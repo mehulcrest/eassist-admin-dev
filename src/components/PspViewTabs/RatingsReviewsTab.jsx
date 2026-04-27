@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import userProfile from "../../assets/userProfile.png";
 import CreateComplaintSideSheet from "./CreateComplaintSideSheet";
 import SideSheet from "../SideSheet";
+import StatusBadge from "../ui/StatusBadge";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 
 const reviewRows = [
@@ -17,12 +18,6 @@ const reviewRows = [
   { id: "J009", date: "Mar 26, 2026", member: "Mary O'Connor", service: "House Cleaning", rating: 1.0, comment: "Caregiver did not show up on time and no prior notice given.", status: "Flagged" },
   { id: "J010", date: "Feb 14, 2026", member: "Carlos Rivera", service: "Doctor Visit", rating: 4.0, comment: "Good improvement after sessions, therapist was skilled.", status: "Reviewed" },
 ];
-
-const statusClass = {
-  New: "bg-[#F2F4F7] text-[#667085]",
-  Reviewed: "bg-[#EFF8FF] text-[#175CD3]",
-  Flagged: "bg-[#FEF3F2] text-[#F04438]",
-};
 
 const metrics = [
   { label: "Average Rating", value: "4.6", delta: "+1.5%", positive: true },
@@ -139,9 +134,10 @@ const RatingsReviewsTab = () => {
                   <p className="line-clamp-2">{row.comment}</p>
                 </Td>
                 <Td>
-                  <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${statusClass[row.status]}`}>
-                    {row.status}
-                  </span>
+                  <StatusBadge
+                    label={row.status}
+                    tone={row.status === "Reviewed" ? "rejected" : row.status === "Flagged" ? "danger" : "neutral"}
+                  />
                 </Td>
                 <Td className="text-right">
                   <button

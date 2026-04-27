@@ -1,5 +1,6 @@
 import { AlertTriangle, CalendarDays, CheckCircle2, Eye, RefreshCw, Search, SlidersHorizontal } from "lucide-react";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
+import StatusBadge from "../ui/StatusBadge";
 
 const summaryCards = [
   {
@@ -221,9 +222,7 @@ const AvailabilityScheduleTab = () => (
                     </div>
                   </Td>
                   <Td>
-                    <span className="inline-flex rounded-full bg-[#FFFAEB] px-2 py-0.5 text-xs font-medium text-[#DC6803]">
-                      {row[5]}
-                    </span>
+                    <StatusBadge label={row[5]} tone="pending" />
                   </Td>
                   <Td className="text-right">
                     <button type="button" className="inline-flex size-8 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085]">

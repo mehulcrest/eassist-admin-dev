@@ -1,6 +1,7 @@
 import { AlertCircle } from "lucide-react";
 import SideSheet from "../SideSheet";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
+import StatusBadge from "../ui/StatusBadge";
 
 const timelineBase = [
   ["Apr 30", "Period Closed"],
@@ -35,11 +36,6 @@ const PayoutDetailSideSheet = ({ isOpen, onClose, payout }) => {
   const status = payout?.status ?? "Processing";
   const isFailed = status === "Failed";
   const isPaid = status === "Paid";
-  const statusBadgeClass = isFailed
-    ? "bg-[#FEF3F2] text-[#F04438]"
-    : isPaid
-      ? "bg-[#ECFDF3] text-[#039855]"
-      : "bg-[#FFF7ED] text-[#F79009]";
   const timeline = [...timelineBase, [isFailed ? "May 06" : "May 06", isFailed ? "Payout Failed" : "Payout Initiated"]];
 
   return (
@@ -117,9 +113,11 @@ const PayoutDetailSideSheet = ({ isOpen, onClose, payout }) => {
             <div>
               <p className="text-textColor">Payout Status</p>
               <p className="mt-1 inline-flex items-center gap-2 text-sm text-secondaryTextColor">
-                <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-sm font-medium ${statusBadgeClass}`}>
-                  {status}
-                </span>
+                <StatusBadge
+                  label={status}
+                  tone={isFailed ? "failed" : isPaid ? "paid" : "processing"}
+                  size="sm"
+                />
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M10.8333 13.3333H10V10H9.16667M10 6.66667H10.0083M17.5 10C17.5 10.9849 17.306 11.9602 16.9291 12.8701C16.5522 13.7801 15.9997 14.6069 15.3033 15.3033C14.6069 15.9997 13.7801 16.5522 12.8701 16.9291C11.9602 17.306 10.9849 17.5 10 17.5C9.01509 17.5 8.03982 17.306 7.12987 16.9291C6.21993 16.5522 5.39314 15.9997 4.6967 15.3033C4.00026 14.6069 3.44781 13.7801 3.0709 12.8701C2.69399 11.9602 2.5 10.9849 2.5 10C2.5 8.01088 3.29018 6.10322 4.6967 4.6967C6.10322 3.29018 8.01088 2.5 10 2.5C11.9891 2.5 13.8968 3.29018 15.3033 4.6967C16.7098 6.10322 17.5 8.01088 17.5 10Z" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>

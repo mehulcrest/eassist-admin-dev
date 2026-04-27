@@ -11,6 +11,7 @@ import {
   Search,
 } from "lucide-react";
 import SideSheet from "../../components/SideSheet";
+import StatusBadge from "../../components/ui/StatusBadge";
 import InterveneSideSheet from "./InterveneSideSheet";
 import userProfile from "../../assets/userProfile.png";
 
@@ -342,9 +343,11 @@ const TimelineEvent = ({ event, isLast }) => (
             <p className="text-sm text-[#475467]">{event.gpsExtra.line2}</p>
             {event.chip && (
               <div className="mt-1">
-                <span className="inline-flex items-center rounded-full bg-[#F2F4F7] px-3 py-1 text-xs font-medium text-[#344054] border border-[#EAECF0]">
-                  {event.chip}
-                </span>
+                <StatusBadge
+                  label={event.chip}
+                  tone="neutral"
+                  className="border border-[#EAECF0] px-3 py-1"
+                />
               </div>
             )}
           </div>
@@ -386,9 +389,7 @@ const TimelineEvent = ({ event, isLast }) => (
 
       {/* Chip (non-GPS) */}
       {event.chip && !event.gpsExtra && (
-        <span className="mt-3 inline-flex items-center rounded-full bg-[#F2F4F7] px-2.5 py-0.5 text-xs font-medium text-[#344054]">
-          {event.chip}
-        </span>
+        <StatusBadge label={event.chip} tone="neutral" className="mt-3" />
       )}
     </div>
   </div>

@@ -13,6 +13,7 @@ import { useMemo, useState } from "react";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 import ReviewDocumentSideSheet from "./ReviewDocumentSideSheet";
 import Button from "../ui/Button";
+import StatusBadge from "../ui/StatusBadge";
 import Switch from "../ui/Switch";
 import { TabHeader } from "../ui/Tabs";
 
@@ -198,59 +199,41 @@ const verificationRows = [
   },
 ];
 
-const STATUS_PILL_STYLES = {
-  verified: {
-    chipClassName: "bg-[#ECFDF3] text-[#039855]",
-    textClassName: "text-[#039855]",
-    Icon: CheckCircle2,
-    iconClassName: "text-[#12B76A]",
-  },
-  warn: {
-    chipClassName: "bg-[#FFFAEB] text-[#DC6803]",
-    textClassName: "text-[#DC6803]",
-    Icon: AlertTriangle,
-    iconClassName: "text-[#F79009]",
-  },
-  review: {
-    chipClassName: "bg-[#FEF3F2] text-[#F04438]",
-    textClassName: "text-[#F04438]",
-    Icon: X,
-    iconClassName: "text-[#F04438]",
-  },
-  rejected: {
-    chipClassName: "bg-[#EFF8FF] text-[#175CD3]",
-    textClassName: "text-[#175CD3]",
-    Icon: X,
-    iconClassName: "text-[#175CD3]",
-  },
-  expiring: {
-    chipClassName: "bg-[#FFF1F3] text-[#F04438]",
-    textClassName: "text-[#F04438]",
-    Icon: AlertTriangle,
-    iconClassName: "text-[#F04438]",
-  },
-  neutral: {
-    chipClassName: "bg-[#F2F4F7] text-[#667085]",
-    textClassName: "text-[#667085]",
-  },
-};
-
 const StatusPill = ({ label, tone = "verified", showIcon = true, variant = "chip", className = "" }) => {
-  const config = STATUS_PILL_STYLES[tone] ?? STATUS_PILL_STYLES.neutral;
-  const Icon = config.Icon;
-  const baseClass =
-    variant === "text"
-      ? "inline-flex items-center gap-1 text-sm font-medium"
-      : "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-sm font-semibold";
-  const toneClass = variant === "text" ? config.textClassName : config.chipClassName;
-
+  const toneMap = {
+    verified: "verified",
+    warn: "warning",
+    review: "danger",
+    rejected: "rejected",
+    expiring: "expiring",
+    neutral: "neutral",
+  };
+  const iconMap = {
+    verified: CheckCircle2,
+    warn: AlertTriangle,
+    review: X,
+    rejected: X,
+    expiring: AlertTriangle,
+  };
+  const iconColorMap = {
+    verified: "text-[#12B76A]",
+    warn: "text-[#F79009]",
+    review: "text-[#F04438]",
+    rejected: "text-[#175CD3]",
+    expiring: "text-[#F04438]",
+  };
+  const toneKey = toneMap[tone] ?? "neutral";
   return (
-    <span
-      className={`${baseClass} ${toneClass} ${className}`}
-    >
-      {showIcon && Icon ? <Icon size={13} className={config.iconClassName} strokeWidth={2.2} /> : null}
-      {label}
-    </span>
+    <StatusBadge
+      label={label}
+      tone={toneKey}
+      size={variant === "text" ? "xs" : "sm"}
+      textOnly={variant === "text"}
+      showIcon={showIcon}
+      icon={iconMap[tone]}
+      iconClassName={iconColorMap[tone]}
+      className={className}
+    />
   );
 };
 

@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import userProfile from "../../assets/userProfile.png";
 import SideSheet from "../../components/SideSheet";
+import StatusBadge from "../../components/ui/StatusBadge";
 import ActiveJobDetailSheet from "./ActiveJobDetailSheet";
 
 const KPI_DATA = [
@@ -387,9 +388,10 @@ const ActiveTab = ({ renderTabNav }) => {
 
                   {/* Status Column */}
                   <td className={tdClass}>
-                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${job.statusBadgeBg} ${job.statusBadgeText}`}>
-                      {job.statusText}
-                    </span>
+                    <StatusBadge
+                      label={job.statusText}
+                      tone={job.statusText === "In Progress" ? "inProgress" : "warning"}
+                    />
                   </td>
 
                   {/* Actions Column */}
