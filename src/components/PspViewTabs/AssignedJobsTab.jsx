@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import AssignJobsDetailView from "./AssignJobsDetailView";
 import SideSheet from "../SideSheet";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
+import Button from "../ui/Button";
 
 const assignedJobsRows = [
   { id: "J001", job: "Grocery Trip Assistance", member: "Margaret Thompson", status: "Completed", date: "Mar 12, 2026", duration: "1.5 hr", time: "02:15 PM - 03:45 PM", earning: "$130.50", rating: "4.5", avatarTone: "bg-[#F2F4F7]" },
@@ -88,14 +89,15 @@ const AssignedJobsTab = ({ onOpenCompletedJob }) => {
             className="h-10 w-full rounded-lg border border-[#D0D5DD] bg-white pl-9 pr-3 text-sm text-[#344054] placeholder:text-[#98A2B3]"
           />
         </div>
-        <button
-          type="button"
+        <Button
           onClick={() => setIsFiltersOpen(true)}
-          className="inline-flex h-10 items-center gap-2 self-start rounded-lg border border-[#D0D5DD] bg-white px-4 text-sm font-semibold text-[#344054] sm:self-auto"
+          variant="secondary"
+          size="md"
+          className="self-start sm:self-auto"
         >
           <SlidersHorizontal size={16} />
           Filters
-        </button>
+        </Button>
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto p-3 sm:p-4">
@@ -155,14 +157,14 @@ const AssignedJobsTab = ({ onOpenCompletedJob }) => {
                     <span className="text-base font-normal text-[#667085]">{row.rating}</span>
                   </Td>
                   <Td className="text-right">
-                    <button
-                      type="button"
+                    <Button
                       onClick={() => handleViewJob(row)}
-                      className="inline-flex size-8 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085]"
+                      variant="icon"
+                      size="icon"
                       aria-label={`View ${row.id}`}
                     >
                       <Eye size={14} />
-                    </button>
+                    </Button>
                   </Td>
                 </TableRow>
               ))}
@@ -178,19 +180,17 @@ const AssignedJobsTab = ({ onOpenCompletedJob }) => {
         widthClass="w-[430px]"
         footer={(
           <div className="flex items-center gap-3">
-            <button
-              type="button"
-              className="h-11 flex-1 rounded-lg bg-gradient-to-r from-gradientFrom via-gradientVia to-gradientTo px-4 text-sm font-semibold text-white"
-            >
+            <Button variant="primary" size="lg" className="flex-1">
               Apply
-            </button>
-            <button
-              type="button"
+            </Button>
+            <Button
               onClick={() => setIsFiltersOpen(false)}
-              className="h-11 flex-1 rounded-lg border border-[#D0D5DD] bg-white px-4 text-sm font-semibold text-[#344054]"
+              variant="secondary"
+              size="lg"
+              className="flex-1"
             >
               Cancel
-            </button>
+            </Button>
           </div>
         )}
       >

@@ -3,6 +3,8 @@ import { useMemo, useState } from "react";
 import PayoutDetailSideSheet from "./PayoutDetailSideSheet";
 import SideSheet from "../SideSheet";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
+import Button from "../ui/Button";
+import Switch from "../ui/Switch";
 
 const payoutRows = [
   {
@@ -153,14 +155,15 @@ const EarningsPayoutTab = () => {
             className="h-10 w-full rounded-lg border border-[#D0D5DD] bg-white pl-9 pr-3 text-sm text-[#344054] placeholder:text-[#98A2B3]"
           />
         </div>
-        <button
-          type="button"
+        <Button
           onClick={() => setIsFiltersOpen(true)}
-          className="inline-flex h-10 items-center gap-2 self-start rounded-lg border border-[#D0D5DD] bg-white px-4 text-sm font-semibold text-[#344054] sm:self-auto"
+          variant="secondary"
+          size="md"
+          className="self-start sm:self-auto"
         >
           <SlidersHorizontal size={16} />
           Filters
-        </button>
+        </Button>
       </div>
 
       <div className="mb-1 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
@@ -209,17 +212,17 @@ const EarningsPayoutTab = () => {
                     </span>
                   </Td>
                   <Td className="text-right">
-                    <button
-                      type="button"
+                    <Button
                       onClick={() => {
                         setSelectedPayout(row);
                         setIsPayoutDetailOpen(true);
                       }}
-                      className="inline-flex size-8 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085]"
+                      variant="icon"
+                      size="icon"
                       aria-label={`View ${row.payoutId}`}
                     >
                       <Eye size={14} />
-                    </button>
+                    </Button>
                   </Td>
                 </TableRow>
               ))}
@@ -235,19 +238,17 @@ const EarningsPayoutTab = () => {
         widthClass="w-[430px]"
         footer={(
           <div className="flex items-center gap-3">
-            <button
-              type="button"
-              className="h-11 flex-1 rounded-lg bg-gradient-to-r from-gradientFrom via-gradientVia to-gradientTo px-4 text-sm font-semibold text-white"
-            >
+            <Button variant="primary" size="lg" className="flex-1">
               Apply
-            </button>
-            <button
-              type="button"
+            </Button>
+            <Button
               onClick={() => setIsFiltersOpen(false)}
-              className="h-11 flex-1 rounded-lg border border-[#D0D5DD] bg-white px-4 text-sm font-semibold text-[#344054]"
+              variant="secondary"
+              size="lg"
+              className="flex-1"
             >
               Cancel
-            </button>
+            </Button>
           </div>
         )}
       >
@@ -308,20 +309,11 @@ const EarningsPayoutTab = () => {
             <p className="text-sm font-medium text-[#344054]">Show Failed Only</p>
             <p className="text-xs text-[#667085]">Show only Failed Payouts</p>
           </div>
-          <button
-            type="button"
-            onClick={() => setShowFailedOnly((prev) => !prev)}
-            className={`relative inline-flex h-5 w-9 rounded-full transition-colors ${
-              showFailedOnly ? "bg-[#12B76A]" : "bg-[#D0D5DD]"
-            }`}
-            aria-pressed={showFailedOnly}
-          >
-            <span
-              className={`absolute top-0.5 size-4 rounded-full bg-white transition-all ${
-                showFailedOnly ? "left-[18px]" : "left-0.5"
-              }`}
-            />
-          </button>
+          <Switch
+            checked={showFailedOnly}
+            onChange={() => setShowFailedOnly((prev) => !prev)}
+            ariaLabel="Show failed payouts only"
+          />
         </div>
       </SideSheet>
 

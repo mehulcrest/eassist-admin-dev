@@ -12,6 +12,9 @@ import {
 import { useMemo, useState } from "react";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 import ReviewDocumentSideSheet from "./ReviewDocumentSideSheet";
+import Button from "../ui/Button";
+import Switch from "../ui/Switch";
+import { TabHeader } from "../ui/Tabs";
 
 const CARD = "rounded-xl border border-line bg-white shadow-[0_1px_3px_0_rgba(16,24,40,0.06)]";
 const CARD_HEADER = "border-b border-[#EAECF0] px-5 py-4 sm:px-6";
@@ -251,23 +254,6 @@ const StatusPill = ({ label, tone = "verified", showIcon = true, variant = "chip
   );
 };
 
-const Toggle = ({ active, onToggle }) => (
-  <button
-    type="button"
-    onClick={onToggle}
-    className={`relative inline-flex h-5 w-9 rounded-full transition-colors ${
-      active ? "bg-[#12B76A]" : "bg-[#D0D5DD]"
-    }`}
-    aria-pressed={active}
-  >
-    <span
-      className={`absolute top-0.5 size-4 rounded-full bg-white transition-all ${
-        active ? "left-[18px]" : "left-0.5"
-      }`}
-    />
-  </button>
-);
-
 const VerificationTab = () => {
   const [serviceSwitches, setServiceSwitches] = useState(
     Object.fromEntries(serviceDocuments.map((d) => [d.name, d.enabled]))
@@ -359,19 +345,20 @@ const VerificationTab = () => {
                     label={service.badge}
                     tone={service.badgeTone === "green" ? "verified" : service.badgeTone === "amber" ? "warn" : "review"}
                   />
-                  <Toggle
-                    active={serviceSwitches[service.name]}
-                    onToggle={() =>
+                  <Switch
+                    checked={serviceSwitches[service.name]}
+                    onChange={() =>
                       setServiceSwitches((prev) => ({ ...prev, [service.name]: !prev[service.name] }))
                     }
+                    ariaLabel={`${service.name} enabled`}
                   />
-                  <button
-                    type="button"
+                  <Button
                     onClick={() => openReviewSheet(service.name)}
-                    className="h-9 rounded-lg border border-[#D0D5DD] px-4 text-sm font-semibold text-textColor"
+                    variant="secondary"
+                    size="sm"
                   >
                     Review Doc
-                  </button>
+                  </Button>
                 </div>
               </div>
 
@@ -410,30 +397,23 @@ const VerificationTab = () => {
 
         <div className="px-4 py-3 sm:px-5 mb-2">
           <div className="rounded-xl border border-[#EAECF0] bg-white p-2">
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-1">
-              {verificationTabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => setActiveDocTab(tab.id)}
-                  className={`inline-flex items-center gap-1.5 border-b-2 pb-2 text-sm ${
-                    activeDocTab === tab.id
-                      ? "border-[#F04438] font-semibold text-[#F04438]"
-                      : "border-transparent font-medium text-[#667085]"
-                  }`}
-                >
-                  <span>{tab.label}</span>
-                  {tab.note ? (
-                    <StatusPill
-                      label={tab.note}
-                      tone={tab.noteTone === "verified" ? "verified" : "warn"}
-                      showIcon={false}
-                      className="text-xs font-medium"
-                    />
-                  ) : null}
-                </button>
-              ))}
-            </div>
+            <TabHeader
+              tabs={verificationTabs.map((tab) => ({
+                ...tab,
+                renderMeta: tab.note
+                  ? () => (
+                      <StatusPill
+                        label={tab.note}
+                        tone={tab.noteTone === "verified" ? "verified" : "warn"}
+                        showIcon={false}
+                        className="text-xs font-medium"
+                      />
+                    )
+                  : undefined,
+              }))}
+              activeTab={activeDocTab}
+              onChange={setActiveDocTab}
+            />
           </div>
         </div>
 
@@ -449,13 +429,13 @@ const VerificationTab = () => {
                 className="h-10 w-full rounded-lg border border-[#D0D5DD] bg-white pl-9 pr-3 text-sm text-[#344054] placeholder:text-[#98A2B3]"
               />
             </div>
-            <button
-              type="button"
-              className="inline-flex h-10 items-center gap-2 rounded-lg border border-[#D0D5DD] bg-white px-4 text-sm font-semibold text-[#344054]"
+            <Button
+              variant="secondary"
+              size="md"
             >
               <SlidersHorizontal size={16} />
               Filters
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -486,20 +466,20 @@ const VerificationTab = () => {
                     <Td>{row.reviewedBy}</Td>
                     <Td className="text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <button
-                          type="button"
-                          className="inline-flex size-8 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085]"
+                        <Button
+                          variant="icon"
+                          size="icon"
                           aria-label="View"
                         >
                           <Eye size={14} />
-                        </button>
-                        <button
-                          type="button"
-                          className="inline-flex size-8 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085]"
+                        </Button>
+                        <Button
+                          variant="icon"
+                          size="icon"
                           aria-label="More actions"
                         >
                           <MoreHorizontal size={14} />
-                        </button>
+                        </Button>
                       </div>
                     </Td>
                   </TableRow>

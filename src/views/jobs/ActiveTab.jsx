@@ -294,7 +294,7 @@ const ActiveTab = ({ renderTabNav }) => {
       <div className="flex min-h-0 flex-col gap-5 overflow-hidden shrink">
 
         {/* Render Tab Navigation passed parent Layout */}
-        <div className="flex gap-6 rounded-xl border border-[#EAECF0] bg-white px-4 sm:px-6 pt-3 shrink-0 overflow-x-auto scrollbar-hide">
+        <div className="shrink-0">
           {renderTabNav()}
         </div>
 

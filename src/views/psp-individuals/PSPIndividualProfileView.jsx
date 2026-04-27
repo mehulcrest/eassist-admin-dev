@@ -13,6 +13,8 @@ import ComplaintsTab from "../../components/PspViewTabs/ComplaintsTab";
 import EarningsPayoutTab from "../../components/PspViewTabs/EarningsPayoutTab";
 import AvailabilityScheduleTab from "../../components/PspViewTabs/AvailabilityScheduleTab";
 import ActivityLogTab from "../../components/PspViewTabs/ActivityLogTab";
+import Button from "../../components/ui/Button";
+import { TabHeader } from "../../components/ui/Tabs";
 
 const PSP_PROFILE_TABS = [
   { id: "overview", label: "Overview" },
@@ -181,22 +183,11 @@ const PSPIndividualProfileView = () => {
   return (
     <div className="flex h-full flex-col gap-4 overflow-hidden">
       <div className="shrink-0 overflow-hidden rounded-xl border border-line bg-white shadow-[0_1px_3px_0_rgba(16,24,40,0.06)]">
-        <div className="flex gap-6 overflow-x-auto border-b border-[#EAECF0] px-4 py-3.5 scrollbar-none sm:px-5">
-          {PSP_PROFILE_TABS.map((tab) => (
-            <button
-              key={tab.id}
-              type="button"
-              onClick={() => setActiveTab(tab.id)}
-              className={`shrink-0 whitespace-nowrap pb-1 text-base ${
-                activeTab === tab.id
-                  ? "border-b-2 border-redRejected font-semibold text-redRejected"
-                  : "font-medium text-[#667085]"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>                                                                                                                                
+        <TabHeader
+          tabs={PSP_PROFILE_TABS}
+          activeTab={activeTab}
+          onChange={setActiveTab}
+        />
       </div>
 
       <div className="flex-1 min-h-0 overflow-y-auto pr-1">
@@ -237,19 +228,21 @@ const PSPIndividualProfileView = () => {
       {activeTab === "overview" && (
         <div className="shrink-0 border-t border-[#EAECF0] bg-pageColor pt-3">
           <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end sm:gap-3">
-            <button
-              type="button"
+            <Button
               onClick={() => navigate("/psp-individuals")}
-              className="h-11 rounded-lg border border-redRejected bg-white px-6 text-sm font-semibold text-redRejected transition hover:bg-[#FEF3F2]"
+              variant="dangerOutline"
+              size="lg"
+              className="px-6 hover:bg-[#FEF3F2]"
             >
               Cancel
-            </button>
-            <button
-              type="button"
-              className="h-11 rounded-lg bg-redRejected px-6 text-sm font-semibold text-white transition hover:bg-[#D92D20]"
+            </Button>
+            <Button
+              variant="danger"
+              size="lg"
+              className="px-6 hover:bg-[#D92D20]"
             >
               Edit Profile
-            </button>
+            </Button>
           </div>
         </div>
       )}

@@ -5,13 +5,14 @@ import ComplaintsNotesTab from "../../components/ProfileViewTabs/ComplaintsNotes
 import OverviewTab from "../../components/ProfileViewTabs/OverviewTab";
 import ServiceHistoryTab from "../../components/ProfileViewTabs/ServiceHistoryTab";
 import SubscriptionBillingTab from "../../components/ProfileViewTabs/SubscriptionBillingTab";
+import { TabHeader } from "../../components/ui/Tabs";
 
 const tabs = [
-  "Overview",
-  "Service History",
-  "Complaints & Notes",
-  "Subscription & Billing",
-  "Activity Log",
+  { id: "Overview", label: "Overview" },
+  { id: "Service History", label: "Service History" },
+  { id: "Complaints & Notes", label: "Complaints & Notes" },
+  { id: "Subscription & Billing", label: "Subscription & Billing" },
+  { id: "Activity Log", label: "Activity Log" },
 ];
 
 const MemberProfileView = () => {
@@ -26,22 +27,7 @@ const MemberProfileView = () => {
   return (
     <div className="flex h-full flex-col gap-4 overflow-hidden">
       <div className="shrink-0 overflow-hidden rounded-lg border border-line bg-white">
-        <div className="flex gap-6 overflow-x-auto border-b border-[#EAECF0] px-4 py-3 scrollbar-none">
-          {tabs.map((tab) => (
-            <button
-              key={tab}
-              type="button"
-              className={`shrink-0 whitespace-nowrap pb-1 text-base ${
-                activeTab === tab
-                  ? "border-b-2 border-gradientVia font-semibold text-gradientVia"
-                  : "font-medium text-[#667085]"
-              }`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+        <TabHeader tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
       </div>
 
       <div className="flex-1 min-h-0 overflow-hidden">

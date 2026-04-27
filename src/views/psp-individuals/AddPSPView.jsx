@@ -5,6 +5,7 @@ import BasicInformationTab from "../../components/AddPSPTabs/BasicInformationTab
 import ServicesCoverageTab from "../../components/AddPSPTabs/ServicesCoverageTab";
 import AvailabilityTab from "../../components/AddPSPTabs/AvailabilityTab";
 import VerificationPayoutTab from "../../components/AddPSPTabs/VerificationPayoutTab";
+import { TabHeader } from "../../components/ui/Tabs";
 
 const AddPSPView = () => {
   const navigate = useNavigate();
@@ -38,21 +39,7 @@ const AddPSPView = () => {
     <div className="flex h-full flex-col gap-4 overflow-hidden">
       {/* ── Tab bar — scrolls horizontally on very small screens ── */}
       <div className="overflow-hidden rounded-lg border border-line bg-white shrink-0">
-        <div className="flex gap-6 overflow-x-auto border-b border-[#EAECF0] px-4 py-3 scrollbar-none">
-          {TABS.map((tab) => (
-            <button
-              key={tab.id}
-              type="button"
-              onClick={() => setActiveTab(tab.id)}
-              className={`shrink-0 whitespace-nowrap pb-1 text-base ${activeTab === tab.id
-                  ? "border-b-2 border-redRejected font-semibold text-redRejected"
-                  : "font-medium text-[#667085]"
-                }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+        <TabHeader tabs={TABS} activeTab={activeTab} onChange={setActiveTab} />
       </div>
 
       <div className="flex-1 min-h-0 overflow-y-auto pb-2">
