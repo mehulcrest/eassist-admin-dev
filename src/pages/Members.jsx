@@ -126,7 +126,7 @@ const Members = () => {
       {/* ── Toolbar ──────────────────────────────────────────────────────── */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         {/* Search */}
-        <div className="relative flex-1">
+        <div className="relative flex-1 sm:max-w-[320px]">
           <Search
             className="pointer-events-none absolute left-3.5 top-1/2 size-[18px] -translate-y-1/2 text-[#667085]"
             aria-hidden
@@ -206,7 +206,7 @@ const Members = () => {
       */}
       <TableWrapper>
         {/* Scroll container: horizontal + vertical */}
-        <div className="overflow-auto max-h-[calc(100vh-380px)] min-h-[280px]">
+        <div className="overflow-x-auto">
           <Table minWidth="min-w-[1040px]">
             <TableHead>
               <Th>Member Name</Th>

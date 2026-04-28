@@ -28,7 +28,12 @@ const FileUploadRow = ({ label, required = true }) => (
   </div>
 );
 
-const VerificationPayoutTab = () => {
+const VerificationPayoutTab = ({ pspType = "individual" }) => {
+  const isBusiness = pspType === "business";
+  const verificationDocuments = isBusiness
+    ? ["Government ID", "Business Registration", "Professional License", "Address Proof"]
+    : ["Government ID", "Address Proof", "Certifications (if applicable)"];
+
   return (
     <div className="grid gap-4 xl:grid-cols-[1fr_1fr]">
       {/* ── Left Column: Verification Documents ── */}
@@ -37,9 +42,13 @@ const VerificationPayoutTab = () => {
           <h2 className="text-[20px] font-semibold text-[#1D2939]">Verification Documents</h2>
         </div>
         <div className="space-y-4 p-4">
-          <FileUploadRow label="Government ID" />
-          <FileUploadRow label="Address Proof" />
-          <FileUploadRow label="Certifications (if applicable)" required={false} />
+          {verificationDocuments.map((label) => (
+            <FileUploadRow
+              key={label}
+              label={label}
+              required={label !== "Certifications (if applicable)"}
+            />
+          ))}
         </div>
       </section>
 
