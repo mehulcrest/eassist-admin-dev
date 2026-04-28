@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
-import { BriefcaseBusiness, ChevronDown, ChevronLeft, ChevronRight, Eye, Filter, MapPin, Plus, Search } from "lucide-react";
+import { BriefcaseBusiness, ChevronDown, ChevronLeft, ChevronRight, Eye, MapPin, Plus, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import userProfile from "../assets/userProfile.png";
 import SideSheet from "../components/SideSheet";
-import Button from "../components/ui/Button";
+import Button, { FiltersButton } from "../components/ui/Button";
 import StatusBadge from "../components/ui/StatusBadge";
 import Switch from "../components/ui/Switch";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../components/ui/Table";
@@ -99,10 +99,7 @@ const PSPBusinesses = () => {
         </div>
 
         <div className="flex shrink-0 gap-2">
-          <Button variant="secondary" size="md" onClick={() => setIsFilterSheetOpen(true)}>
-            <Filter size={18} className="text-[#667085]" />
-            Filters
-          </Button>
+          <FiltersButton onClick={() => setIsFilterSheetOpen(true)} />
           <Button variant="danger" size="md" onClick={() => navigate("/psp-businesses/new")}>
             <Plus size={18} />
             Add New
@@ -209,7 +206,16 @@ const PSPBusinesses = () => {
                     <Switch checked={row.availability} ariaLabel={`Toggle ${row.name} status`} />
                   </Td>
                   <Td>
-                    <Button variant="icon" size="icon" aria-label={`View ${row.name}`}>
+                    <Button
+                      variant="icon"
+                      size="icon"
+                      aria-label={`View ${row.name}`}
+                      onClick={() =>
+                        navigate(`/psp-businesses/${encodeURIComponent(row.id)}`, {
+                          state: { psp: row },
+                        })
+                      }
+                    >
                       <Eye size={16} />
                     </Button>
                   </Td>

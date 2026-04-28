@@ -8,7 +8,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Eye,
-  Filter,
   Gem,
   Mail,
   MapPin,
@@ -20,6 +19,7 @@ import {
 } from "lucide-react";
 import userProfile from "../assets/userProfile.png";
 import SideSheet from "../components/SideSheet";
+import { FiltersButton } from "../components/ui/Button";
 import {
   Table,
   TableBody,
@@ -146,14 +146,7 @@ const Members = () => {
 
         {/* Action buttons */}
         <div className="flex shrink-0 gap-2">
-          <button
-            type="button"
-            onClick={() => setIsFilterSheetOpen(true)}
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-[#D0D5DD] bg-white px-4 py-2.5 text-sm font-semibold text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] sm:flex-none"
-          >
-            <Filter size={18} className="shrink-0 text-[#667085]" strokeWidth={2} />
-            Filters
-          </button>
+          <FiltersButton onClick={() => setIsFilterSheetOpen(true)} className="flex-1 sm:flex-none" />
           <button
             type="button"
             onClick={() => navigate("/members/new")}

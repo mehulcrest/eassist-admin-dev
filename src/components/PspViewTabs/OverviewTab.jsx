@@ -117,7 +117,8 @@ const SUSPEND_REASONS = [
 
 const PROFILE_MORE_ACTIONS = ["Reset Password", "Mark as Verified", "Download Profile"];
 
-const OverviewTab = ({ profile }) => {
+const OverviewTab = ({ profile, profileType = "individual" }) => {
+  const isBusiness = profileType === "business";
   const [accountActive, setAccountActive] = useState(profile.active !== false);
   const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
   const [isSuspendSheetOpen, setIsSuspendSheetOpen] = useState(false);
@@ -159,13 +160,17 @@ const OverviewTab = ({ profile }) => {
           {/* Personal Details */}
           <div className={`${CARD} overflow-hidden`}>
             <div className={CARD_HEADER}>
-              <h2 className="text-lg font-semibold text-[#101828]">Personal Details</h2>
+              <h2 className="text-lg font-semibold text-[#101828]">
+                {isBusiness ? "Business Details" : "Personal Details"}
+              </h2>
             </div>
 
             <div className={CARD_BODY}>
               <div className="flex items-start justify-between gap-4">
                 <div className="shrink-0">
-                  <p className="mb-2 text-sm font-medium text-[#101828]">Profile Photo</p>
+                  <p className="mb-2 text-sm font-medium text-[#101828]">
+                    {isBusiness ? "Business Logo" : "Profile Photo"}
+                  </p>
                   <div className="relative w-fit">
                     <img
                       src={profile.avatar}
@@ -232,14 +237,29 @@ const OverviewTab = ({ profile }) => {
 
               <div className="mt-4 space-y-5">
                 <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
-                  <DetailField label="Full Name">{profile.name}</DetailField>
+                  <DetailField label={isBusiness ? "Business Name" : "Full Name"}>
+                    {profile.name}
+                  </DetailField>
                   <DetailField label="PSP ID">{profile.id}</DetailField>
                   <DetailField label="Phone">{profile.phone}</DetailField>
                   <DetailField label="Email">{profile.email}</DetailField>
-                  <DetailField label="Gender">{profile.gender}</DetailField>
-                  <DetailField label="Date of Birth">
-                    {profile.dateOfBirth} ({profile.ageYears} Years)
-                  </DetailField>
+                  {isBusiness ? (
+                    <>
+                      <DetailField label="Industry Type">
+                        {profile.industryType ?? profile.type ?? "General Services"}
+                      </DetailField>
+                      <DetailField label="Business Category">
+                        {profile.businessCategory ?? "Service Provider"}
+                      </DetailField>
+                    </>
+                  ) : (
+                    <>
+                      <DetailField label="Gender">{profile.gender}</DetailField>
+                      <DetailField label="Date of Birth">
+                        {profile.dateOfBirth} ({profile.ageYears} Years)
+                      </DetailField>
+                    </>
+                  )}
                 </div>
 
                 <div>
@@ -329,7 +349,9 @@ const OverviewTab = ({ profile }) => {
         <div className="flex flex-col gap-5">
           <div className={`${CARD}`}>
             <div className={`${CARD_HEADER}`}>
-              <h2 className="text-lg font-semibold text-[#101828]">Home Address</h2>
+              <h2 className="text-lg font-semibold text-[#101828]">
+                {isBusiness ? "Business Address" : "Home Address"}
+              </h2>
             </div>
             <div className={`${CARD_BODY} space-y-4`}>
               <DetailField label="Street Address">{profile.address.street}</DetailField>

@@ -1,10 +1,11 @@
-import { ArrowDown, ArrowUp, Check, ChevronDown, Eye, Flag, Plus, Search, SlidersHorizontal, Star } from "lucide-react";
+import { ArrowDown, ArrowUp, Check, ChevronDown, Eye, Flag, Plus, Search, Star } from "lucide-react";
 import { useMemo, useState } from "react";
 import userProfile from "../../assets/userProfile.png";
 import CreateComplaintSideSheet from "./CreateComplaintSideSheet";
 import SideSheet from "../SideSheet";
 import StatusBadge from "../ui/StatusBadge";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
+import Button, { FiltersButton } from "../ui/Button";
 
 const reviewRows = [
   { id: "J001", date: "Mar 12, 2026", member: "Margaret Thompson", service: "Grocery Trip Assistance", rating: 4.5, comment: "Maria is always punctual, attentive, and caring. She assist me with my grocery needs.", status: "New" },
@@ -64,14 +65,7 @@ const RatingsReviewsTab = () => {
             className="h-10 w-full rounded-lg border border-[#D0D5DD] bg-white pl-9 pr-3 text-sm text-[#344054] placeholder:text-[#98A2B3]"
           />
         </div>
-        <button
-          type="button"
-          onClick={() => setIsFiltersOpen(true)}
-          className="inline-flex h-10 items-center gap-2 self-start rounded-lg border border-[#D0D5DD] bg-white px-4 text-sm font-semibold text-[#344054] sm:self-auto"
-        >
-          <SlidersHorizontal size={16} />
-          Filters
-        </button>
+        <FiltersButton onClick={() => setIsFiltersOpen(true)} className="self-start sm:self-auto" />
       </div>
 
       <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
@@ -140,7 +134,7 @@ const RatingsReviewsTab = () => {
                   />
                 </Td>
                 <Td className="text-right">
-                  <button
+                  <Button
                     type="button"
                     onClick={() => {
                       setSelectedReview(row);
@@ -148,11 +142,12 @@ const RatingsReviewsTab = () => {
                       setIsActionMenuOpen(false);
                       setIsTimelineSheetOpen(false);
                     }}
-                    className="inline-flex size-8 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085]"
+                    variant="icon"
+                    size="icon"
                     aria-label={`View review ${row.id}`}
                   >
                     <Eye size={14} />
-                  </button>
+                  </Button>
                 </Td>
               </TableRow>
             ))}

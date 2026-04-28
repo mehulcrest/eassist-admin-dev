@@ -32,8 +32,12 @@ const Navbar = ({ onMenuClick }) => {
   const isAddPSPPage = pathname === "/psp-individuals/new";
   const isPSPProfilePage =
     pathname.startsWith("/psp-individuals/") && pathname !== "/psp-individuals/new";
+  const isAddPSPBusinessPage = pathname === "/psp-businesses/new";
+  const isPSPBusinessProfilePage =
+    pathname.startsWith("/psp-businesses/") && pathname !== "/psp-businesses/new";
   const memberName = state?.member?.name ?? "Member Profile";
   const pspName = state?.psp?.name ?? "PSP Profile";
+  const pspBusinessName = state?.psp?.name ?? "PSP Business Profile";
 
   // Handle click outside to close dropdown
   useEffect(() => {
@@ -97,6 +101,22 @@ const Navbar = ({ onMenuClick }) => {
           </Link>
           <span className="px-1 text-[#667085]">|</span>
           <span className="truncate font-semibold text-[#101828]">{pspName}</span>
+        </div>
+      ) : isAddPSPBusinessPage ? (
+        <div className="shrink-0 text-base sm:text-lg">
+          <Link to="/psp-businesses" className="font-medium text-[#667085] underline">
+            PSP Businesses
+          </Link>
+          <span className="px-1 text-[#667085]">|</span>
+          <span className="font-semibold text-[#101828]">Add New</span>
+        </div>
+      ) : isPSPBusinessProfilePage ? (
+        <div className="min-w-0 flex-1 text-base sm:text-lg">
+          <Link to="/psp-businesses" className="font-medium text-[#667085] underline">
+            PSP Businesses
+          </Link>
+          <span className="px-1 text-[#667085]">|</span>
+          <span className="truncate font-semibold text-[#101828]">{pspBusinessName}</span>
         </div>
       ) : (
         <h2 className="shrink-0 text-lg font-semibold text-[#101828] sm:text-xl">

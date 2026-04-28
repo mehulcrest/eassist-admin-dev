@@ -1,3 +1,5 @@
+import { SlidersHorizontal } from "lucide-react";
+
 const VARIANT_CLASS = {
   primary:
     "bg-gradient-to-r from-gradientFrom via-gradientVia to-gradientTo text-white border border-transparent",
@@ -34,5 +36,14 @@ export default function Button({
     >
       {children}
     </button>
+  );
+}
+
+export function FiltersButton({ children = "Filters", className = "", ...props }) {
+  return (
+    <Button variant="secondary" size="md" className={className} {...props}>
+      <SlidersHorizontal size={16} />
+      {children}
+    </Button>
   );
 }

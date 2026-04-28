@@ -1,9 +1,9 @@
-import { CalendarDays, ChevronDown, Eye, Search, SlidersHorizontal } from "lucide-react";
+import { CalendarDays, ChevronDown, Eye, Search } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import AssignJobsDetailView from "./AssignJobsDetailView";
 import SideSheet from "../SideSheet";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
-import Button from "../ui/Button";
+import Button, { FiltersButton } from "../ui/Button";
 import StatusBadge from "../ui/StatusBadge";
 
 const assignedJobsRows = [
@@ -83,15 +83,7 @@ const AssignedJobsTab = ({ onOpenCompletedJob }) => {
             className="h-10 w-full rounded-lg border border-[#D0D5DD] bg-white pl-9 pr-3 text-sm text-[#344054] placeholder:text-[#98A2B3]"
           />
         </div>
-        <Button
-          onClick={() => setIsFiltersOpen(true)}
-          variant="secondary"
-          size="md"
-          className="self-start sm:self-auto"
-        >
-          <SlidersHorizontal size={16} />
-          Filters
-        </Button>
+        <FiltersButton onClick={() => setIsFiltersOpen(true)} className="self-start sm:self-auto" />
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto p-3 sm:p-4">

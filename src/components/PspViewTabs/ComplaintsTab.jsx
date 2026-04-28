@@ -1,9 +1,10 @@
-import { CalendarDays, ChevronDown, Eye, Search, SlidersHorizontal } from "lucide-react";
+import { CalendarDays, ChevronDown, Eye, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import userProfile from "../../assets/userProfile.png";
 import ComplaintDetailsSheet from "../shared/ComplaintDetailsSheet";
 import SideSheet from "../SideSheet";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
+import Button, { FiltersButton } from "../ui/Button";
 import StatusBadge from "../ui/StatusBadge";
 
 const complaintRows = [
@@ -129,14 +130,7 @@ const ComplaintsTab = () => {
             className="h-10 w-full rounded-lg border border-[#D0D5DD] bg-white pl-9 pr-3 text-sm text-[#344054] placeholder:text-[#98A2B3]"
           />
         </div>
-        <button
-          type="button"
-          onClick={() => setIsFiltersOpen(true)}
-          className="inline-flex h-10 items-center gap-2 self-start rounded-lg border border-[#D0D5DD] bg-white px-4 text-sm font-semibold text-[#344054] sm:self-auto"
-        >
-          <SlidersHorizontal size={16} />
-          Filters
-        </button>
+        <FiltersButton onClick={() => setIsFiltersOpen(true)} className="self-start sm:self-auto" />
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto">
@@ -189,7 +183,7 @@ const ComplaintsTab = () => {
                 </Td>
                 <Td>{row.rating}</Td>
                 <Td className="text-right">
-                  <button
+                  <Button
                     type="button"
                     onClick={() => {
                       setSelectedComplaint({
@@ -202,11 +196,12 @@ const ComplaintsTab = () => {
                       });
                       setIsViewSheetOpen(true);
                     }}
-                    className="inline-flex size-8 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085]"
+                    variant="icon"
+                    size="icon"
                     aria-label={`View complaint ${row.id}`}
                   >
                     <Eye size={14} />
-                  </button>
+                  </Button>
                 </Td>
               </TableRow>
             ))}

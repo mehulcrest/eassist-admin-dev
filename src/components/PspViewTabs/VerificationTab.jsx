@@ -5,14 +5,13 @@ import {
   Eye,
   MoreHorizontal,
   Search,
-  SlidersHorizontal,
   TriangleAlert,
   X,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 import ReviewDocumentSideSheet from "./ReviewDocumentSideSheet";
-import Button from "../ui/Button";
+import Button, { FiltersButton } from "../ui/Button";
 import StatusBadge from "../ui/StatusBadge";
 import Switch from "../ui/Switch";
 import { TabHeader } from "../ui/Tabs";
@@ -412,13 +411,7 @@ const VerificationTab = () => {
                 className="h-10 w-full rounded-lg border border-[#D0D5DD] bg-white pl-9 pr-3 text-sm text-[#344054] placeholder:text-[#98A2B3]"
               />
             </div>
-            <Button
-              variant="secondary"
-              size="md"
-            >
-              <SlidersHorizontal size={16} />
-              Filters
-            </Button>
+            <FiltersButton />
           </div>
         </div>
 

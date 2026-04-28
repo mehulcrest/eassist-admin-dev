@@ -1,6 +1,7 @@
-import { AlertTriangle, CalendarDays, CheckCircle2, Eye, RefreshCw, Search, SlidersHorizontal } from "lucide-react";
+import { AlertTriangle, CalendarDays, CheckCircle2, Eye, RefreshCw, Search } from "lucide-react";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 import StatusBadge from "../ui/StatusBadge";
+import Button, { FiltersButton } from "../ui/Button";
 
 const summaryCards = [
   {
@@ -180,13 +181,7 @@ const AvailabilityScheduleTab = () => (
             className="h-10 w-full rounded-lg border border-[#D0D5DD] bg-white pl-9 pr-3 text-sm text-[#344054] placeholder:text-[#98A2B3]"
           />
         </div>
-        <button
-          type="button"
-          className="inline-flex h-10 items-center gap-2 self-start rounded-lg border border-[#D0D5DD] bg-white px-4 text-sm font-semibold text-[#344054] sm:self-auto"
-        >
-          <SlidersHorizontal size={16} />
-          Filters
-        </button>
+        <FiltersButton className="self-start sm:self-auto" />
       </div>
 
       <div className="rounded-xl border border-[#EAECF0] bg-white shadow-[0_1px_3px_0_rgba(16,24,40,0.06)]">
@@ -225,9 +220,9 @@ const AvailabilityScheduleTab = () => (
                     <StatusBadge label={row[5]} tone="pending" />
                   </Td>
                   <Td className="text-right">
-                    <button type="button" className="inline-flex size-8 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085]">
+                    <Button type="button" variant="icon" size="icon">
                       <Eye size={14} />
-                    </button>
+                    </Button>
                   </Td>
                 </TableRow>
               ))}

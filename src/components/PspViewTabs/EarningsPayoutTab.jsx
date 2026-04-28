@@ -1,9 +1,9 @@
-import { AlertTriangle, CalendarDays, CircleDollarSign, Clock3, Eye, Search, SlidersHorizontal } from "lucide-react";
+import { AlertTriangle, CalendarDays, CircleDollarSign, Clock3, Eye, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import PayoutDetailSideSheet from "./PayoutDetailSideSheet";
 import SideSheet from "../SideSheet";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
-import Button from "../ui/Button";
+import Button, { FiltersButton } from "../ui/Button";
 import StatusBadge from "../ui/StatusBadge";
 import Switch from "../ui/Switch";
 
@@ -150,15 +150,7 @@ const EarningsPayoutTab = () => {
             className="h-10 w-full rounded-lg border border-[#D0D5DD] bg-white pl-9 pr-3 text-sm text-[#344054] placeholder:text-[#98A2B3]"
           />
         </div>
-        <Button
-          onClick={() => setIsFiltersOpen(true)}
-          variant="secondary"
-          size="md"
-          className="self-start sm:self-auto"
-        >
-          <SlidersHorizontal size={16} />
-          Filters
-        </Button>
+        <FiltersButton onClick={() => setIsFiltersOpen(true)} className="self-start sm:self-auto" />
       </div>
 
       <div className="mb-1 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
