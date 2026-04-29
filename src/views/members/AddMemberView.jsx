@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { CalendarDays, Check, ChevronDown, Eye, EyeOff, Gem, UploadCloud } from "lucide-react";
 import SideSheet from "../../components/SideSheet";
+import { TabHeader } from "../../components/ui/Tabs";
 
 const inputClassName =
   "h-10 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 text-sm text-[#344054] placeholder:text-[#98A2B3] focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia";
@@ -29,6 +30,11 @@ const medicalSensitivityOptions = [
   "Dementia",
   "Other",
 ];
+const ADD_MEMBER_TABS = [
+  { id: "basic", label: "Basic Information" },
+  { id: "care", label: "Care Preferences" },
+  { id: "plan", label: "Subscription Plan" },
+];
 
 const AddMemberView = () => {
   const [isFamilySheetOpen, setIsFamilySheetOpen] = useState(false);
@@ -49,49 +55,15 @@ const AddMemberView = () => {
   return (
     <div className="flex h-full flex-col gap-4 overflow-hidden">
       {/* ── Tab bar — scrolls horizontally on very small screens ── */}
-      <div className="overflow-hidden rounded-lg border border-[#E4E7EC] bg-white">
-        <div className="flex gap-6 overflow-x-auto border-b border-[#EAECF0] px-4 py-3 scrollbar-none">
-          <button
-            type="button"
-            onClick={() => setActiveTab("basic")}
-            className={`shrink-0 whitespace-nowrap pb-1 text-sm ${
-              activeTab === "basic"
-                ? "border-b-2 border-gradientVia font-semibold text-gradientVia"
-                : "font-medium text-[#667085]"
-            }`}
-          >
-            Basic Information
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab("care")}
-            className={`shrink-0 whitespace-nowrap pb-1 text-sm ${
-              activeTab === "care"
-                ? "border-b-2 border-gradientVia font-semibold text-gradientVia"
-                : "font-medium text-[#667085]"
-            }`}
-          >
-            Care Preferences
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab("plan")}
-            className={`shrink-0 whitespace-nowrap pb-1 text-sm ${
-              activeTab === "plan"
-                ? "border-b-2 border-gradientVia font-semibold text-gradientVia"
-                : "font-medium text-[#667085]"
-            }`}
-          >
-            Subscription Plan
-          </button>
-        </div>
+      <div className="overflow-hidden rounded-lg border border-line bg-white">
+        <TabHeader tabs={ADD_MEMBER_TABS} activeTab={activeTab} onChange={setActiveTab} />
       </div>
 
       <div className="flex-1 min-h-0 overflow-y-auto pb-2">
       {activeTab === "basic" ? (
         <>
           <div className="grid gap-6 xl:grid-cols-[2fr_1fr]">
-        <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+        <section className="overflow-hidden rounded-xl border border-line bg-white">
           <div className="border-b border-[#EAECF0] px-4 py-3">
             <h2 className="text-lg font-semibold text-[#1D2939]">Personal Details</h2>
           </div>
@@ -250,7 +222,7 @@ const AddMemberView = () => {
           </div>
         </section>
 
-        <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+        <section className="overflow-hidden rounded-xl border border-line bg-white">
           <div className="border-b border-[#EAECF0] px-4 py-3">
             <h2 className="text-lg font-semibold text-[#1D2939]">Address</h2>
           </div>
@@ -289,7 +261,7 @@ const AddMemberView = () => {
         </section>
           </div>
 
-          <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+          <section className="overflow-hidden rounded-xl border border-line bg-white">
         <div className="flex items-center justify-between border-b border-[#EAECF0] px-4 py-3">
           <h2 className="text-lg font-semibold text-[#1D2939]">Family Contacts</h2>
           <button
@@ -310,7 +282,7 @@ const AddMemberView = () => {
       ) : null}
 
       {activeTab === "care" ? (
-        <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+        <section className="overflow-hidden rounded-xl border border-line bg-white">
           <div className="space-y-6 p-5">
             <p className="text-sm text-[#475467]">
               Define language, mobility level, and care preferences to support better caregiver
@@ -435,7 +407,7 @@ const AddMemberView = () => {
       ) : null}
 
       {activeTab === "plan" ? (
-        <section className="rounded-xl border border-[#E4E7EC] bg-white p-4">
+        <section className="rounded-xl border border-line bg-white p-4">
           <p className="text-sm text-[#475467]">
             The plan determines service-call fees, loyalty points, and platform benefits.
           </p>
@@ -451,7 +423,7 @@ const AddMemberView = () => {
               className={`rounded-xl border p-4 text-left transition ${
                 selectedPlan === "free"
                   ? "border-gradientVia bg-[#FFF5F5]"
-                  : "border-[#E4E7EC] bg-white"
+                  : "border-line bg-white"
               }`}
             >
               <div className="mb-2 flex items-center justify-between">
@@ -491,7 +463,7 @@ const AddMemberView = () => {
               className={`rounded-xl border p-4 text-left transition ${
                 selectedPlan === "premium"
                   ? "border-gradientVia bg-[#FFF5F5]"
-                  : "border-[#E4E7EC] bg-white"
+                  : "border-line bg-white"
               }`}
             >
               <div className="mb-2 flex items-center justify-between">

@@ -1,30 +1,19 @@
 import { Star, ChevronDown } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import SideSheet from "../SideSheet";
+import StatusBadge from "../ui/StatusBadge";
 import userProfile from "../../assets/userProfile.png";
 
-/* ── Status badge ──────────────────────────────────────────────────────────── */
-const STATUS_META = {
-  New: { bg: "bg-[#FEF3F2]", text: "text-[#D92D20]" },
-  Resolved: { bg: "bg-[#ECFDF3]", text: "text-greenVerified" },
-  "In Review": { bg: "bg-[#F2F4F7]", text: "text-[#344054]" },
-  "Refund Issued": { bg: "bg-[#F0F9FF]", text: "text-[#007AFF]" },
-  "Awaiting Refund": { bg: "bg-[#FFFAEB]", text: "text-orangeReview" },
-  Closed: { bg: "bg-[#ECFDF3]", text: "text-greenVerified" },
+const getToneByStatus = (status) => {
+  if (status === "New") return "new";
+  if (status === "Resolved") return "resolved";
+  if (status === "In Review") return "inReview";
+  if (status === "Refund Issued") return "refundIssued";
+  if (status === "Awaiting Refund") return "pending";
+  if (status === "Closed") return "closed";
+  return "neutral";
 };
 
-const StatusBadge = ({ status }) => {
-  const cfg = STATUS_META[status] || STATUS_META["In Review"];
-  return (
-    <span
-      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${cfg.bg} ${cfg.text}`}
-    >
-      {status}
-    </span>
-  );
-};
-
-/* ── Star rating row ───────────────────────────────────────────────────────── */
 const RatingStars = ({ rating }) => {
   const num = Number(rating);
   return (
@@ -45,7 +34,6 @@ const RatingStars = ({ rating }) => {
   );
 };
 
-/* ── Detail row ────────────────────────────────────────────────────────────── */
 const DetailRow = ({ label, children }) => (
   <div>
     <p className="mb-1 text-sm font-semibold text-[#101828]">{label}</p>
@@ -53,8 +41,7 @@ const DetailRow = ({ label, children }) => (
   </div>
 );
 
-/* ── Take-Action dropdown ──────────────────────────────────────────────────── */
-const ACTION_ITEMS = [
+const DEFAULT_ACTION_ITEMS = [
   "Mark In Review",
   "Update Status",
   "Contact PSP",
@@ -62,11 +49,18 @@ const ACTION_ITEMS = [
   "Close Complaint",
 ];
 
-const TakeActionButton = ({ onAction }) => {
+const REFUND_ACTION_ITEMS = [
+  "Mark In Review",
+  "Request Refund Approval",
+  "Issue Refund",
+  "Contact PSP",
+  "Close Complaint",
+];
+
+const TakeActionButton = ({ onAction, actionItems }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
-  /* close on outside click */
   useEffect(() => {
     const handler = (e) => {
       if (ref.current && !ref.current.contains(e.target)) setOpen(false);
@@ -82,23 +76,20 @@ const TakeActionButton = ({ onAction }) => {
 
   return (
     <div className="relative flex-1" ref={ref}>
-      {/* Dropdown menu — renders ABOVE the button */}
       {open && (
         <div className="absolute bottom-[calc(100%+6px)] left-0 w-full overflow-hidden rounded-xl border border-[#EAECF0] bg-white shadow-lg">
-          {ACTION_ITEMS.map((item, idx) => (
+          {actionItems.map((item) => (
             <button
               key={item}
               type="button"
               onClick={() => handleSelect(item)}
-              className={`w-full px-4 py-3 text-left text-sm text-[#344054] transition-colors hover:bg-[#F9FAFB] }`}
+              className="w-full px-4 py-3 text-left text-sm text-[#344054] transition-colors hover:bg-[#F9FAFB]"
             >
               {item}
             </button>
           ))}
         </div>
       )}
-
-      {/* Button */}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -115,16 +106,19 @@ const TakeActionButton = ({ onAction }) => {
   );
 };
 
-/* ── Main exported component ───────────────────────────────────────────────── */
 const ComplaintDetailsSheet = ({ complaint, isOpen, onClose, onAction }) => {
+  const isAwaitingRefund = complaint?.status === "Awaiting Refund";
+  const sheetTitle = isAwaitingRefund ? "Awaiting Refund Details" : "View Complaint Details";
+  const actionItems = isAwaitingRefund ? REFUND_ACTION_ITEMS : DEFAULT_ACTION_ITEMS;
+
   return (
     <SideSheet
       isOpen={isOpen}
       onClose={onClose}
-      title="View Complaint Details"
+      title={sheetTitle}
       footer={
         <div className="flex gap-3">
-          <TakeActionButton onAction={onAction} />
+          <TakeActionButton onAction={onAction} actionItems={actionItems} />
           <button
             type="button"
             onClick={onClose}
@@ -137,12 +131,9 @@ const ComplaintDetailsSheet = ({ complaint, isOpen, onClose, onAction }) => {
     >
       {complaint && (
         <div className="space-y-5">
-          {/* Complaint ID */}
           <DetailRow label="Complaint ID">
             <p className="text-sm text-secondaryTextColor">{complaint.id}</p>
           </DetailRow>
-
-          {/* Caregiver */}
           <DetailRow label="Caregiver">
             <div className="flex items-center gap-2">
               <img
@@ -155,30 +146,20 @@ const ComplaintDetailsSheet = ({ complaint, isOpen, onClose, onAction }) => {
               </span>
             </div>
           </DetailRow>
-
-          {/* Service */}
           <DetailRow label="Service">
             <p className="text-sm text-secondaryTextColor">{complaint.service}</p>
           </DetailRow>
-
-          {/* Date */}
           <DetailRow label="Date">
             <p className="text-sm text-secondaryTextColor">{complaint.date}</p>
           </DetailRow>
-
-          {/* Issue Type */}
           <DetailRow label="Issue Type">
             <p className="text-sm text-secondaryTextColor">{complaint.issueType}</p>
           </DetailRow>
-
-          {/* Issue Details */}
           <DetailRow label="Issue Details">
             <p className="whitespace-pre-line text-sm leading-relaxed text-secondaryTextColor">
               {complaint.issueDetails}
             </p>
           </DetailRow>
-
-          {/* Images – only shown when present */}
           {complaint.images?.length > 0 && (
             <DetailRow label="Images">
               <div className="grid grid-cols-3 gap-2">
@@ -197,18 +178,17 @@ const ComplaintDetailsSheet = ({ complaint, isOpen, onClose, onAction }) => {
               </div>
             </DetailRow>
           )}
-
-          {/* Requested Resolution */}
           <DetailRow label="Requested Resolution">
             <p className="text-sm text-secondaryTextColor">{complaint.requestedResolution}</p>
           </DetailRow>
-
-          {/* Status */}
+          {isAwaitingRefund ? (
+            <DetailRow label="Refund Tracking">
+              <p className="text-sm text-secondaryTextColor">Awaiting finance team review and approval.</p>
+            </DetailRow>
+          ) : null}
           <DetailRow label="Status">
-            <StatusBadge status={complaint.status} />
+            <StatusBadge label={complaint.status} tone={getToneByStatus(complaint.status)} />
           </DetailRow>
-
-          {/* Rating */}
           <DetailRow label="Rating">
             <div className="flex items-center gap-2">
               <span className="text-sm text-secondaryTextColor">{complaint.rating}</span>

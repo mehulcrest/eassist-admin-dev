@@ -16,7 +16,7 @@ export default {
 
         pageColor: "#F9FAFB",
         lineMuted: "#ebebeb",
-        line: "#e4e7ec",
+        line: "#E4E7EC",
         muted: "#8b8f99",
         icon: "#7a7f88",
 

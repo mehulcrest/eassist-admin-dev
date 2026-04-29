@@ -8,7 +8,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Eye,
-  Filter,
   Gem,
   Mail,
   MapPin,
@@ -20,6 +19,7 @@ import {
 } from "lucide-react";
 import userProfile from "../assets/userProfile.png";
 import SideSheet from "../components/SideSheet";
+import { FiltersButton } from "../components/ui/Button";
 import {
   Table,
   TableBody,
@@ -75,7 +75,7 @@ const StatusToggle = ({ active, onChange }) => (
     aria-checked={active}
     onClick={() => onChange(!active)}
     className={`relative inline-flex h-6 w-11 shrink-0 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-gradientVia focus-visible:ring-offset-2 ${
-      active ? "bg-[#12B76A]" : "bg-[#E4E7EC]"
+      active ? "bg-[#12B76A]" : "bg-line"
     }`}
   >
     <span
@@ -126,7 +126,7 @@ const Members = () => {
       {/* ── Toolbar ──────────────────────────────────────────────────────── */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         {/* Search */}
-        <div className="relative flex-1">
+        <div className="relative flex-1 sm:max-w-[320px]">
           <Search
             className="pointer-events-none absolute left-3.5 top-1/2 size-[18px] -translate-y-1/2 text-[#667085]"
             aria-hidden
@@ -146,14 +146,7 @@ const Members = () => {
 
         {/* Action buttons */}
         <div className="flex shrink-0 gap-2">
-          <button
-            type="button"
-            onClick={() => setIsFilterSheetOpen(true)}
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-[#D0D5DD] bg-white px-4 py-2.5 text-sm font-semibold text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] sm:flex-none"
-          >
-            <Filter size={18} className="shrink-0 text-[#667085]" strokeWidth={2} />
-            Filters
-          </button>
+          <FiltersButton onClick={() => setIsFilterSheetOpen(true)} className="flex-1 sm:flex-none" />
           <button
             type="button"
             onClick={() => navigate("/members/new")}
@@ -206,7 +199,7 @@ const Members = () => {
       */}
       <TableWrapper>
         {/* Scroll container: horizontal + vertical */}
-        <div className="overflow-auto max-h-[calc(100vh-380px)] min-h-[280px]">
+        <div className="overflow-x-auto">
           <Table minWidth="min-w-[1040px]">
             <TableHead>
               <Th>Member Name</Th>

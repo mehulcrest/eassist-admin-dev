@@ -8,7 +8,7 @@ const OverviewTab = ({ memberName, member }) => {
     <div className="flex h-full min-h-0 flex-col">
       <div className="min-h-0 flex-1 space-y-4 overflow-y-auto pr-1">
         <div className="grid gap-4 xl:grid-cols-[2fr_1fr]">
-          <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+          <section className="overflow-hidden rounded-xl border border-line bg-white">
           <div className="border-b border-[#EAECF0] px-4 py-3">
             <h2 className="text-lg font-semibold text-[#1D2939]">Personal Details</h2>
           </div>
@@ -101,7 +101,7 @@ const OverviewTab = ({ memberName, member }) => {
           </div>
           </section>
 
-          <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+          <section className="overflow-hidden rounded-xl border border-line bg-white">
           <div className="border-b border-[#EAECF0] px-4 py-3">
             <h2 className="text-lg font-semibold text-[#1D2939]">Home Address</h2>
           </div>
@@ -130,7 +130,7 @@ const OverviewTab = ({ memberName, member }) => {
           </section>
         </div>
 
-        <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+        <section className="overflow-hidden rounded-xl border border-line bg-white">
           <div className="border-b border-[#EAECF0] px-4 py-3">
             <h2 className="text-lg font-semibold text-[#1D2939]">Care Preferences</h2>
           </div>

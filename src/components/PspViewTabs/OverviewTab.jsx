@@ -16,7 +16,7 @@ import SideSheet from "../SideSheet";
 
 /** Card shell — matches design: white, light border, ~12px radius, soft shadow, generous padding */
 const CARD =
-  "rounded-xl border border-[#E4E7EC] bg-white shadow-[0_1px_3px_0_rgba(16,24,40,0.06)]";
+  "rounded-xl border border-line bg-white shadow-[0_1px_3px_0_rgba(16,24,40,0.06)]";
 const CARD_HEADER = "border-b border-[#EAECF0] px-5 py-4 sm:px-6";
 const CARD_BODY = "p-5 sm:p-6";
 
@@ -41,7 +41,7 @@ const StatusToggle = ({ active, onChange }) => (
     aria-checked={active}
     onClick={() => onChange(!active)}
     className={`relative inline-flex h-6 w-11 shrink-0 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-redRejected focus-visible:ring-offset-2 ${
-      active ? "bg-[#12B76A]" : "bg-[#E4E7EC]"
+      active ? "bg-[#12B76A]" : "bg-line"
     }`}
   >
     <span
@@ -117,7 +117,8 @@ const SUSPEND_REASONS = [
 
 const PROFILE_MORE_ACTIONS = ["Reset Password", "Mark as Verified", "Download Profile"];
 
-const OverviewTab = ({ profile }) => {
+const OverviewTab = ({ profile, profileType = "individual" }) => {
+  const isBusiness = profileType === "business";
   const [accountActive, setAccountActive] = useState(profile.active !== false);
   const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
   const [isSuspendSheetOpen, setIsSuspendSheetOpen] = useState(false);
@@ -159,13 +160,17 @@ const OverviewTab = ({ profile }) => {
           {/* Personal Details */}
           <div className={`${CARD} overflow-hidden`}>
             <div className={CARD_HEADER}>
-              <h2 className="text-lg font-semibold text-[#101828]">Personal Details</h2>
+              <h2 className="text-lg font-semibold text-[#101828]">
+                {isBusiness ? "Business Details" : "Personal Details"}
+              </h2>
             </div>
 
             <div className={CARD_BODY}>
               <div className="flex items-start justify-between gap-4">
                 <div className="shrink-0">
-                  <p className="mb-2 text-sm font-medium text-[#101828]">Profile Photo</p>
+                  <p className="mb-2 text-sm font-medium text-[#101828]">
+                    {isBusiness ? "Business Logo" : "Profile Photo"}
+                  </p>
                   <div className="relative w-fit">
                     <img
                       src={profile.avatar}
@@ -232,14 +237,29 @@ const OverviewTab = ({ profile }) => {
 
               <div className="mt-4 space-y-5">
                 <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
-                  <DetailField label="Full Name">{profile.name}</DetailField>
+                  <DetailField label={isBusiness ? "Business Name" : "Full Name"}>
+                    {profile.name}
+                  </DetailField>
                   <DetailField label="PSP ID">{profile.id}</DetailField>
                   <DetailField label="Phone">{profile.phone}</DetailField>
                   <DetailField label="Email">{profile.email}</DetailField>
-                  <DetailField label="Gender">{profile.gender}</DetailField>
-                  <DetailField label="Date of Birth">
-                    {profile.dateOfBirth} ({profile.ageYears} Years)
-                  </DetailField>
+                  {isBusiness ? (
+                    <>
+                      <DetailField label="Industry Type">
+                        {profile.industryType ?? profile.type ?? "General Services"}
+                      </DetailField>
+                      <DetailField label="Business Category">
+                        {profile.businessCategory ?? "Service Provider"}
+                      </DetailField>
+                    </>
+                  ) : (
+                    <>
+                      <DetailField label="Gender">{profile.gender}</DetailField>
+                      <DetailField label="Date of Birth">
+                        {profile.dateOfBirth} ({profile.ageYears} Years)
+                      </DetailField>
+                    </>
+                  )}
                 </div>
 
                 <div>
@@ -329,7 +349,9 @@ const OverviewTab = ({ profile }) => {
         <div className="flex flex-col gap-5">
           <div className={`${CARD}`}>
             <div className={`${CARD_HEADER}`}>
-              <h2 className="text-lg font-semibold text-[#101828]">Home Address</h2>
+              <h2 className="text-lg font-semibold text-[#101828]">
+                {isBusiness ? "Business Address" : "Home Address"}
+              </h2>
             </div>
             <div className={`${CARD_BODY} space-y-4`}>
               <DetailField label="Street Address">{profile.address.street}</DetailField>
@@ -442,7 +464,7 @@ const OverviewTab = ({ profile }) => {
                 {svc.coverageRadiusKm} Km
               </span>
             </div>
-            <div className="relative h-[290px] w-full overflow-hidden rounded-lg border border-[#EAECF0] bg-[#E4E7EC]">
+            <div className="relative h-[290px] w-full overflow-hidden rounded-lg border border-[#EAECF0] bg-line">
               <iframe
                 width="100%"
                 height="100%"

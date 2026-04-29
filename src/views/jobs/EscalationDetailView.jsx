@@ -10,6 +10,7 @@ import {
   CircleCheck,
 } from "lucide-react";
 import userProfile from "../../assets/userProfile.png";
+import StatusBadge from "../../components/ui/StatusBadge";
 import EscalationResolveModal from "./EscalationResolveModal";
 
 /* ─────────────────────────────────────────────
@@ -253,9 +254,7 @@ const EscalationDetailView = ({ row, onBack }) => {
               <Label>Location</Label>
               <div className="mt-0.5 flex items-center gap-2">
                 <Value>123 Oak Street, Apt 4B</Value>
-                <span className="inline-flex items-center rounded-full bg-[#F2F4F7] px-2.5 py-0.5 text-xs font-medium text-[#344054]">
-                  {row.location}
-                </span>
+                <StatusBadge label={row.location} tone="neutral" />
               </div>
             </div>
           </div>

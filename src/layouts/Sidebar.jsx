@@ -35,7 +35,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       isActiveOverride: isMembersSectionPath,
     },
     { label: "PSP Individuals", icon: UserRound, to: "/psp-individuals" },
-    { label: "PSP Businesses", icon: Building2 },
+    { label: "PSP Businesses", icon: Building2, to: "/psp-businesses" },
     { 
       label: "Jobs", 
       icon: BriefcaseBusiness, 

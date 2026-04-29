@@ -1,6 +1,7 @@
 import { Eye } from "lucide-react";
 import { useState } from "react";
 import BillingDetailsSideSheet from "./BillingDetailsSideSheet";
+import StatusBadge from "../ui/StatusBadge";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 
 /* ─── Static data ───────────────────────────────────────────────────────── */
@@ -81,24 +82,13 @@ const BILLING_HISTORY = [
   },
 ];
 
-const STATUS_CONFIG = {
-  Paid: { bg: "bg-[#ECFDF3]", text: "text-greenVerified" },
-  Failed: { bg: "bg-[#FEF3F2]", text: "text-[#D92D20]" },
-  Completed: { bg: "bg-[#F0F9FF]", text: "text-[#007AFF]" },
-  Refunded: { bg: "bg-[#FFFAEB]", text: "text-orangeReview" },
-};
-
 /* ─── Sub-components (all arrow functions) ──────────────────────────────── */
-
-const StatusBadge = ({ status }) => {
-  const cfg = STATUS_CONFIG[status] ?? STATUS_CONFIG["Completed"];
-  return (
-    <span
-      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${cfg.bg} ${cfg.text}`}
-    >
-      {status}
-    </span>
-  );
+const getBillingTone = (status) => {
+  if (status === "Paid") return "paid";
+  if (status === "Failed") return "failed";
+  if (status === "Completed") return "info";
+  if (status === "Refunded") return "pending";
+  return "neutral";
 };
 
 const VisaIcon = () => (
@@ -279,7 +269,7 @@ const SubscriptionBillingTab = () => {
                   </span>
                 </Td>
                 <Td>
-                  <StatusBadge status={row.status} />
+                  <StatusBadge label={row.status} tone={getBillingTone(row.status)} />
                 </Td>
                 <Td>
                   <button

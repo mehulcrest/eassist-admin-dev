@@ -12,7 +12,7 @@ const ServicesCoverageTab = () => {
     <div className="grid gap-6 xl:grid-cols-[2fr_1.5fr]">
       {/* ── Left Column: Service Details ── */}
       <div className="space-y-6">
-        <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white">
+        <section className="overflow-hidden rounded-xl border border-line bg-white">
           <div className="border-b border-[#EAECF0] px-4 py-3">
             <h2 className="text-lg font-semibold text-[#1D2939]">Service Details</h2>
           </div>
@@ -87,7 +87,7 @@ const ServicesCoverageTab = () => {
 
       {/* ── Right Column: Coverage Area ── */}
       <div>
-        <section className="overflow-hidden rounded-xl border border-[#E4E7EC] bg-white flex flex-col h-full">
+        <section className="overflow-hidden rounded-xl border border-line bg-white flex flex-col h-full">
           <div className="border-b border-[#EAECF0] px-4 py-3 shrink-0">
             <h2 className="text-lg font-semibold text-[#1D2939]">Coverage Area</h2>
           </div>
@@ -129,7 +129,7 @@ const ServicesCoverageTab = () => {
             </div>
 
             {/* Map Placeholder */}
-            <div className="relative w-full h-[220px] rounded-lg overflow-hidden border border-[#EAECF0] bg-[#E4E7EC] shrink-0">
+            <div className="relative w-full h-[220px] rounded-lg overflow-hidden border border-[#EAECF0] bg-line shrink-0">
               <iframe 
                 width="100%" 
                 height="100%" 

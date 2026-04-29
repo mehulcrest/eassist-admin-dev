@@ -152,7 +152,7 @@ const DateRangePopover = ({ anchorRef, initialStart, initialEnd, onComplete, onD
       ref={popoverRef}
       role="dialog"
       aria-label="Choose date range"
-      className="rounded-xl border border-[#E4E7EC] bg-white p-3 shadow-[0_8px_24px_rgba(16,24,40,0.12)]"
+      className="rounded-xl border border-line bg-white p-3 shadow-[0_8px_24px_rgba(16,24,40,0.12)]"
       style={{
         position: "fixed",
         top: pos.top,

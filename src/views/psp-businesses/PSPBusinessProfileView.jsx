@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import userProfile from "../../assets/userProfile.png";
 import OverviewTab from "../../components/PspViewTabs/OverviewTab";
-import PlaceholderTab from "../../components/PspViewTabs/PlaceholderTab";
+import ServiceCatalogTab from "../../components/PspViewTabs/ServiceCatalogTab";
 import VerificationTab from "../../components/PspViewTabs/VerificationTab";
 import PerformanceTab from "../../components/PspViewTabs/PerformanceTab";
 import ComplianceTab from "../../components/PspViewTabs/ComplianceTab";
@@ -16,8 +16,9 @@ import ActivityLogTab from "../../components/PspViewTabs/ActivityLogTab";
 import Button from "../../components/ui/Button";
 import { TabHeader } from "../../components/ui/Tabs";
 
-const PSP_PROFILE_TABS = [
+const PSP_BUSINESS_PROFILE_TABS = [
   { id: "overview", label: "Overview" },
+  { id: "service-catalog", label: "Service Catalog" },
   { id: "verification", label: "Verification" },
   { id: "performance", label: "Performance" },
   { id: "compliance", label: "Compliance" },
@@ -29,16 +30,14 @@ const PSP_PROFILE_TABS = [
   { id: "activity-log", label: "Activity Log" },
 ];
 
-/** Default detail fields when opening profile by URL (no navigation state). */
 const DEFAULT_DETAIL = {
-  gender: "Female",
-  dateOfBirth: "Feb 23, 2000",
-  ageYears: 26,
   introduction:
-    "Experienced caregiver with a passion for helping seniors. Specialized in companionship and daily assistance.",
+    "Experienced provider with a passion for helping seniors. Specialized in companionship and daily assistance.",
   languages: ["English", "Francois", "Mandarin"],
   joinedOn: "March 01, 2021",
   verificationBadge: "Verified",
+  industryType: "Service Provider",
+  businessCategory: "Service Provider",
   address: {
     street: "250 Front Street West",
     country: "Canada",
@@ -82,7 +81,7 @@ const DEFAULT_DETAIL = {
       { name: "Yard Service", state: "inactive" },
     ],
     serviceNotes:
-      "Mild dementia – requires gentle reminders. Prefers female caregivers and morning assistance.",
+      "Mild dementia - requires gentle reminders. Prefers female caregivers and morning assistance.",
     eligibilityBullets: [
       "2 services fully active",
       "1 service pending verification",
@@ -105,7 +104,7 @@ const DEFAULT_DETAIL = {
     voidCheque: "Verified",
   },
   payoutInfo: {
-    accountHolderName: "Maria Nicolas Santos",
+    accountHolderName: "SilverAge Support",
     bankName: "Abcd Bank",
     accountNumberMasked: "**** 4821",
     routingCode: "89742",
@@ -119,8 +118,8 @@ function buildDisplayProfile(id, row) {
   const base = {
     ...DEFAULT_DETAIL,
     id: id ?? "PSP001",
-    name: "Maria Santos",
-    email: "mariasantos@gmail.com",
+    name: "SilverAge Support",
+    email: "silver.age@gmail.com",
     phone: "(416) 555-0123",
     avatar: userProfile,
     availability: "Online",
@@ -129,6 +128,7 @@ function buildDisplayProfile(id, row) {
     earnings: "5735.00",
     active: true,
     verification: "Verified",
+    type: "Company",
   };
 
   if (!row) {
@@ -144,6 +144,7 @@ function buildDisplayProfile(id, row) {
     ...row,
     verificationBadge: row.verification ?? base.verification,
     avatar: row.avatar ?? base.avatar,
+    industryType: row.type ?? base.industryType,
   };
 
   return {
@@ -167,7 +168,7 @@ function buildDisplayProfile(id, row) {
   };
 }
 
-const PSPIndividualProfileView = () => {
+const PSPBusinessProfileView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -177,21 +178,21 @@ const PSPIndividualProfileView = () => {
   const [selectedAssignedJob, setSelectedAssignedJob] = useState(null);
 
   const profile = useMemo(() => buildDisplayProfile(id, row), [id, row]);
-
-  const tabLabel = PSP_PROFILE_TABS.find((t) => t.id === activeTab)?.label ?? "Overview";
+  const tabLabel = PSP_BUSINESS_PROFILE_TABS.find((t) => t.id === activeTab)?.label ?? "Overview";
 
   return (
     <div className="flex h-full flex-col gap-4 overflow-hidden">
       <div className="shrink-0 overflow-hidden rounded-xl border border-line bg-white shadow-[0_1px_3px_0_rgba(16,24,40,0.06)]">
         <TabHeader
-          tabs={PSP_PROFILE_TABS}
+          tabs={PSP_BUSINESS_PROFILE_TABS}
           activeTab={activeTab}
           onChange={setActiveTab}
         />
       </div>
 
       <div className="flex-1 min-h-0 overflow-y-auto pr-1">
-        {activeTab === "overview" && <OverviewTab profile={profile} />}
+        {activeTab === "overview" && <OverviewTab profile={profile} profileType="business" />}
+        {activeTab === "service-catalog" && <ServiceCatalogTab />}
         {activeTab === "verification" && <VerificationTab />}
         {activeTab === "performance" && <PerformanceTab />}
         {activeTab === "compliance" && <ComplianceTab />}
@@ -229,7 +230,7 @@ const PSPIndividualProfileView = () => {
         <div className="shrink-0 border-t border-[#EAECF0] bg-pageColor pt-3">
           <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end sm:gap-3">
             <Button
-              onClick={() => navigate("/psp-individuals")}
+              onClick={() => navigate("/psp-businesses")}
               variant="dangerOutline"
               size="lg"
               className="px-6 hover:bg-[#FEF3F2]"
@@ -251,4 +252,4 @@ const PSPIndividualProfileView = () => {
   );
 };
 
-export default PSPIndividualProfileView;
+export default PSPBusinessProfileView;

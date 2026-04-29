@@ -4,6 +4,7 @@ import UpcomingTab from "../views/jobs/UpcomingTab";
 import TimelineTab from "../views/jobs/TimelineTab";
 import CancellationTab from "../views/jobs/CancellationTab";
 import EscalationTab from "../views/jobs/EscalationTab";
+import { TabHeader } from "../components/ui/Tabs";
 
 const TABS = ["Active", "Upcoming", "Timeline", "Cancellation", "Escalation"];
 
@@ -11,26 +12,12 @@ const Jobs = () => {
   const [activeTab, setActiveTab] = useState("Active");
 
   const renderTabNav = () => (
-    <>
-      {TABS.map((tab) => {
-        const isActive = tab === activeTab;
-        return (
-          <button
-            key={tab}
-            type="button"
-            onClick={() => setActiveTab(tab)}
-            className={`relative pb-3 text-sm font-semibold transition-colors ${
-              isActive ? "text-[#F04438]" : "text-[#667085] hover:text-[#344054]"
-            }`}
-          >
-            {tab}
-            {isActive && (
-              <span className="absolute bottom-0 left-0 h-0.5 w-full bg-[#F04438] rounded-t-sm" />
-            )}
-          </button>
-        );
-      })}
-    </>
+    <TabHeader
+      tabs={TABS.map((tab) => ({ id: tab, label: tab }))}
+      activeTab={activeTab}
+      onChange={setActiveTab}
+      className="rounded-xl border border-[#EAECF0] bg-white"
+    />
   );
 
   return (
