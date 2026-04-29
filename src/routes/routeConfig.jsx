@@ -9,6 +9,7 @@ import PSPBusinesses from "../pages/PSPBusinesses";
 import AddPSPView from "../views/psp-individuals/AddPSPView";
 import AddPSPBusinessView from "../views/psp-businesses/AddPSPBusinessView";
 import PSPIndividualProfileView from "../views/psp-individuals/PSPIndividualProfileView";
+import Payments from "../pages/Payments";
 import PSPBusinessProfileView from "../views/psp-businesses/PSPBusinessProfileView";
 import MainLayout from "../layouts/MainLayout";
 import AuthGuard from "../guards/AuthGuard";
@@ -42,6 +43,7 @@ const routeConfig = [
       { path: "jobs", element: <Jobs /> },
       { path: "job/:id", element: <div className="p-6">Job Details View Placeholder</div> },
       { path: "psp-individuals/:id", element: <PSPIndividualProfileView /> },
+      { path: "payments", element: <Payments /> },
       { path: "psp-businesses/:id", element: <PSPBusinessProfileView /> },
     ],
   },

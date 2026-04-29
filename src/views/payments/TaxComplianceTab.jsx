@@ -1,0 +1,53 @@
+import { useState } from "react";
+import GstVatSummaryTab from "./tax/GstVatSummaryTab";
+import PspTaxReportsTab from "./tax/PspTaxReportsTab";
+import PlatformTaxTab from "./tax/PlatformTaxTab";
+
+const INNER_TABS = [
+  "GST / VAT Summary",
+  "PSP Tax Reports",
+  "Platform Tax"
+];
+
+const TaxComplianceTab = ({ renderTabNav }) => {
+  const [activeInnerTab, setActiveInnerTab] = useState("GST / VAT Summary");
+
+  return (
+    <div className="flex h-full min-h-0 flex-col gap-5 overflow-y-auto w-full">
+      {/* ── Outer Main Tab Navigation ── */}
+      <div className="flex gap-4 sm:gap-6 rounded-xl border border-[#EAECF0] bg-white px-4 sm:px-6 pt-3 shrink-0 overflow-x-auto scrollbar-hide">
+        {renderTabNav()}
+      </div>
+
+      {/* ── Inner Tabs ── */}
+      <div className="flex overflow-x-auto border-b border-[#EAECF0] shrink-0">
+        {INNER_TABS.map((tab) => {
+          const isActive = activeInnerTab === tab;
+          return (
+            <button
+              key={tab}
+              type="button"
+              onClick={() => setActiveInnerTab(tab)}
+              className={`whitespace-nowrap border-b-2 px-4 pb-3 pt-1 text-sm font-semibold transition-colors ${
+                isActive
+                  ? "border-[#F04438] text-[#F04438]"
+                  : "border-transparent text-[#667085] hover:border-[#D0D5DD] hover:text-[#344054]"
+              }`}
+            >
+              {tab}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* ── Tab Content ── */}
+      <div className="flex-1 min-h-0 overflow-hidden">
+        {activeInnerTab === "GST / VAT Summary" && <GstVatSummaryTab />}
+        {activeInnerTab === "PSP Tax Reports" && <PspTaxReportsTab />}
+        {activeInnerTab === "Platform Tax" && <PlatformTaxTab />}
+      </div>
+    </div>
+  );
+};
+
+export default TaxComplianceTab;
