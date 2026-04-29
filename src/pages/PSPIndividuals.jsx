@@ -160,7 +160,7 @@ const PSPIndividuals = () => {
       {/* ── Toolbar ──────────────────────────────────────────────────────── */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         {/* Search */}
-        <div className="relative flex-1 max-w-[320px]">
+        <div className="relative flex-1 sm:max-w-[320px]">
           <Search
             className="pointer-events-none absolute left-3.5 top-1/2 size-[18px] -translate-y-1/2 text-[#667085]"
             aria-hidden
@@ -179,7 +179,7 @@ const PSPIndividuals = () => {
         </div>
 
         {/* Action buttons */}
-        <div className="flex shrink-0 gap-2">
+        <div className="flex w-full shrink-0 gap-2 sm:w-auto">
           <FiltersButton onClick={() => setIsFilterSheetOpen(true)} className="flex-1 sm:flex-none" />
           <button
             type="button"
@@ -193,21 +193,21 @@ const PSPIndividuals = () => {
       </div>
 
       {/* ── Stat cards — Responsive layout ───────────────────────────────────── */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-5">
         {STATS.map((s) => (
           <div
             key={s.label}
-            className="rounded-xl border border-[#E5E7EB] bg-white px-4 py-4 shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] sm:px-5 sm:py-5 flex flex-col justify-between"
+            className="rounded-xl border border-[#E5E7EB] bg-white px-4 py-4 shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] sm:px-5 sm:py-5"
           >
             <p className="text-sm font-medium text-[#667085] sm:text-base">{s.label}</p>
             <div className="mt-2 flex items-center justify-between gap-2">
-              <span className="text-xl font-semibold tracking-tight text-[#101828] sm:text-[28px] leading-none">
+              <span className="text-xl font-semibold tracking-tight leading-none text-[#101828] sm:text-[28px]">
                 {s.value}
               </span>
               {s.change !== null && (
-                <div className="flex shrink-0 flex-row items-center gap-1">
+                <div className="flex shrink-0 flex-col items-end gap-0.5">
                   <span
-                    className={`inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-sm font-semibold ${
+                    className={`inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-xs font-semibold ${
                       s.positive
                         ? "bg-[#ECFDF3] text-[#027A48]"
                         : "bg-[#FEF3F2] text-[#B42318]"
@@ -218,7 +218,7 @@ const PSPIndividuals = () => {
                       : <ArrowDown className="size-3 shrink-0" strokeWidth={2.5} />}
                     {s.change.toLocaleString()}
                   </span>
-                  <span className="text-sm text-[#98A2B3]">{s.period}</span>
+                  <span className="text-[11px] text-[#98A2B3]">{s.period}</span>
                 </div>
               )}
             </div>
@@ -350,8 +350,8 @@ const PSPIndividuals = () => {
         </div>
 
         {/* Pagination — static footer inside wrapper */}
-        <div className="flex shrink-0 flex-col gap-4 border-t border-[#EAECF0] bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-4">
-          <label className="flex items-center gap-2 text-sm text-[#667085]">
+        <div className="flex shrink-0 flex-col items-center gap-4 border-t border-[#EAECF0] bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-4">
+          <label className="flex w-full items-center justify-center gap-2 text-sm text-[#667085] sm:w-auto sm:justify-start">
             <span>Rows per page:</span>
             <select
               value={pageSize}
@@ -362,7 +362,7 @@ const PSPIndividuals = () => {
             </select>
           </label>
 
-          <div className="flex items-center justify-center gap-1 sm:justify-end">
+          <div className="flex w-full items-center justify-center gap-1 sm:w-auto sm:justify-end">
             <button
               type="button"
               disabled={safePage <= 1}

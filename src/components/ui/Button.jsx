@@ -41,7 +41,7 @@ export default function Button({
 
 export function FiltersButton({ children = "Filters", className = "", ...props }) {
   return (
-    <Button variant="secondary" size="md" className={className} {...props}>
+    <Button variant="secondary" size="md" className={`w-full sm:w-auto ${className}`} {...props}>
       <SlidersHorizontal size={16} />
       {children}
     </Button>

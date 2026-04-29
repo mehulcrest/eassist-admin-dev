@@ -372,8 +372,8 @@ const ActivityLogTab = ({ memberName = "Margaret Thompson" }) => {
           </Table>
           </div>
 
-        <div className="shrink-0 flex flex-col gap-4 border-t border-[#EAECF0] bg-white px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
-          <label className="flex items-center gap-2 text-sm text-[#667085]">
+        <div className="shrink-0 flex flex-col items-center gap-4 border-t border-[#EAECF0] bg-white px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+          <label className="flex w-full items-center justify-center gap-2 text-sm text-[#667085] sm:w-auto sm:justify-start">
             <span>Rows per page</span>
             <select
               value={pageSize}
@@ -391,7 +391,7 @@ const ActivityLogTab = ({ memberName = "Margaret Thompson" }) => {
             </select>
           </label>
 
-          <div className="flex items-center justify-center gap-1 sm:justify-end">
+          <div className="flex w-full items-center justify-center gap-1 sm:w-auto sm:justify-end">
             <button
               type="button"
               disabled={safePage <= 1}

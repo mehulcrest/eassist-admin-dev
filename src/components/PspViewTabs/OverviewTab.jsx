@@ -186,51 +186,53 @@ const OverviewTab = ({ profile, profileType = "individual" }) => {
                     ) : null}
                   </div>
                 </div>
-                <div className="flex flex-wrap items-center justify-end gap-2">
+                <div className="flex max-w-full flex-col items-end gap-2 sm:flex-row sm:items-center">
                   <button
                     type="button"
-                    className="rounded-lg border border-redRejected bg-white px-4 py-2 text-sm font-semibold text-redRejected shadow-sm transition hover:bg-[#FEF3F2]"
+                    className="shrink-0 rounded-lg border border-redRejected bg-white px-4 py-2 text-sm font-semibold text-redRejected shadow-sm transition hover:bg-[#FEF3F2]"
                   >
                     Assign Job
                   </button>
-                  <button
-                    type="button"
-                    className="inline-flex size-10 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085] shadow-sm transition hover:bg-[#F2F4F7]"
-                    aria-label="Call"
-                  >
-                    <Phone size={18} strokeWidth={2} />
-                  </button>
-                  <button
-                    type="button"
-                    className="inline-flex size-10 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085] shadow-sm transition hover:bg-[#F2F4F7]"
-                    aria-label="Message"
-                  >
-                    <MessageCircle size={18} strokeWidth={2} />
-                  </button>
-                  <div className="relative" ref={moreMenuRef}>
+                  <div className="flex items-center gap-2 overflow-x-auto whitespace-nowrap [scrollbar-width:none] sm:overflow-visible [&::-webkit-scrollbar]:hidden">
                     <button
                       type="button"
-                      onClick={() => setIsMoreMenuOpen((prev) => !prev)}
-                      className="inline-flex size-10 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085] shadow-sm transition hover:bg-[#F2F4F7]"
-                      aria-label="More options"
-                      aria-expanded={isMoreMenuOpen}
+                      className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085] shadow-sm transition hover:bg-[#F2F4F7]"
+                      aria-label="Call"
                     >
-                      <MoreHorizontal size={18} strokeWidth={2} />
+                      <Phone size={18} strokeWidth={2} />
                     </button>
-                    {isMoreMenuOpen ? (
-                      <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-[170px] overflow-hidden rounded-lg border border-[#EAECF0] bg-white shadow-[0_12px_24px_rgba(16,24,40,0.12)]">
-                        {PROFILE_MORE_ACTIONS.map((action) => (
-                          <button
-                            key={action}
-                            type="button"
-                            onClick={() => setIsMoreMenuOpen(false)}
-                            className="block w-full border-b border-[#EAECF0] px-4 py-3 text-left text-sm font-medium text-[#344054] transition hover:bg-[#F9FAFB] last:border-0"
-                          >
-                            {action}
-                          </button>
-                        ))}
-                      </div>
-                    ) : null}
+                    <button
+                      type="button"
+                      className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085] shadow-sm transition hover:bg-[#F2F4F7]"
+                      aria-label="Message"
+                    >
+                      <MessageCircle size={18} strokeWidth={2} />
+                    </button>
+                    <div className="relative shrink-0" ref={moreMenuRef}>
+                      <button
+                        type="button"
+                        onClick={() => setIsMoreMenuOpen((prev) => !prev)}
+                        className="inline-flex size-10 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#667085] shadow-sm transition hover:bg-[#F2F4F7]"
+                        aria-label="More options"
+                        aria-expanded={isMoreMenuOpen}
+                      >
+                        <MoreHorizontal size={18} strokeWidth={2} />
+                      </button>
+                      {isMoreMenuOpen ? (
+                        <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-[170px] overflow-hidden rounded-lg border border-[#EAECF0] bg-white shadow-[0_12px_24px_rgba(16,24,40,0.12)]">
+                          {PROFILE_MORE_ACTIONS.map((action) => (
+                            <button
+                              key={action}
+                              type="button"
+                              onClick={() => setIsMoreMenuOpen(false)}
+                              className="block w-full border-b border-[#EAECF0] px-4 py-3 text-left text-sm font-medium text-[#344054] transition hover:bg-[#F9FAFB] last:border-0"
+                            >
+                              {action}
+                            </button>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               </div>

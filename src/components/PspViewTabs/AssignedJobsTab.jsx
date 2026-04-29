@@ -83,7 +83,7 @@ const AssignedJobsTab = ({ onOpenCompletedJob }) => {
             className="h-10 w-full rounded-lg border border-[#D0D5DD] bg-white pl-9 pr-3 text-sm text-[#344054] placeholder:text-[#98A2B3]"
           />
         </div>
-        <FiltersButton onClick={() => setIsFiltersOpen(true)} className="self-start sm:self-auto" />
+        <FiltersButton onClick={() => setIsFiltersOpen(true)} className="w-full sm:w-auto" />
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto p-3 sm:p-4">

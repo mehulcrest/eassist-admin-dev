@@ -84,7 +84,12 @@ const Navbar = ({ onMenuClick }) => {
             Members
           </Link>
           <span className="px-1 text-[#667085]">|</span>
-          <span className="truncate font-semibold text-[#101828]">{memberName}</span>
+          <span
+            className="inline-block max-w-[170px] truncate align-bottom font-semibold text-[#101828] sm:max-w-[260px]"
+            title={memberName}
+          >
+            {memberName}
+          </span>
         </div>
       ) : isAddPSPPage ? (
         <div className="shrink-0 text-base sm:text-lg">
@@ -100,7 +105,12 @@ const Navbar = ({ onMenuClick }) => {
             PSP Individuals
           </Link>
           <span className="px-1 text-[#667085]">|</span>
-          <span className="truncate font-semibold text-[#101828]">{pspName}</span>
+          <span
+            className="inline-block max-w-[170px] truncate align-bottom font-semibold text-[#101828] sm:max-w-[260px]"
+            title={pspName}
+          >
+            {pspName}
+          </span>
         </div>
       ) : isAddPSPBusinessPage ? (
         <div className="shrink-0 text-base sm:text-lg">
@@ -116,7 +126,12 @@ const Navbar = ({ onMenuClick }) => {
             PSP Businesses
           </Link>
           <span className="px-1 text-[#667085]">|</span>
-          <span className="truncate font-semibold text-[#101828]">{pspBusinessName}</span>
+          <span
+            className="inline-block max-w-[170px] truncate align-bottom font-semibold text-[#101828] sm:max-w-[260px]"
+            title={pspBusinessName}
+          >
+            {pspBusinessName}
+          </span>
         </div>
       ) : (
         <h2 className="shrink-0 text-lg font-semibold text-[#101828] sm:text-xl">

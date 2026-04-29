@@ -145,7 +145,7 @@ const Members = () => {
         </div>
 
         {/* Action buttons */}
-        <div className="flex shrink-0 gap-2">
+        <div className="flex w-full shrink-0 gap-2 sm:w-auto">
           <FiltersButton onClick={() => setIsFilterSheetOpen(true)} className="flex-1 sm:flex-none" />
           <button
             type="button"
@@ -303,8 +303,8 @@ const Members = () => {
         </div>
 
         {/* Pagination — outside the scroll container, always visible */}
-        <div className="flex shrink-0 flex-col gap-4 border-t border-[#EAECF0] bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-4">
-          <label className="flex items-center gap-2 text-sm text-[#667085]">
+        <div className="flex shrink-0 flex-col items-center gap-4 border-t border-[#EAECF0] bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-4">
+          <label className="flex w-full items-center justify-center gap-2 text-sm text-[#667085] sm:w-auto sm:justify-start">
             <span>Rows per page</span>
             <select
               value={pageSize}
@@ -315,7 +315,7 @@ const Members = () => {
             </select>
           </label>
 
-          <div className="flex items-center justify-center gap-1 sm:justify-end">
+          <div className="flex w-full items-center justify-center gap-1 sm:w-auto sm:justify-end">
             <button
               type="button"
               disabled={safePage <= 1}
