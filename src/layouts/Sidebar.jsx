@@ -43,7 +43,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       isActiveOverride: isJobsSectionPath 
     },
     { label: "Territories", icon: MapPinned },
-    { label: "Payments", icon: WalletCards },
+    { label: "Payments", icon: WalletCards, to: "/payments" },
     { label: "Complaints", icon: MessageSquareWarning },
     { label: "System Settings", icon: Settings },
     { label: "Reports", icon: ReceiptText },
