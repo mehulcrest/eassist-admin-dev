@@ -23,6 +23,7 @@ const Navbar = ({ onMenuClick }) => {
     "/members": "Members",
     "/psp-individuals": "PSP Individuals",
     "/jobs": "Jobs",
+    "/payments": "Payments",
   };
 
   const pageTitle = pageTitleMap[pathname] || "Dashboard";
