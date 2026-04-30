@@ -79,12 +79,12 @@ const ReopenSettlementModal = ({ isOpen, onClose, record }) => {
 
         {/* ── Re-enable Details ── */}
         <h3 className="mb-3 text-sm font-bold text-[#101828]">Reopen Cycle will be re-enabled:</h3>
-        <div className="grid grid-cols-2 gap-x-4 gap-y-2 mb-2 text-sm text-[#475467]">
-          <p>• Modify payouts</p>
-          <p>• Adjust ledger entries</p>
-          <p>• Process refunds</p>
-          <p>• Update tax calculations</p>
-        </div>
+        <ul className="mb-2 grid list-disc grid-cols-2 gap-x-4 gap-y-2 pl-5 text-sm text-[#475467]">
+          <li>Modify payouts</li>
+          <li>Adjust ledger entries</li>
+          <li>Process refunds</li>
+          <li>Update tax calculations</li>
+        </ul>
 
         <HDivider />
 

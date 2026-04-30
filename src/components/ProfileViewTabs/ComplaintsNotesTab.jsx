@@ -1,9 +1,9 @@
-import { Search, Filter, Eye, Star, CalendarDays, ChevronDown } from "lucide-react";
-import { useMemo, useState, useRef, useCallback, useEffect } from "react";
+import { Search, Filter, Eye, Star, ChevronDown } from "lucide-react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import userProfile from "../../assets/userProfile.png";
 import SideSheet from "../SideSheet";
-import DateRangePopover from "../DateRangePopover";
 import ComplaintDetailsSheet from "../shared/ComplaintDetailsSheet";
+import DateRangeInput from "../ui/DateRangeInput";
 import StatusBadge from "../ui/StatusBadge";
 import { Table, TableBody, TableEmpty, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 
@@ -132,9 +132,22 @@ const isoToMdY = (iso) => {
 const buildRangeDisplay = (dateStart, dateEnd) => {
   const from = isoToMdY(dateStart);
   const to = isoToMdY(dateEnd);
-  if (from && to) return `${from} - ${to}`;
-  if (from) return `${from} - `;
+  if (from && to) return `${from} ~ ${to}`;
+  if (from) return `${from} ~`;
   return "";
+};
+
+const parseDateRangeDisplayToIso = (displayValue) => {
+  const matches = String(displayValue ?? "").match(/\d{2}-\d{2}-\d{4}/g) ?? [];
+  const toIso = (mmDdYyyy) => {
+    const [mm, dd, yyyy] = mmDdYyyy.split("-");
+    if (!mm || !dd || !yyyy) return "";
+    return `${yyyy}-${mm}-${dd}`;
+  };
+  return {
+    dateStart: matches[0] ? toIso(matches[0]) : "",
+    dateEnd: matches[1] ? toIso(matches[1]) : "",
+  };
 };
 
 const parseRowServiceDate = (dateStr) => {
@@ -219,23 +232,6 @@ const ComplaintsNotesTab = () => {
   const [selectedComplaint, setSelectedComplaint] = useState(null);
   const [isViewSheetOpen, setIsViewSheetOpen] = useState(false);
 
-  const rangeAnchorRef = useRef(null);
-  const [isRangePickerOpen, setIsRangePickerOpen] = useState(false);
-
-  const closeRangePicker = useCallback(() => setIsRangePickerOpen(false), []);
-  const toggleRangePicker = useCallback(() => setIsRangePickerOpen((open) => !open), []);
-
-  const handleRangeComplete = useCallback((startIso, endIso) => {
-    setDraftFilters((prev) => ({ ...prev, dateStart: startIso, dateEnd: endIso }));
-    setIsRangePickerOpen(false);
-  }, []);
-
-  const clearDateRange = useCallback((event) => {
-    event.stopPropagation();
-    setDraftFilters((prev) => ({ ...prev, dateStart: "", dateEnd: "" }));
-    setIsRangePickerOpen(false);
-  }, []);
-
   const openFilters = () => {
     setDraftFilters(appliedFilters);
     setIsFilterSheetOpen(true);
@@ -251,7 +247,6 @@ const ComplaintsNotesTab = () => {
   };
 
   const closeFilters = () => {
-    setIsRangePickerOpen(false);
     setIsFilterSheetOpen(false);
   };
 
@@ -465,44 +460,14 @@ const ComplaintsNotesTab = () => {
 
           <div>
             <span className="mb-1.5 block text-sm font-medium text-[#344054]">Date Reported</span>
-            <div ref={rangeAnchorRef} className="relative">
-              <input
-                id="cn-filter-date-range-display"
-                type="text"
-                readOnly
-                value={rangeDisplay}
-                placeholder="MM-DD-YYYY - MM-DD-YYYY"
-                onClick={toggleRangePicker}
-                className="h-11 w-full cursor-pointer rounded-lg border border-[#D0D5DD] bg-white px-3 pr-[80px] text-sm text-[#344054] placeholder:text-[#98A2B3] focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia"
-              />
-              {rangeDisplay ? (
-                <button
-                  type="button"
-                  onClick={clearDateRange}
-                  className="absolute right-8 top-1/2 -translate-y-1/2 rounded p-1 text-[#98A2B3] hover:bg-[#F2F4F7] hover:text-[#667085]"
-                >
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-                  </svg>
-                </button>
-              ) : null}
-              <button
-                type="button"
-                onClick={toggleRangePicker}
-                className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-[#98A2B3] hover:bg-[#F2F4F7] hover:text-[#667085]"
-              >
-                <CalendarDays className="size-4" />
-              </button>
-              {isRangePickerOpen ? (
-                <DateRangePopover
-                  anchorRef={rangeAnchorRef}
-                  initialStart={draftFilters.dateStart}
-                  initialEnd={draftFilters.dateEnd}
-                  onComplete={handleRangeComplete}
-                  onDismiss={closeRangePicker}
-                />
-              ) : null}
-            </div>
+            <DateRangeInput
+              value={rangeDisplay}
+              onChange={(nextDisplay) => {
+                const { dateStart, dateEnd } = parseDateRangeDisplayToIso(nextDisplay);
+                setDraftFilters((prev) => ({ ...prev, dateStart, dateEnd }));
+              }}
+              className="h-11 w-full cursor-pointer rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] placeholder:text-[#98A2B3] focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia"
+            />
           </div>
         </div>
       </SideSheet>

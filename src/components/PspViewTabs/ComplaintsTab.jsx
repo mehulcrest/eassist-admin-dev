@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import userProfile from "../../assets/userProfile.png";
 import ComplaintDetailsSheet from "../shared/ComplaintDetailsSheet";
 import SideSheet from "../SideSheet";
+import DateRangeInput from "../ui/DateRangeInput";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 import Button, { FiltersButton } from "../ui/Button";
 import StatusBadge from "../ui/StatusBadge";
@@ -327,16 +328,11 @@ const ComplaintsTab = () => {
 
           <div>
             <label className="mb-1.5 block text-sm font-medium text-[#344054]">Date Reported</label>
-            <div className="relative">
-              <input
-                type="text"
-                value={dateReported}
-                onChange={(event) => setDateReported(event.target.value)}
-                placeholder="MM-DD-YYY ~ MM-DD-YYYY"
-                className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-base text-[#344054] placeholder:text-[#98A2B3]"
-              />
-              <CalendarDays className="pointer-events-none absolute right-3 top-1/2 size-5 -translate-y-1/2 text-[#667085]" />
-            </div>
+            <DateRangeInput
+              value={dateReported}
+              onChange={setDateReported}
+              className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-base text-[#344054] placeholder:text-[#98A2B3]"
+            />
           </div>
         </div>
       </SideSheet>

@@ -13,6 +13,7 @@ import {
   User, MapPin,
 } from "lucide-react";
 import SideSheet from "../../components/SideSheet";
+import DateRangeInput from "../../components/ui/DateRangeInput";
 import userProfile from "../../assets/userProfile.png";
 
 /* ─────────────────────────────────────────────
@@ -449,21 +450,7 @@ const CancellationTab = ({ renderTabNav }) => {
           {/* Time Range */}
           <div>
             <label className="mb-1.5 block text-sm font-medium text-[#344054]">Time Range</label>
-            <div className="relative">
-              <select
-                defaultValue=""
-                className="h-11 w-full appearance-none rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] focus:border-[#F04438] focus:outline-none focus:ring-1 focus:ring-[#F04438] cursor-pointer"
-              >
-                <option value="" disabled hidden>MM-DD-YYYY – MM-DD-YYYY</option>
-                <option>All</option>
-                <option>Today</option>
-                <option>Tomorrow</option>
-                <option>This Week</option>
-                <option>Next 7 Days</option>
-                <option>Custom Range</option>
-              </select>
-              <CalendarDays className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
-            </div>
+            <DateRangeInput />
           </div>
 
           {/* Reason */}

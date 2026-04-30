@@ -12,6 +12,7 @@ import {
   Settings2,
 } from "lucide-react";
 import SideSheet from "../../../components/SideSheet";
+import DateRangeInput from "../../../components/ui/DateRangeInput";
 import MemberWalletDetailSheet from "./MemberWalletDetailSheet";
 import IssueRefundModal from "./IssueRefundModal";
 import FlagAccountModal from "./FlagAccountModal";
@@ -343,17 +344,7 @@ const MemberWalletsTab = () => {
           {/* Last Payment Date Range */}
           <div>
             <label className="mb-1.5 block text-sm font-medium text-[#344054]">Last Payment Date</label>
-            <div className="relative">
-              <select value={fDate} onChange={(e) => setFDate(e.target.value)}
-                className="h-11 w-full appearance-none rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] focus:border-[#F04438] focus:outline-none focus:ring-1 focus:ring-[#F04438] cursor-pointer">
-                <option value="">MM-DD-YYYY ~ MM-DD-YYYY</option>
-                <option value="today">Today</option>
-                <option value="last7">Last 7 Days</option>
-                <option value="last30">Last 30 Days</option>
-                <option value="this_month">This Month</option>
-              </select>
-              <CalendarDays className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
-            </div>
+            <DateRangeInput value={fDate} onChange={setFDate} />
           </div>
         </div>
       </SideSheet>

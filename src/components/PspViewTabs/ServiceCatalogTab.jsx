@@ -19,6 +19,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import SideSheet from "../SideSheet";
 import Button, { FiltersButton } from "../ui/Button";
+import DateRangeInput from "../ui/DateRangeInput";
 import Switch from "../ui/Switch";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 
@@ -402,9 +403,12 @@ const ServiceCatalogTab = () => {
                   openSections[group.name] ? "bg-[#F5F5F5]" : "bg-white"
                 }`}
               >
-                <p className="text-sm font-semibold text-textColor">
-                  {group.name} <span className="font-normal text-[#667085]">• {group.count} Services</span>
-                </p>
+                <div className="flex gap-2">
+                <p className="font-semibold">{group.name}</p>
+                <ul className="ml-4 flex list-disc items-center gap-5 text-sm text-textColor">
+                  <li className="ml-2 font-normal text-[#667085]">{group.count} Services</li>
+                </ul>
+                </div>
                 <div className="flex items-center gap-2">
                   <span
                     className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${
@@ -707,16 +711,11 @@ const ServiceCatalogTab = () => {
 
           <div>
             <label className="mb-2 block text-sm font-medium text-[#344054]">Date Range</label>
-            <div className="relative">
-              <input
-                type="text"
-                value={dateRange}
-                onChange={(event) => setDateRange(event.target.value)}
-                placeholder="MM-DD-YY - MM-DD-YYYY"
-                className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] placeholder:text-[#98A2B3]"
-              />
-              <CalendarDays className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
-            </div>
+            <DateRangeInput
+              value={dateRange}
+              onChange={setDateRange}
+              className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] placeholder:text-[#98A2B3]"
+            />
           </div>
 
           <div className="flex items-center justify-between gap-3">

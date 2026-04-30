@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import userProfile from "../../assets/userProfile.png";
 import CreateComplaintSideSheet from "./CreateComplaintSideSheet";
 import SideSheet from "../SideSheet";
+import DateRangeInput from "../ui/DateRangeInput";
 import StatusBadge from "../ui/StatusBadge";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 import Button, { FiltersButton } from "../ui/Button";
@@ -381,23 +382,11 @@ const RatingsReviewsTab = () => {
 
           <div>
             <label className="mb-1.5 block text-sm font-medium text-[#344054]">Date Range</label>
-            <div className="relative">
-              <input
-                type="text"
-                value={dateRange}
-                onChange={(event) => setDateRange(event.target.value)}
-                placeholder="MM-DD-YYY ~ MM-DD-YYYY"
-                className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-base text-[#344054] placeholder:text-[#98A2B3]"
-              />
-              <svg
-                className="pointer-events-none absolute right-3 top-1/2 size-5 -translate-y-1/2 text-[#667085]"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M8 2V5M16 2V5M3.5 9.5H20.5M6.8 13H7.2M11.8 13H12.2M16.8 13H17.2M6.8 17H7.2M11.8 17H12.2M16.8 17H17.2M6.4 22H17.6C19.8402 22 20.9603 22 21.816 21.564C22.5686 21.1805 23.1805 20.5686 23.564 19.816C24 18.9603 24 17.8402 24 15.6V8.4C24 6.15979 24 5.03969 23.564 4.18404C23.1805 3.43139 22.5686 2.81947 21.816 2.43597C20.9603 2 19.8402 2 17.6 2H6.4C4.15979 2 3.03969 2 2.18404 2.43597C1.43139 2.81947 0.819467 3.43139 0.435975 4.18404C0 5.03969 0 6.15979 0 8.4V15.6C0 17.8402 0 18.9603 0.435975 19.816C0.819467 20.5686 1.43139 21.1805 2.18404 21.564C3.03969 22 4.15979 22 6.4 22Z" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
-              </svg>
-            </div>
+            <DateRangeInput
+              value={dateRange}
+              onChange={setDateRange}
+              className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-base text-[#344054] placeholder:text-[#98A2B3]"
+            />
           </div>
 
           <div>

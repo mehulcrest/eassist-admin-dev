@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import userProfile from "../assets/userProfile.png";
 import SideSheet from "../components/SideSheet";
+import DateRangeInput from "../components/ui/DateRangeInput";
 import { FiltersButton } from "../components/ui/Button";
 import StatusBadge from "../components/ui/StatusBadge";
 import {
@@ -430,16 +431,7 @@ const PSPIndividuals = () => {
             <label className="mb-1.5 block text-sm font-medium text-[#344054]">
               Joining Date
             </label>
-            <div className="relative">
-              <select className="h-11 w-full appearance-none rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia">
-                <option value="all">All</option>
-                <option value="today">Today</option>
-                <option value="7d">Last 7 Days</option>
-                <option value="30d">Last 30 Days</option>
-                <option value="custom">Custom Range</option>
-              </select>
-              <CalendarDays className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
-            </div>
+            <DateRangeInput className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] placeholder:text-[#98A2B3] focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia" />
           </div>
 
           {/* Account Status */}

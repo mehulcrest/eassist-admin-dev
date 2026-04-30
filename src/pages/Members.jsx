@@ -3,7 +3,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   ArrowDown,
   ArrowUp,
-  CalendarDays,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -19,6 +18,7 @@ import {
 } from "lucide-react";
 import userProfile from "../assets/userProfile.png";
 import SideSheet from "../components/SideSheet";
+import DateRangeInput from "../components/ui/DateRangeInput";
 import { FiltersButton } from "../components/ui/Button";
 import {
   Table,
@@ -97,8 +97,10 @@ const Members = () => {
   const [page,     setPage]     = useState(1);
   const [rows,     setRows]     = useState(MEMBERS);
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
+  const [lastServiceDateRange, setLastServiceDateRange] = useState("");
 
   useEffect(() => { setPage(1); }, [query]);
+
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -119,7 +121,6 @@ const Members = () => {
     () => getVisiblePages(safePage, totalPages, 5),
     [safePage, totalPages]
   );
-
   return (
     <div className="flex flex-col gap-4 sm:gap-6">
 
@@ -382,14 +383,11 @@ const Members = () => {
             <label className="mb-1.5 block text-sm font-medium text-[#344054]">
               Last Service Date
             </label>
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="MM-DD-YYYY ~ MM-DD-YYYY"
-                className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] placeholder:text-[#98A2B3] focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia"
-              />
-              <CalendarDays className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
-            </div>
+            <DateRangeInput
+              value={lastServiceDateRange}
+              onChange={setLastServiceDateRange}
+              className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] placeholder:text-[#98A2B3] focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia"
+            />
           </div>
 
           {["Status", "Subscription Type", "Territory", "Age Group"].map((label) => (
