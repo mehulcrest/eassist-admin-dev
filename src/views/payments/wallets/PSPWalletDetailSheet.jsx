@@ -3,18 +3,18 @@ import SideSheet from "../../../components/SideSheet";
 
 /* ─── Status pill styles ─────────────────────────────────── */
 const statusPill = {
-  Scheduled: "bg-[#FFFAEB] text-[#B54708] border border-[#FEDF89]",
-  Pending:   "bg-[#FEF3F2] text-[#B42318] border border-[#FECDCA]",
-  Paid:      "bg-[#ECFDF3] text-[#027A48] border border-[#ABEFC6]",
-  OnHold:    "bg-[#F2F4F7] text-[#344054] border border-[#D0D5DD]",
+  Scheduled: "bg-[#FFFAEB] text-[#DC6803] ",
+  Pending: "bg-[#FEF3F2] text-[#D92D20] ",
+  Paid: "bg-[#ECFDF3] text-[#039855] ",
+  OnHold: "bg-[#F2F4F7] text-[#344054] ",
 };
 
 /* ─── Primitives ─────────────────────────────────────────── */
 const FieldLabel = ({ children }) => (
-  <p className="text-xs font-medium text-[#667085] mb-1">{children}</p>
+  <p className="text-xs font-medium text-[#333] mb-1">{children}</p>
 );
 const FieldValue = ({ children, className = "" }) => (
-  <p className={`text-sm text-[#344054] ${className}`}>{children}</p>
+  <p className={`text-sm text-[#667085] ${className}`}>{children}</p>
 );
 const SectionTitle = ({ children }) => (
   <h3 className="text-base font-bold text-[#101828]">{children}</h3>
@@ -25,7 +25,7 @@ const HDivider = () => <div className="my-6 border-t border-[#EAECF0]" />;
 const TimelineRow = ({ label, isLast }) => (
   <div className="flex gap-4 min-h-[44px]">
     <div className="flex shrink-0 flex-col items-center" style={{ width: 18 }}>
-      <div className="mt-[3px] shrink-0 rounded-full border-2 border-[#F04438] bg-white" style={{ width: 13, height: 13 }} />
+      <div className="mt-[3px] shrink-0 rounded-full border-2 border-[#F04438] bg-white" style={{ width: 10, height: 10 }} />
       {!isLast && (
         <div className="mt-1 flex-1" style={{ width: 0, borderLeft: "2px dashed #FECDCA", minHeight: 24 }} />
       )}
@@ -45,9 +45,9 @@ const PSPWalletDetailSheet = ({ isOpen, onClose, psp }) => {
   ];
 
   const recentJobs = psp.recentJobs ?? [
-    { job: "Grocery Trip Assistance",  jobId: "J001", date: "Apr 16, 2026", earning: "$160.00", fee: "$16.00", net: "$144.00" },
-    { job: "Daily Care",               jobId: "J002", date: "Apr 18, 2026", earning: "$120.00", fee: "$12.00", net: "$108.00" },
-    { job: "Cleaning",                 jobId: "J003", date: "Apr 20, 2026", earning: "$80.00",  fee: "$8.00",  net: "$72.00"  },
+    { job: "Grocery Trip Assistance", jobId: "J001", date: "Apr 16, 2026", earning: "$160.00", fee: "$16.00", net: "$144.00" },
+    { job: "Daily Care", jobId: "J002", date: "Apr 18, 2026", earning: "$120.00", fee: "$12.00", net: "$108.00" },
+    { job: "Cleaning", jobId: "J003", date: "Apr 20, 2026", earning: "$80.00", fee: "$8.00", net: "$72.00" },
   ];
 
   return (
@@ -57,7 +57,7 @@ const PSPWalletDetailSheet = ({ isOpen, onClose, psp }) => {
       title="PSP Wallet Detail"
       widthClass="w-full sm:w-[600px]"
       footer={
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-col items-stretch gap-3 min-[571px]:flex-row min-[571px]:items-center">
           <button
             type="button"
             className="text-sm font-semibold text-[#344054] underline underline-offset-2 hover:text-[#F04438] transition-colors"
@@ -67,14 +67,14 @@ const PSPWalletDetailSheet = ({ isOpen, onClose, psp }) => {
           <div className="flex-1" />
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-lg bg-[#F04438] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#D92D20] transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg bg-[#F04438] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#D92D20] transition-colors w-full min-[571px]:w-auto"
           >
             <Download size={15} strokeWidth={2} />
             Download Statement
           </button>
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-lg border border-[#F04438] px-5 py-2.5 text-sm font-semibold text-[#F04438] hover:bg-[#FEF3F2] transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg border border-[#F04438] px-5 py-2.5 text-sm font-semibold text-[#F04438] hover:bg-[#FEF3F2] transition-colors w-full min-[571px]:w-auto"
           >
             <ScrollText size={15} strokeWidth={2} />
             View Transaction Log
@@ -106,7 +106,7 @@ const PSPWalletDetailSheet = ({ isOpen, onClose, psp }) => {
         <div className="mt-5 grid grid-cols-2 gap-x-8 gap-y-5">
           <div>
             <FieldLabel>Pending Earnings</FieldLabel>
-            <FieldValue className="font-semibold text-[#F79009]">{psp.pendingEarnings}</FieldValue>
+            <FieldValue className="font-semibold text-[#667085]">{psp.pendingEarnings}</FieldValue>
           </div>
           <div>
             <FieldLabel>Cleared Earnings</FieldLabel>
@@ -148,7 +148,7 @@ const PSPWalletDetailSheet = ({ isOpen, onClose, psp }) => {
           <span className="text-xs text-[#667085] italic shrink-0">Current payout cycle</span>
         </div>
 
-        <div className="rounded-xl border border-[#EAECF0] overflow-hidden">
+        <div className="rounded-xl border border-[#EAECF0] overflow-auto">
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-[#F9FAFB]">
@@ -169,16 +169,16 @@ const PSPWalletDetailSheet = ({ isOpen, onClose, psp }) => {
                   <td className="px-4 py-3 text-sm text-[#667085] whitespace-nowrap">{row.date}</td>
                   <td className="px-4 py-3 text-sm text-[#344054]">{row.earning}</td>
                   <td className="px-4 py-3 text-sm text-[#344054]">{row.fee}</td>
-                  <td className="px-4 py-3 pr-5 text-sm font-semibold text-[#101828]">{row.net}</td>
+                  <td className="px-4 py-3 pr-5 text-sm font-semibold text-[#333]">{row.net}</td>
                 </tr>
               ))}
             </tbody>
             <tfoot>
               <tr className="border-t border-[#EAECF0] bg-[#F9FAFB]">
                 <td colSpan={2} className="pl-5 py-3" />
-                <td className="px-4 py-3 text-sm font-bold text-[#101828]">{psp.pendingEarnings}</td>
+                <td className="px-4 py-3 text-sm font-medium text-[#333]">{psp.pendingEarnings}</td>
                 <td className="px-4 py-3 text-sm text-[#667085]" />
-                <td className="px-4 py-3 pr-5 text-sm font-bold text-[#101828]">{psp.clearedEarnings}</td>
+                <td className="px-4 py-3 pr-5 text-sm font-medium text-[#333]">{psp.clearedEarnings}</td>
               </tr>
             </tfoot>
           </table>

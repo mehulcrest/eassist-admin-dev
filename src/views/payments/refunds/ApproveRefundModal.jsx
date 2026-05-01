@@ -42,24 +42,24 @@ const ApproveRefundModal = ({ isOpen, onClose, record }) => {
             <CheckCircle2 size={24} className="text-[#F04438]" strokeWidth={2} />
           </div>
           <h2 className="text-xl font-bold text-[#101828]">Approve Refund</h2>
-          
+
           <div className="mt-2 text-sm text-[#475467] leading-relaxed">
-            <p>You are approving a refund of <span className="font-bold text-[#101828]">{record?.credit || "$120"}</span>.</p>
+            <p>You are approving a refund of <span className="font-semibold text-[#101828]">{record?.credit || "$120"}</span>.</p>
             <p>Refund amount will be credited to the user's original payment method.</p>
             <p>This action impacts platform balance.</p>
           </div>
 
-          <div className="mt-4 text-sm font-medium text-[#344054] space-y-1">
+          <div className="mt-4 text-sm  text-[#344054] space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-[#475467]">Original Amount:</span>
+              <span className="text-[#475467] font-medium">Original Amount:</span>
               <span>{record?.credit || "$120"}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[#475467]">Requested Refund:</span>
+              <span className="text-[#475467] font-medium">Requested Refund:</span>
               <span>{record?.credit || "$120"}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[#475467]">Max Allowed:</span>
+              <span className="text-[#475467] font-medium">Max Allowed:</span>
               <span>{record?.credit || "$120"}</span>
             </div>
           </div>

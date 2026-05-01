@@ -46,16 +46,14 @@ const SideSheet = ({
 
   return createPortal(
     <div
-      className={`fixed inset-0 z-50 transition-all duration-300 ${
-        isOpen ? "pointer-events-auto" : "pointer-events-none"
-      }`}
+      className={`fixed inset-0 z-50 transition-all duration-300 ${isOpen ? "pointer-events-auto" : "pointer-events-none"
+        }`}
     >
       <button
         type="button"
         aria-label="Close sheet overlay"
-        className={`absolute inset-0 bg-black/20 transition-opacity duration-300 ${
-          isOpen ? "opacity-100" : "opacity-0"
-        }`}
+        className={`absolute inset-0 bg-black/20 transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0"
+          }`}
         onClick={onClose}
       />
 
@@ -63,15 +61,12 @@ const SideSheet = ({
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className={`absolute flex flex-col bg-white shadow-2xl transition-transform duration-300 ease-out overscroll-contain ${
-          isMobile
-            ? `left-0 right-0 bottom-0 w-full max-h-[92vh] rounded-t-[20px] ${
-                isOpen ? "translate-y-0" : "translate-y-full"
-              }`
-            : `right-0 top-0 h-full ${widthClass} max-w-[95vw] ${
-                isOpen ? "translate-x-0" : "translate-x-full"
-              }`
-        }`}
+        className={`absolute flex flex-col bg-white shadow-2xl transition-transform duration-300 ease-out overscroll-contain ${isMobile
+          ? `left-0 right-0 bottom-0 w-full max-h-[92vh] rounded-t-[20px] ${isOpen ? "translate-y-0" : "translate-y-full"
+          }`
+          : `right-0 top-0 h-full ${widthClass} max-w-[95vw] ${isOpen ? "translate-x-0" : "translate-x-full"
+          }`
+          }`}
       >
         {/* Mobile handle indicator */}
         {isMobile && (
@@ -81,7 +76,7 @@ const SideSheet = ({
         )}
 
         <div className="flex items-center justify-between border-b border-[#EAECF0] px-4 py-3">
-          <h2 className="text-[20px] sm:text-2xl font-semibold text-[#344054]">{title}</h2>
+          <h2 className="text-[16px] sm:text-[18px] font-semibold text-[#344054]">{title}</h2>
           <button
             type="button"
             onClick={onClose}

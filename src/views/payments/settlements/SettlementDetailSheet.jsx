@@ -15,11 +15,11 @@ const STATUS_DESCRIPTION = {
 };
 
 const FieldLabel = ({ children }) => (
-  <p className="mb-1 text-xs font-semibold text-[#667085]">{children}</p>
+  <p className="mb-1 text-xs font-semibold text-[#333]">{children}</p>
 );
 
 const FieldValue = ({ children, className = "" }) => (
-  <p className={`text-sm text-[#101828] font-medium ${className}`}>{children}</p>
+  <p className={`text-sm text-[#667085] font-medium ${className}`}>{children}</p>
 );
 
 const SectionTitle = ({ children }) => (
@@ -34,7 +34,7 @@ const TimelineRow = ({ date, label, systemText, isLast }) => (
     <div className="flex shrink-0 flex-col items-center" style={{ width: 18 }}>
       <div
         className="mt-[3px] shrink-0 rounded-full border-2 border-[#F04438] bg-white"
-        style={{ width: 13, height: 13 }}
+        style={{ width: 10, height: 10 }}
       />
       {!isLast && (
         <div
@@ -85,7 +85,7 @@ const SettlementDetailSheet = ({ isOpen, onClose, entry, onCloseCycle }) => {
       }
     >
       <div className="pb-4">
-        
+
         {/* ── Entry Details ── */}
         <SectionTitle>Entry Details</SectionTitle>
         <div className="grid grid-cols-2 gap-y-5 gap-x-4 mb-5">
@@ -100,7 +100,7 @@ const SettlementDetailSheet = ({ isOpen, onClose, entry, onCloseCycle }) => {
           <div className="col-span-2">
             <FieldLabel>Status</FieldLabel>
             <div className="mt-1 flex items-center gap-2">
-              <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${STATUS_STYLE[entry.status] || "text-[#344054] bg-[#F2F4F7]"}`}>
+              <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold border-none ${STATUS_STYLE[entry.status] || "bg-[#FFFAEB] text-[#DC6803]"}`}>
                 {entry.status}
               </span>
               <span className="text-sm text-[#475467]">{STATUS_DESCRIPTION[entry.status]}</span>
@@ -110,33 +110,31 @@ const SettlementDetailSheet = ({ isOpen, onClose, entry, onCloseCycle }) => {
 
         {/* ── Summary ── */}
         <SectionTitle>Summary</SectionTitle>
-        <div className="mt-4 rounded-xl border border-[#EAECF0] bg-[#F9FAFB] px-5 py-4 space-y-3">
-          <div className="flex items-center justify-between text-sm text-[#475467]">
+        <div className="mt-4 rounded-xl bg-[#F6F6F6] px-5 py-4 space-y-3">
+          <div className="flex items-center justify-between text-sm text-[#333]">
             <span>Total Payments</span>
             <span>{entry.totalPayments}</span>
           </div>
-          <div className="flex items-center justify-between text-sm text-[#475467]">
+          <div className="flex items-center justify-between text-sm text-[#333]">
             <span>Total Payouts</span>
             <span>{entry.totalPayouts}</span>
           </div>
-          <div className="flex items-center justify-between text-sm text-[#475467]">
+          <div className="flex items-center justify-between text-sm text-[#333]">
             <span>Platform Revenue</span>
             <span>$10,000</span> {/* Mock based on screenshot */}
           </div>
-          <div className="flex items-center justify-between text-sm text-[#475467]">
+          <div className="flex items-center justify-between text-sm text-[#333]">
             <span>Adjustments</span>
             <span>{entry.adjustments}</span>
           </div>
-          <div className="flex items-center justify-between text-sm text-[#475467]">
+          <div className="flex items-center justify-between text-sm text-[#333]">
             <span>Taxes</span>
             <span>{entry.taxes}</span>
           </div>
-          
-          <div className="pt-2" />
 
-          <div className="flex items-center justify-between border-t border-[#EAECF0] pt-4 font-bold text-sm text-[#12B76A]">
-             <span>Net Balance</span>
-             <span>{entry.netBalance}</span>
+          <div className="flex items-center justify-between border-t border-[#EAECF0] pt-3 font-medium text-sm text-[#039855]">
+            <span>Net Balance</span>
+            <span>{entry.netBalance}</span>
           </div>
         </div>
 
@@ -144,7 +142,7 @@ const SettlementDetailSheet = ({ isOpen, onClose, entry, onCloseCycle }) => {
 
         {/* ── PSP Breakdown ── */}
         <SectionTitle>PSP Breakdown</SectionTitle>
-        <div className="rounded-xl border border-[#EAECF0] overflow-hidden bg-white shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] text-sm">
+        <div className="rounded-xl border border-[#EAECF0] overflow-auto bg-white shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] text-sm">
           <table className="w-full text-left">
             <thead className="bg-[#F9FAFB] border-b border-[#EAECF0] text-xs font-medium text-[#475467]">
               <tr>
@@ -157,7 +155,7 @@ const SettlementDetailSheet = ({ isOpen, onClose, entry, onCloseCycle }) => {
             <tbody className="divide-y divide-[#EAECF0]">
               <tr>
                 <td className="px-4 py-3 align-top">
-                  <p className="text-[#175CD3] underline underline-offset-2 cursor-pointer font-medium mb-0.5">Maria Santos</p>
+                  <p className="text-[#1D2939] underline underline-offset-2 cursor-pointer mb-0.5">Maria Santos</p>
                   <p className="text-xs text-[#667085]">ID: PSP001</p>
                 </td>
                 <td className="px-4 py-3 align-top text-[#475467]">$12,000</td>
@@ -166,7 +164,7 @@ const SettlementDetailSheet = ({ isOpen, onClose, entry, onCloseCycle }) => {
               </tr>
               <tr>
                 <td className="px-4 py-3 align-top">
-                  <p className="text-[#175CD3] underline underline-offset-2 cursor-pointer font-medium mb-0.5">SilverAge Support</p>
+                  <p className="text-[#1D2939] underline underline-offset-2 cursor-pointer mb-0.5">SilverAge Support</p>
                   <p className="text-xs text-[#667085]">ID: J002</p>
                 </td>
                 <td className="px-4 py-3 align-top text-[#475467]">$18,000</td>
@@ -175,14 +173,14 @@ const SettlementDetailSheet = ({ isOpen, onClose, entry, onCloseCycle }) => {
               </tr>
               <tr>
                 <td className="px-4 py-3 align-top">
-                  <p className="text-[#175CD3] underline underline-offset-2 cursor-pointer font-medium mb-0.5">Lisa Wong</p>
+                  <p className="text-[#1D2939] underline underline-offset-2 cursor-pointer mb-0.5">Lisa Wong</p>
                   <p className="text-xs text-[#667085]">ID: PSP006</p>
                 </td>
                 <td className="px-4 py-3 align-top text-[#475467]">$10,000</td>
                 <td className="px-4 py-3 align-top text-[#475467]">$1,000</td>
                 <td className="px-4 py-3 align-top text-[#475467]">$9,000</td>
               </tr>
-              <tr className="bg-[#F9FAFB] font-bold text-[#101828]">
+              <tr className="bg-[#F9FAFB] font-medium text-[#667085]">
                 <td className="px-4 py-3"></td>
                 <td className="px-4 py-3">$40,000</td>
                 <td className="px-4 py-3">$4,000</td>
@@ -197,15 +195,15 @@ const SettlementDetailSheet = ({ isOpen, onClose, entry, onCloseCycle }) => {
         {/* ── Adjustments ── */}
         <SectionTitle>Adjustments</SectionTitle>
         <div className="space-y-3 px-1">
-          <div className="flex justify-between text-sm text-[#475467]">
+          <div className="flex justify-between text-sm text-[#333]">
             <span>Refund Adjustments (7 cases)</span>
             <span>-$300</span>
           </div>
-          <div className="flex justify-between text-sm text-[#475467]">
+          <div className="flex justify-between text-sm text-[#333]">
             <span>Manual Corrections (2 entries)</span>
             <span>-$200</span>
           </div>
-          <div className="pt-2 border-t border-[#EAECF0] mt-3 flex justify-between font-bold text-sm text-[#F04438]">
+          <div className="pt-2 border-t border-[#EAECF0] mt-3 flex justify-between font-medium text-sm text-[#E4302F]">
             <span>Total Adjustments</span>
             <span>-$500</span>
           </div>
@@ -216,15 +214,15 @@ const SettlementDetailSheet = ({ isOpen, onClose, entry, onCloseCycle }) => {
         {/* ── Tax Details ── */}
         <SectionTitle>Tax Details</SectionTitle>
         <div className="space-y-3 px-1">
-          <div className="flex justify-between text-sm text-[#475467]">
+          <div className="flex justify-between text-sm text-[#333]">
             <span>GST Collected</span>
             <span>$2,000</span>
           </div>
-          <div className="flex justify-between text-sm text-[#475467]">
+          <div className="flex justify-between text-sm text-[#333]">
             <span>TDS Deducted</span>
             <span>$800</span>
           </div>
-          <div className="pt-2 border-t border-[#EAECF0] mt-3 flex justify-between font-bold text-sm text-[#F04438]">
+          <div className="pt-2 border-t border-[#EAECF0] mt-3 flex justify-between font-medium text-sm text-[#E4302F]">
             <span>Net Tax Liability</span>
             <span>$1,200</span>
           </div>

@@ -1,4 +1,4 @@
-import { X, Flag, UploadCloud } from "lucide-react";
+import { X, Flag, UploadCloud, ChevronDown } from "lucide-react";
 import { createPortal } from "react-dom";
 import { useState } from "react";
 
@@ -68,34 +68,40 @@ const FlagFinancialIssueModal = ({ isOpen, onClose, record }) => {
 
           <div className="mt-6 flex flex-col gap-5">
             {/* Row 1: Type & Severity */}
-            <div className="flex gap-4">
+            <div className="flex flex-col min-[500px]:flex-row gap-4">
               <div className="flex-1">
                 <label className="mb-1.5 block text-sm font-medium text-[#344054]">Issue Type</label>
-                <select
-                  value={issueType}
-                  onChange={(e) => setIssueType(e.target.value)}
-                  className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3.5 text-sm text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] focus:border-[#F04438] focus:outline-none focus:ring-1 focus:ring-[#F04438] cursor-pointer appearance-none"
-                >
-                  <option value="">Select issue type</option>
-                  <option value="discrepancy">Amount discrepancy</option>
-                  <option value="duplicate">Duplicate charge</option>
-                  <option value="fraud">Suspected fraud</option>
-                  <option value="other">Other</option>
-                </select>
+                <div className="relative">
+                  <select
+                    value={issueType}
+                    onChange={(e) => setIssueType(e.target.value)}
+                    className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3.5 pr-10 text-sm text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] focus:border-[#F04438] focus:outline-none focus:ring-1 focus:ring-[#F04438] cursor-pointer appearance-none"
+                  >
+                    <option value="">Select issue type</option>
+                    <option value="discrepancy">Amount discrepancy</option>
+                    <option value="duplicate">Duplicate charge</option>
+                    <option value="fraud">Suspected fraud</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
+                </div>
               </div>
               <div className="flex-1">
                 <label className="mb-1.5 block text-sm font-medium text-[#344054]">Severity Level</label>
-                <select
-                  value={severity}
-                  onChange={(e) => setSeverity(e.target.value)}
-                  className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3.5 text-sm text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] focus:border-[#F04438] focus:outline-none focus:ring-1 focus:ring-[#F04438] cursor-pointer appearance-none"
-                >
-                  <option value="">Select Severity type</option>
-                  <option value="low">Low</option>
-                  <option value="medium">Medium</option>
-                  <option value="high">High</option>
-                  <option value="critical">Critical</option>
-                </select>
+                <div className="relative">
+                  <select
+                    value={severity}
+                    onChange={(e) => setSeverity(e.target.value)}
+                    className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3.5 pr-10 text-sm text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] focus:border-[#F04438] focus:outline-none focus:ring-1 focus:ring-[#F04438] cursor-pointer appearance-none"
+                  >
+                    <option value="">Select Severity type</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                    <option value="critical">Critical</option>
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
+                </div>
               </div>
             </div>
 
@@ -134,16 +140,19 @@ const FlagFinancialIssueModal = ({ isOpen, onClose, record }) => {
             {/* Assign To */}
             <div>
               <label className="mb-1.5 block text-sm font-medium text-[#344054]">Assign to</label>
-              <select
-                value={assignee}
-                onChange={(e) => setAssignee(e.target.value)}
-                className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3.5 text-sm text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] focus:border-[#F04438] focus:outline-none focus:ring-1 focus:ring-[#F04438] cursor-pointer appearance-none"
-              >
-                <option value="">Select assign type</option>
-                <option value="finance">Finance Team</option>
-                <option value="risk">Risk Team</option>
-                <option value="support">Support Team</option>
-              </select>
+              <div className="relative">
+                <select
+                  value={assignee}
+                  onChange={(e) => setAssignee(e.target.value)}
+                  className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3.5 pr-10 text-sm text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] focus:border-[#F04438] focus:outline-none focus:ring-1 focus:ring-[#F04438] cursor-pointer appearance-none"
+                >
+                  <option value="">Select assign type</option>
+                  <option value="finance">Finance Team</option>
+                  <option value="risk">Risk Team</option>
+                  <option value="support">Support Team</option>
+                </select>
+                <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 size-4 -translate-y-1/2 text-[#98A2B3]" />
+              </div>
             </div>
           </div>
 

@@ -41,9 +41,9 @@ const RejectRefundModal = ({ isOpen, onClose, record }) => {
             <XCircle size={24} className="text-[#F04438]" strokeWidth={2} />
           </div>
           <h2 className="text-xl font-bold text-[#101828]">Reject Refund</h2>
-          
+
           <div className="mt-2 text-sm text-[#475467] leading-relaxed">
-            <p>You are rejecting a refund of <span className="font-bold text-[#101828]">{record?.credit || "$120"}</span>.</p>
+            <p>You are rejecting a refund of <span className="font-semibold text-[#101828]">{record?.credit || "$120"}</span>.</p>
             <p>Provide a reason for rejecting this refund, This will be communicated to the user.</p>
           </div>
 
