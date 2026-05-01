@@ -79,9 +79,9 @@ const MEMBER_ROWS = [
    Style helpers
 ───────────────────────────────────────────── */
 const STATUS_STYLE = {
-  Paid:             "text-[#12B76A] font-semibold",
-  "Refund Pending": "text-[#F04438] font-semibold",
-  Flagged:          "text-[#F79009] font-semibold",
+  Paid: "bg-[#ECFDF3] text-[#039855]",
+  "Refund Pending": "bg-[#FEF3F2] text-[#D92D20]",
+  Flagged: "text-[#F79009] font-semibold",
 };
 
 const thClass =
@@ -144,16 +144,16 @@ const MemberWalletsTab = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("mwq") ?? "";
 
-  const [isFilterOpen,    setIsFilterOpen]    = useState(false);
-  const [selectedMember,  setSelectedMember]  = useState(null);
-  const [issueRefundRow,  setIssueRefundRow]  = useState(null);
-  const [flagAccountRow,  setFlagAccountRow]  = useState(null);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [selectedMember, setSelectedMember] = useState(null);
+  const [issueRefundRow, setIssueRefundRow] = useState(null);
+  const [flagAccountRow, setFlagAccountRow] = useState(null);
 
   /* filter state */
   const [fTerritory, setFTerritory] = useState("");
-  const [fStatus,    setFStatus]    = useState("");
-  const [fDate,      setFDate]      = useState("");
-  const [applied,    setApplied]    = useState({});
+  const [fStatus, setFStatus] = useState("");
+  const [fDate, setFDate] = useState("");
+  const [applied, setApplied] = useState({});
 
   const handleApply = () => {
     setApplied({ territory: fTerritory, status: fStatus, date: fDate });
@@ -169,8 +169,8 @@ const MemberWalletsTab = () => {
     const q = query.trim().toLowerCase();
     return MEMBER_ROWS.filter((r) => {
       const matchSearch = !q || r.name.toLowerCase().includes(q) || r.id.toLowerCase().includes(q) || r.territory.toLowerCase().includes(q);
-      const matchStatus = !applied.status    || r.status    === applied.status;
-      const matchTerr   = !applied.territory || r.territory === applied.territory;
+      const matchStatus = !applied.status || r.status === applied.status;
+      const matchTerr = !applied.territory || r.territory === applied.territory;
       return matchSearch && matchStatus && matchTerr;
     });
   }, [query, applied]);
@@ -246,7 +246,7 @@ const MemberWalletsTab = () => {
                           {row.name?.[0]}
                         </div>
                       )}
-                      <span className="text-[#175CD3] underline underline-offset-2 cursor-pointer hover:text-[#F04438] transition-colors">
+                      <span className="underline underline-offset-2 cursor-pointer hover:text-[#F04438] transition-colors">
                         {row.name}
                       </span>
                     </div>
@@ -260,7 +260,7 @@ const MemberWalletsTab = () => {
                   </td>
                   <td className={tdClass}>{row.lastPayment}</td>
                   <td className={tdClass}>
-                    <span className={STATUS_STYLE[row.status] ?? "text-[#667085]"}>
+                    <span className={STATUS_STYLE[row.status] + " items-center rounded-full px-2.5 py-0.5 text-xs" ?? "text-[#667085]"}>
                       {row.status}
                     </span>
                   </td>

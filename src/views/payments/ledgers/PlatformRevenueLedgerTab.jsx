@@ -120,15 +120,15 @@ const LEDGER_ROWS = [
 ];
 
 const TYPE_STYLE = {
-  Commission: "bg-[#ECFDF3] text-[#027A48]",
-  Subscription: "bg-[#EFF8FF] text-[#175CD3]",
-  Reversal: "bg-[#FEF3F2] text-[#B42318]",
-  Penalty: "bg-[#FFFAEB] text-[#B54708]",
+  Commission: "bg-[#ECFDF3] text-[#039855]",
+  Subscription: "bg-[#DFF3FF] text-[#007AFF]",
+  Reversal: "bg-[#FEF3F2] text-[#D92D20]",
+  Penalty: "bg-[#FFFAEB] text-[#DC6803]",
 };
 
 const STATUS_STYLE = {
-  Earned: "text-[#12B76A] font-semibold bg-[#ECFDF3] px-2.5 py-0.5 rounded-full",
-  Adjusted: "text-[#2E90FA] font-semibold bg-[#EFF8FF] px-2.5 py-0.5 rounded-full",
+  Earned: "text-[#12B76A] bg-[#ECFDF3] px-2.5 py-0.5 rounded-full",
+  Adjusted: "text-[#2E90FA] bg-[#EFF8FF] px-2.5 py-0.5 rounded-full",
 };
 
 const thClass =
@@ -190,7 +190,7 @@ const MoreActionsMenu = ({ row, onFlag }) => {
 const PlatformRevenueLedgerTab = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  
+
   // Filter States
   const [fType, setFType] = useState("");
   const [fStatus, setFStatus] = useState("");
@@ -202,7 +202,7 @@ const PlatformRevenueLedgerTab = () => {
 
   const filtered = useMemo(() => {
     let result = LEDGER_ROWS;
-    
+
     // Search
     const q = searchQuery.toLowerCase();
     if (q) {
@@ -227,7 +227,7 @@ const PlatformRevenueLedgerTab = () => {
 
   return (
     <div className="flex flex-col gap-6 min-h-0 h-full overflow-y-auto lg:overflow-hidden">
-      
+
       {/* ── Top Bar ── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0">
         <div className="relative w-full sm:max-w-[400px]">
@@ -261,12 +261,11 @@ const PlatformRevenueLedgerTab = () => {
                 <span className="text-[28px] font-bold text-[#101828] leading-none">{kpi.value}</span>
                 <div className="flex items-center gap-1.5 pb-0.5">
                   <span
-                    className={`inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-xs font-semibold ${
-                      isUp ? "bg-[#ECFDF3] text-[#027A48]" : "bg-[#FEF3F2] text-[#B42318]"
-                    }`}
+                    className={`inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-xs font-semibold ${isUp ? "bg-[#ECFDF3] text-[#027A48]" : "bg-[#FEF3F2] text-[#B42318]"
+                      }`}
                   >
                     {isUp ? <ArrowUpRight size={12} strokeWidth={3} /> : <ArrowDownRight size={12} strokeWidth={3} />}
-                    {kpi.trend === "up" ? "\u2191" : "\u2193"} {kpi.change}
+                    {kpi.trend === "up" ? "" : "\u2193"} {kpi.change}
                   </span>
                   <span className="text-xs text-[#667085]">this month</span>
                 </div>
@@ -307,16 +306,16 @@ const PlatformRevenueLedgerTab = () => {
                     <span className="text-[#475467] font-medium">{row.source}</span>
                   </td>
                   <td className={tdClass}>
-                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${TYPE_STYLE[row.type] || "bg-gray-100 text-gray-700"}`}>
+                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs ${TYPE_STYLE[row.type] || "bg-gray-100 text-gray-700"}`}>
                       {row.type}
                     </span>
                   </td>
                   <td className={tdClass}>{row.ref}</td>
                   <td className={tdClass}>{row.credit}</td>
                   <td className={tdClass}>{row.tax}</td>
-                  <td className="px-4 py-4 text-sm font-bold text-[#101828] align-middle">{row.balance}</td>
+                  <td className="px-4 py-4 text-sm font-medium text-[#101828] align-middle">{row.balance}</td>
                   <td className={tdClass}>
-                    <span className={`inline-flex items-center ${STATUS_STYLE[row.status] || "text-[#667085]"}`}>
+                    <span className={`inline-flex items-center text-xs ${STATUS_STYLE[row.status] || "text-[#667085]"}`}>
                       {row.status}
                     </span>
                   </td>
@@ -450,7 +449,7 @@ const PlatformRevenueLedgerTab = () => {
           credit: selectedEntry?.credit
         }}
       />
-      
+
       <FlagFinancialIssueModal
         isOpen={!!flagEntryRow}
         onClose={() => setFlagEntryRow(null)}

@@ -99,10 +99,10 @@ const TRANSACTIONS = [
    Style helpers
 ───────────────────────────────────────────── */
 const statusStyle = {
-  Processing: "text-[#F79009] font-semibold",
-  Paid:       "text-[#12B76A] font-semibold",
-  Failed:     "text-[#F04438] font-semibold",
-  Pending:    "text-[#667085] font-semibold",
+  Processing: "bg-[#FFFAEB] text-[#DC6803]",
+  Paid: "bg-[#ECFDF3] text-[#039855]",
+  Failed: "bg-[#FEF3F2] text-[#D92D20]",
+  Pending: "bg-[#FEF3F2] text-[#D92D20]",
 };
 
 const thClass =
@@ -117,15 +117,15 @@ const TransactionsTab = ({ renderTabNav }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("txq") ?? "";
 
-  const [isFilterOpen, setIsFilterOpen]     = useState(false);
-  const [selectedTx,   setSelectedTx]       = useState(null);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [selectedTx, setSelectedTx] = useState(null);
 
   // Filter form state
-  const [filterType,      setFilterType]      = useState("");
-  const [filterStatus,    setFilterStatus]    = useState("");
+  const [filterType, setFilterType] = useState("");
+  const [filterStatus, setFilterStatus] = useState("");
   const [filterTerritory, setFilterTerritory] = useState("");
-  const [filterParty,     setFilterParty]     = useState("");
-  const [filterDate,      setFilterDate]      = useState("");
+  const [filterParty, setFilterParty] = useState("");
+  const [filterDate, setFilterDate] = useState("");
 
   // Apply filter state (snapshot on Apply click)
   const [applied, setApplied] = useState({});
@@ -157,7 +157,7 @@ const TransactionsTab = ({ renderTabNav }) => {
         tx.id.toLowerCase().includes(q) ||
         tx.party.toLowerCase().includes(q) ||
         tx.type.toLowerCase().includes(q);
-      const matchesType   = !applied.type   || tx.type   === applied.type;
+      const matchesType = !applied.type || tx.type === applied.type;
       const matchesStatus = !applied.status || tx.status === applied.status;
       return matchesSearch && matchesType && matchesStatus;
     });
@@ -240,7 +240,7 @@ const TransactionsTab = ({ renderTabNav }) => {
 
                   {/* ID */}
                   <td className={tdClass}>
-                    <span className="font-medium text-[#101828]">{tx.id}</span>
+                    <span className="font-medium">{tx.id}</span>
                   </td>
 
                   {/* Type */}
@@ -256,7 +256,7 @@ const TransactionsTab = ({ renderTabNav }) => {
                         alt=""
                         className="size-8 shrink-0 rounded-full object-cover ring-1 ring-[#EAECF0]"
                       />
-                      <span className="text-[#175CD3] underline underline-offset-2 cursor-pointer hover:text-[#F04438] transition-colors">
+                      <span className=" underline underline-offset-2 cursor-pointer hover:text-[#F04438] transition-colors">
                         {tx.party}
                       </span>
                     </div>
@@ -286,7 +286,7 @@ const TransactionsTab = ({ renderTabNav }) => {
 
                   {/* Status */}
                   <td className={tdClass}>
-                    <span className={`text-sm ${statusStyle[tx.status] ?? "text-[#667085]"}`}>
+                    <span className={`text-sm ${statusStyle[tx.status] + " items-center rounded-full px-2.5 py-0.5 text-xs" ?? "text-[#667085]"}`}>
                       {tx.status}
                     </span>
                   </td>

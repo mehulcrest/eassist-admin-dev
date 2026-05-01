@@ -42,7 +42,7 @@ const EscalateIssueModal = ({ isOpen, onClose, record }) => {
             <AlertCircle size={24} className="text-[#F04438]" strokeWidth={2} />
           </div>
           <h2 className="text-xl font-bold text-[#101828]">Escalate Issue</h2>
-          
+
           <div className="mt-2 text-sm text-[#475467] leading-relaxed">
             <p>User requesting a refund of <span className="font-bold text-[#101828]">{record?.credit || "$120"}</span>.</p>
             <p>Escalate this case for further investigation.</p>
@@ -76,7 +76,7 @@ const EscalateIssueModal = ({ isOpen, onClose, record }) => {
                   <div className={`flex size-4 items-center justify-center rounded-full border ${priority === "Medium" ? "border-[#F04438]" : "border-[#D0D5DD]"}`}>
                     {priority === "Medium" && <div className="size-2 rounded-full bg-[#F04438]" />}
                   </div>
-                  <span className="text-sm font-medium text-[#344054]">Medium</span>
+                  <span className="text-sm text-[#344054]">Medium</span>
                   <input
                     type="radio"
                     name="priority"
@@ -90,7 +90,7 @@ const EscalateIssueModal = ({ isOpen, onClose, record }) => {
                   <div className={`flex size-4 items-center justify-center rounded-full border ${priority === "High" ? "border-[#F04438]" : "border-[#D0D5DD]"}`}>
                     {priority === "High" && <div className="size-2 rounded-full bg-[#F04438]" />}
                   </div>
-                  <span className="text-sm font-medium text-[#344054]">High</span>
+                  <span className="text-sm text-[#344054]">High</span>
                   <input
                     type="radio"
                     name="priority"

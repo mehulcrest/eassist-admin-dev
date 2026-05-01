@@ -116,17 +116,17 @@ const LEDGER_ROWS = [
 ];
 
 const TYPE_STYLE = {
-  Earning: "bg-[#ECFDF3] text-[#027A48]",
-  Commission: "bg-[#FFFAEB] text-[#B54708]",
-  Payout: "bg-[#FEF3F2] text-[#B42318]",
-  Adjustment: "bg-[#EFF8FF] text-[#175CD3]",
+  Earning: "bg-[#ECFDF3] text-[#039855]",
+  Commission: "bg-[#FFFAEB] text-[#DC6803]",
+  Payout: "bg-[#FEF3F2] text-[#D92D20]",
+  Adjustment: "bg-[#DFF3FF] text-[#007AFF]",
 };
 
 const STATUS_STYLE = {
-  Earned: "text-[#12B76A] font-semibold bg-[#ECFDF3] px-2.5 py-0.5 rounded-full",
-  Deducted: "text-[#F79009] font-semibold bg-[#FFFAEB] px-2.5 py-0.5 rounded-full",
-  Paid: "text-[#F04438] font-semibold bg-[#FEF3F2] px-2.5 py-0.5 rounded-full",
-  Adjusted: "text-[#2E90FA] font-semibold bg-[#EFF8FF] px-2.5 py-0.5 rounded-full",
+  Earned: "text-[#039855]  bg-[#ECFDF3] px-2.5 py-0.5 rounded-full",
+  Deducted: "text-[#DC6803]  bg-[#FFFAEB] px-2.5 py-0.5 rounded-full",
+  Paid: "text-[#D92D20]  bg-[#FEF3F2] px-2.5 py-0.5 rounded-full",
+  Adjusted: "text-[#007AFF]  bg-[#DFF3FF] px-2.5 py-0.5 rounded-full",
 };
 
 const thClass =
@@ -188,7 +188,7 @@ const MoreActionsMenu = ({ row, onFlag }) => {
 const PSPLedgerTab = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  
+
   // Filter States
   const [fType, setFType] = useState("");
   const [fStatus, setFStatus] = useState("");
@@ -200,7 +200,7 @@ const PSPLedgerTab = () => {
 
   const filtered = useMemo(() => {
     let result = LEDGER_ROWS;
-    
+
     // Search
     const q = searchQuery.toLowerCase();
     if (q) {
@@ -225,7 +225,7 @@ const PSPLedgerTab = () => {
 
   return (
     <div className="flex flex-col gap-6 min-h-0 h-full overflow-y-auto lg:overflow-hidden">
-      
+
       {/* ── Top Bar ── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0">
         <div className="relative w-full sm:max-w-[400px]">
@@ -259,12 +259,11 @@ const PSPLedgerTab = () => {
                 <span className="text-[28px] font-bold text-[#101828] leading-none">{kpi.value}</span>
                 <div className="flex items-center gap-1.5 pb-0.5">
                   <span
-                    className={`inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-xs font-semibold ${
-                      isUp ? "bg-[#ECFDF3] text-[#027A48]" : "bg-[#FEF3F2] text-[#B42318]"
-                    }`}
+                    className={`inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-xs font-semibold ${isUp ? "bg-[#ECFDF3] text-[#027A48]" : "bg-[#FEF3F2] text-[#B42318]"
+                      }`}
                   >
                     {isUp ? <ArrowUpRight size={12} strokeWidth={3} /> : <ArrowDownRight size={12} strokeWidth={3} />}
-                    {kpi.trend === "up" ? "\u2191" : "\u2193"} {kpi.change}
+                    {kpi.trend === "up" ? "" : "\u2193"} {kpi.change}
                   </span>
                   <span className="text-xs text-[#667085]">this month</span>
                 </div>
@@ -304,22 +303,22 @@ const PSPLedgerTab = () => {
                   <td className={tdClass}>
                     <div className="flex items-center gap-2.5">
                       <img src={row.avatar} alt="" className="size-8 shrink-0 rounded-full object-cover ring-1 ring-[#EAECF0]" />
-                      <span className="text-[#175CD3] underline underline-offset-2 cursor-pointer hover:text-[#101828]">
+                      <span className="underline underline-offset-2 cursor-pointer hover:text-[#F04438]">
                         {row.psp}
                       </span>
                     </div>
                   </td>
                   <td className={tdClass}>
-                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${TYPE_STYLE[row.type] || "bg-gray-100 text-gray-700"}`}>
+                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs  ${TYPE_STYLE[row.type] || "bg-gray-100 text-gray-700"}`}>
                       {row.type}
                     </span>
                   </td>
                   <td className={tdClass}>{row.ref}</td>
                   <td className={tdClass}>{row.debit}</td>
                   <td className={tdClass}>{row.credit}</td>
-                  <td className="px-4 py-4 text-sm font-bold text-[#101828] align-middle">{row.balance}</td>
+                  <td className="px-4 py-4 text-sm font-medium text-[#101828] align-middle">{row.balance}</td>
                   <td className={tdClass}>
-                    <span className={`inline-flex items-center ${STATUS_STYLE[row.status] || "text-[#667085]"}`}>
+                    <span className={`inline-flex items-center text-xs ${STATUS_STYLE[row.status] || "text-[#667085]"}`}>
                       {row.status}
                     </span>
                   </td>
@@ -455,7 +454,7 @@ const PSPLedgerTab = () => {
           credit: selectedEntry?.credit
         }}
       />
-      
+
       <FlagFinancialIssueModal
         isOpen={!!flagEntryRow}
         onClose={() => setFlagEntryRow(null)}

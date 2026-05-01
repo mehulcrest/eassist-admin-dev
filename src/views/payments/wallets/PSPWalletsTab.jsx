@@ -80,9 +80,9 @@ const PSP_ROWS = [
    Style helpers
 ───────────────────────────────────────────── */
 const STATUS_STYLE = {
-  Scheduled: "text-[#F79009] font-semibold",
-  Pending: "text-[#F04438] font-semibold",
-  Paid: "text-[#12B76A] font-semibold",
+  Scheduled: "bg-[#FFFAEB] text-[#DC6803]",
+  Pending: "bg-[#FEF3F2] text-[#D92D20]",
+  Paid: "bg-[#ECFDF3] text-[#039855]",
   OnHold: "text-[#667085] font-semibold",
 };
 const thClass =
@@ -258,20 +258,20 @@ const PSPWalletsTab = () => {
                           {row.name?.[0]}
                         </div>
                       )}
-                      <span className="text-[#175CD3] underline underline-offset-2 cursor-pointer hover:text-[#F04438] transition-colors">
+                      <span className="underline underline-offset-2 cursor-pointer hover:text-[#F04438] transition-colors">
                         {row.name}
                       </span>
                     </div>
                   </td>
                   <td className={tdClass}>{row.type}</td>
                   <td className={tdClass}>
-                    <span className="text-[#175CD3] underline underline-offset-2 cursor-pointer">{row.territory}</span>
+                    <span className="">{row.territory}</span>
                   </td>
                   <td className={tdClass}>{row.pendingEarnings}</td>
                   <td className={tdClass}>{row.clearedEarnings}</td>
                   <td className={tdClass}>{row.nextPayout}</td>
                   <td className={tdClass}>
-                    <span className={STATUS_STYLE[row.status] ?? "text-[#667085]"}>
+                    <span className={STATUS_STYLE[row.status] + " items-center rounded-full px-2.5 py-0.5 text-xs" ?? "text-[#667085] items-center rounded-full px-2.5 py-0.5 text-xs"}>
                       {row.status}
                     </span>
                   </td>

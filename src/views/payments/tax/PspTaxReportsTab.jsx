@@ -67,9 +67,9 @@ const ROWS = [
 ];
 
 const STATUS_STYLE = {
-  Filed: "text-[#027A48] bg-[#ECFDF3] border border-[#ABEFC6]",
-  Pending: "text-[#B42318] bg-[#FEF3F2] border border-[#FECDCA]",
-  Processing: "text-[#B54708] bg-[#FFFAEB] border border-[#FEDF89]",
+  Filed: "text-[#039855]  bg-[#ECFDF3] ",
+  Pending: "text-[#D92D20]  bg-[#FEF3F2] ",
+  Processing: "text-[#DC6803]  bg-[#FFFAEB]",
 };
 
 const thClass =
@@ -120,7 +120,7 @@ const PspTaxReportsTab = () => {
 
   const filtered = useMemo(() => {
     let result = ROWS;
-    
+
     // Search 
     const q = searchQuery.toLowerCase();
     if (q) {
@@ -141,7 +141,7 @@ const PspTaxReportsTab = () => {
   };
 
   return (
-    <div className="flex h-full min-h-0 flex-col gap-5 w-full">
+    <div className="flex h-full min-h-0 flex-col gap-5 w-full overflow-y-auto">
       {/* ── Top Bar ── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0">
         <div className="relative w-full sm:max-w-[400px]">
@@ -227,7 +227,7 @@ const PspTaxReportsTab = () => {
                       ) : (
                         <img src={userProfile} alt="" className="size-8 rounded-full bg-gray-100 object-cover" />
                       )}
-                      <span className="font-medium text-[#175CD3] underline underline-offset-2 cursor-pointer">
+                      <span className="underline underline-offset-2 cursor-pointer hover:text-[#F04438]">
                         {row.pspName}
                       </span>
                     </div>
@@ -235,9 +235,9 @@ const PspTaxReportsTab = () => {
                   <td className={tdClass}>{row.period}</td>
                   <td className={tdClass}>{row.earnings}</td>
                   <td className={tdClass}>{row.taxableAmount}</td>
-                  <td className="px-4 py-4 text-sm font-bold text-[#101828] align-middle">{row.tax}</td>
+                  <td className="px-4 py-4 text-sm font-medium text-[#101828] align-middle">{row.tax}</td>
                   <td className={tdClass}>
-                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${STATUS_STYLE[row.status] || "text-[#667085]"}`}>
+                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs ${STATUS_STYLE[row.status] || "text-[#667085]"}`}>
                       {row.status}
                     </span>
                   </td>

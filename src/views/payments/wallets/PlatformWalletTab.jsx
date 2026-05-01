@@ -12,9 +12,8 @@ import {
   RefreshCw,
   Search,
   Settings2,
-  TrendingDown,
-  TrendingUp,
-  WalletMinimal,
+  CircleCheck,
+
   Download,
 } from "lucide-react";
 import SideSheet from "../../../components/SideSheet";
@@ -40,7 +39,7 @@ const KPI_DATA = [
     value: "$32,400",
     sub: "Not yet settled",
     iconBg: "bg-[#EFF8FF]",
-    icon: <TrendingUp size={20} className="text-[#175CD3]" />,
+    icon: <CircleCheck size={20} className="text-[#175CD3]" />,
   },
   {
     id: "pending",
@@ -48,7 +47,7 @@ const KPI_DATA = [
     value: "$58,200",
     sub: "PSP obligations",
     iconBg: "bg-[#FFFAEB]",
-    icon: <WalletMinimal size={20} className="text-[#F79009]" />,
+    icon: <CalendarDays size={20} className="text-[#F79009]" />,
   },
   {
     id: "locked",
@@ -110,10 +109,10 @@ const ROWS = [
    Helpers
 ───────────────────────────────────────────── */
 const STATUS_STYLE = {
-  Completed: "text-[#12B76A] font-semibold",
-  Processed: "text-[#F79009] font-semibold",
-  Pending:   "text-[#F04438] font-semibold",
-  Failed:    "text-[#F04438] font-semibold",
+  Completed: "bg-[#ECFDF3] text-[#039855]",
+  Processed: "bg-[#FFFAEB] text-[#DC6803]",
+  Pending: "bg-[#FEF3F2] text-[#D92D20]",
+  Failed: "text-[#F04438] font-semibold",
 };
 
 const thClass =
@@ -131,7 +130,7 @@ const SourceCell = ({ source, avatar }) => (
         <BadgeDollarSign size={16} className="text-[#F04438]" />
       </div>
     )}
-    <span className="text-[#175CD3] underline underline-offset-2 cursor-pointer hover:text-[#F04438] transition-colors">
+    <span className="underline underline-offset-2 cursor-pointer hover:text-[#F04438] transition-colors">
       {source}
     </span>
   </div>
@@ -193,16 +192,16 @@ const PlatformWalletTab = () => {
   const query = searchParams.get("pwq") ?? "";
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [selectedRow,  setSelectedRow]  = useState(null);
-  const [flagRow,      setFlagRow]      = useState(null);
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [flagRow, setFlagRow] = useState(null);
 
   /* filter form */
-  const [fType,      setFType]      = useState("");
-  const [fStatus,    setFStatus]    = useState("");
+  const [fType, setFType] = useState("");
+  const [fStatus, setFStatus] = useState("");
   const [fTerritory, setFTerritory] = useState("");
-  const [fParty,     setFParty]     = useState("");
-  const [fDate,      setFDate]      = useState("");
-  const [applied,    setApplied]    = useState({});
+  const [fParty, setFParty] = useState("");
+  const [fDate, setFDate] = useState("");
+  const [applied, setApplied] = useState({});
 
   const handleApply = () => {
     setApplied({ type: fType, status: fStatus, territory: fTerritory, party: fParty, date: fDate });
@@ -218,7 +217,7 @@ const PlatformWalletTab = () => {
     const q = query.trim().toLowerCase();
     return ROWS.filter((r) => {
       const matchSearch = !q || r.id.toLowerCase().includes(q) || r.source.toLowerCase().includes(q) || r.type.toLowerCase().includes(q);
-      const matchType   = !applied.type   || r.type   === applied.type;
+      const matchType = !applied.type || r.type === applied.type;
       const matchStatus = !applied.status || r.status === applied.status;
       return matchSearch && matchType && matchStatus;
     });
@@ -303,7 +302,7 @@ const PlatformWalletTab = () => {
               filtered.map((row) => (
                 <tr key={row.id} className="hover:bg-[#F9FAFB]/60 transition-colors">
                   <td className={tdClass}>
-                    <span className="font-medium text-[#101828]">{row.id}</span>
+                    <span className="font-medium ">{row.id}</span>
                   </td>
                   <td className={tdClass}>
                     <span className="text-[#475467]">{row.type}</span>
@@ -323,7 +322,7 @@ const PlatformWalletTab = () => {
                     <span className="text-[#475467]">{row.date}</span>
                   </td>
                   <td className={tdClass}>
-                    <span className={STATUS_STYLE[row.status] ?? "text-[#667085]"}>
+                    <span className={STATUS_STYLE[row.status] + " items-center rounded-full px-2.5 py-0.5 text-xs" ?? "text-[#667085] items-center rounded-full px-2.5 py-0.5 text-xs"}>
                       {row.status}
                     </span>
                   </td>

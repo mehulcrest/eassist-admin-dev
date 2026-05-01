@@ -1,11 +1,11 @@
 import SideSheet from "../../../components/SideSheet";
 
 const FieldLabel = ({ children }) => (
-  <p className="mb-1 text-xs font-semibold text-[#101828]">{children}</p>
+  <p className="mb-1 text-xs font-medium sssss text-[#101828]">{children}</p>
 );
 
 const FieldValue = ({ children, className = "" }) => (
-  <p className={`text-sm font-medium text-[#475467] ${className}`}>{children}</p>
+  <p className={`text-sm text-[#475467] ${className}`}>{children}</p>
 );
 
 const SectionTitle = ({ children }) => (
@@ -19,7 +19,7 @@ const TimelineRow = ({ date, label, isLast }) => (
     <div className="flex shrink-0 flex-col items-center" style={{ width: 18 }}>
       <div
         className="mt-[5px] shrink-0 rounded-full border-[1.5px] border-[#F04438] bg-white"
-        style={{ width: 11, height: 11 }}
+        style={{ width: 10, height: 10 }}
       />
       {!isLast && (
         <div
@@ -68,7 +68,7 @@ const PlatformTaxDetailSheet = ({ isOpen, onClose, entry }) => {
       }
     >
       <div className="pb-4">
-        
+
         {/* ── Summary Overview ── */}
         <SectionTitle>Summary Overview</SectionTitle>
         <div className="grid grid-cols-2 gap-y-5 gap-x-4">
@@ -85,7 +85,7 @@ const PlatformTaxDetailSheet = ({ isOpen, onClose, entry }) => {
           <div>
             <FieldLabel>Status</FieldLabel>
             <div className="mt-1">
-              <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${STATUS_STYLE[entry.status] || "text-[#667085]"}`}>
+              <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold border-none ${STATUS_STYLE[entry.status] || "text-[#667085]"}`}>
                 {entry.status}
               </span>
             </div>
@@ -103,7 +103,7 @@ const PlatformTaxDetailSheet = ({ isOpen, onClose, entry }) => {
           </div>
           <div>
             <FieldLabel>Final Tax</FieldLabel>
-            <FieldValue className="text-[#101828] font-bold">{entry.tax}</FieldValue>
+            <FieldValue className="text-[#101828] font-semibold">{entry.tax}</FieldValue>
           </div>
         </div>
         <p className="text-sm text-[#475467] leading-relaxed">

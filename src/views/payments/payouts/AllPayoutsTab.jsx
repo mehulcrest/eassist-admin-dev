@@ -136,11 +136,11 @@ const PAYOUT_ROWS = [
    Style helpers
 ───────────────────────────────────────────── */
 const STATUS_STYLE = {
-  Processing: "text-[#F79009] font-semibold bg-[#FFFAEB] px-2.5 py-0.5 rounded-full text-xs border border-[#FEDF89]",
-  Paid:       "text-[#12B76A] font-semibold bg-[#ECFDF3] px-2.5 py-0.5 rounded-full text-xs border border-[#ABEFC6]",
-  Pending:    "text-[#175CD3] font-semibold bg-[#EFF8FF] px-2.5 py-0.5 rounded-full text-xs border border-[#B2DDFF]",
-  Failed:     "text-[#B42318] font-semibold bg-[#FEF3F2] px-2.5 py-0.5 rounded-full text-xs border border-[#FECDCA]",
-  "On Hold":  "text-[#344054] font-semibold bg-[#F2F4F7] px-2.5 py-0.5 rounded-full text-xs border border-[#D0D5DD]",
+  Processing: "text-[#DC6803] bg-[#FFFAEB] px-2.5 py-0.5 rounded-full text-xs",
+  Paid: "text-[#039855] font-semibold bg-[#ECFDF3] px-2.5 py-0.5 rounded-full text-xs",
+  Pending: "text-[#007AFF] font-semibold bg-[#EFF8FF] px-2.5 py-0.5 rounded-full text-xs ",
+  Failed: "text-[#D92D20] font-semibold bg-[#FEF3F2] px-2.5 py-0.5 rounded-full text-xs ",
+  "On Hold": "text-[#344054] font-semibold bg-[#F2F4F7] px-2.5 py-0.5 rounded-full text-xs border border-[#D0D5DD]",
 };
 
 const thClass =
@@ -219,21 +219,21 @@ const AllPayoutsTab = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("pq") ?? "";
 
-  const [isFilterOpen,     setIsFilterOpen]     = useState(false);
-  const [selectedPayout,   setSelectedPayout]   = useState(null);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [selectedPayout, setSelectedPayout] = useState(null);
   const [processPayoutRow, setProcessPayoutRow] = useState(null);
-  const [holdPayoutRow,    setHoldPayoutRow]    = useState(null);
-  const [flagPayoutRow,    setFlagPayoutRow]    = useState(null);
+  const [holdPayoutRow, setHoldPayoutRow] = useState(null);
+  const [flagPayoutRow, setFlagPayoutRow] = useState(null);
 
   /* filter state */
-  const [fStatus,   setFStatus]   = useState("");
-  const [fDate,     setFDate]     = useState("");
-  const [fAmount,   setFAmount]   = useState("");
-  const [fPspType,  setFPspType]  = useState("");
-  const [fTerritory,setFTerritory]= useState("");
-  const [fFailed,   setFFailed]   = useState(false);
+  const [fStatus, setFStatus] = useState("");
+  const [fDate, setFDate] = useState("");
+  const [fAmount, setFAmount] = useState("");
+  const [fPspType, setFPspType] = useState("");
+  const [fTerritory, setFTerritory] = useState("");
+  const [fFailed, setFFailed] = useState(false);
 
-  const [applied,   setApplied]   = useState({});
+  const [applied, setApplied] = useState({});
 
   const handleApply = () => {
     setApplied({
@@ -258,8 +258,8 @@ const AllPayoutsTab = () => {
     return PAYOUT_ROWS.filter((r) => {
       const matchSearch = !q || r.party.toLowerCase().includes(q) || r.id.toLowerCase().includes(q);
       const matchStatus = !applied.status || r.status === applied.status;
-      const matchType   = !applied.pspType || r.pspType === applied.pspType;
-      const matchTerr   = !applied.territory || r.territory === applied.territory;
+      const matchType = !applied.pspType || r.pspType === applied.pspType;
+      const matchTerr = !applied.territory || r.territory === applied.territory;
       const matchFailed = !applied.failedOnly || r.status === "Failed";
       return matchSearch && matchStatus && matchType && matchTerr && matchFailed;
     });
@@ -329,11 +329,11 @@ const AllPayoutsTab = () => {
                         <img src={row.avatar} alt="" className="size-8 shrink-0 rounded-full object-cover ring-1 ring-[#EAECF0]" />
                       ) : (
                         <div className="size-8 shrink-0 rounded-full bg-[#EFF8FF] flex items-center justify-center text-[#175CD3] ring-1 ring-[#B2DDFF]">
-                           {/* Placeholder for business icon */}
-                           <div className="size-4 bg-current" style={{mask: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Cpath d=\'M6 13h1V2H3v11h1\'/%3E%3Cpath d=\'M9 13h12V8H9v5z\'/%3E%3Cpath d=\'M15 8V4h6v4\'/%3E%3Cpath d=\'M6 22V13\'/%3E%3Cpath d=\'M15 22V13\'/%3E%3C/svg%3E") no-repeat center / contain', WebkitMask: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Cpath d=\'M6 13h1V2H3v11h1\'/%3E%3Cpath d=\'M9 13h12V8H9v5z\'/%3E%3Cpath d=\'M15 8V4h6v4\'/%3E%3Cpath d=\'M6 22V13\'/%3E%3Cpath d=\'M15 22V13\'/%3E%3C/svg%3E") no-repeat center / contain'}} />
+                          {/* Placeholder for business icon */}
+                          <div className="size-4 bg-current" style={{ mask: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Cpath d=\'M6 13h1V2H3v11h1\'/%3E%3Cpath d=\'M9 13h12V8H9v5z\'/%3E%3Cpath d=\'M15 8V4h6v4\'/%3E%3Cpath d=\'M6 22V13\'/%3E%3Cpath d=\'M15 22V13\'/%3E%3C/svg%3E") no-repeat center / contain', WebkitMask: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Cpath d=\'M6 13h1V2H3v11h1\'/%3E%3Cpath d=\'M9 13h12V8H9v5z\'/%3E%3Cpath d=\'M15 8V4h6v4\'/%3E%3Cpath d=\'M6 22V13\'/%3E%3Cpath d=\'M15 22V13\'/%3E%3C/svg%3E") no-repeat center / contain' }} />
                         </div>
                       )}
-                      <span className="text-[#175CD3] underline underline-offset-2 cursor-pointer hover:text-[#F04438] transition-colors">
+                      <span className="underline underline-offset-2 cursor-pointer hover:text-[#F04438] transition-colors">
                         {row.party}
                       </span>
                     </div>
@@ -342,7 +342,7 @@ const AllPayoutsTab = () => {
                   <td className={tdClass}>{row.jobs}</td>
                   <td className={tdClass}>{row.grossEarnings}</td>
                   <td className={tdClass}>{row.platformFee}</td>
-                  <td className="px-4 py-4 text-sm font-bold text-[#101828] align-middle">{row.netPayout}</td>
+                  <td className="px-4 py-4 text-sm font-medium text-[#101828] align-middle">{row.netPayout}</td>
                   <td className={tdClass}>{row.paymentDate}</td>
                   <td className={tdClass}>
                     <span className={STATUS_STYLE[row.status] ?? "text-[#667085]"}>
@@ -480,13 +480,11 @@ const AllPayoutsTab = () => {
               <button
                 type="button"
                 onClick={() => setFFailed(!fFailed)}
-                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-[#F04438] focus:ring-offset-2 ${
-                  fFailed ? "bg-[#F04438]" : "bg-gray-200"
-                }`}
+                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-[#F04438] focus:ring-offset-2 ${fFailed ? "bg-[#F04438]" : "bg-gray-200"
+                  }`}
               >
-                <span className={`pointer-events-none inline-block size-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
-                  fFailed ? "translate-x-4" : "translate-x-0"
-                }`} />
+                <span className={`pointer-events-none inline-block size-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${fFailed ? "translate-x-4" : "translate-x-0"
+                  }`} />
               </button>
             </div>
           </div>
@@ -503,19 +501,19 @@ const AllPayoutsTab = () => {
           setProcessPayoutRow(p);
         }}
       />
-      
+
       <ConfirmPayoutModal
         isOpen={!!processPayoutRow}
         onClose={() => setProcessPayoutRow(null)}
         payout={processPayoutRow}
       />
-      
+
       <HoldPayoutModal
         isOpen={!!holdPayoutRow}
         onClose={() => setHoldPayoutRow(null)}
         payout={holdPayoutRow}
       />
-      
+
       <FlagPayoutModal
         isOpen={!!flagPayoutRow}
         onClose={() => setFlagPayoutRow(null)}

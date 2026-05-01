@@ -10,11 +10,11 @@ const STATUS_STYLE = {
 };
 
 const FieldLabel = ({ children }) => (
-  <p className="mb-1 text-xs font-semibold text-[#667085]">{children}</p>
+  <p className="mb-1 text-xs font-medium text-[#333333]">{children}</p>
 );
 
 const FieldValue = ({ children, className = "" }) => (
-  <p className={`text-sm text-[#101828] font-medium ${className}`}>{children}</p>
+  <p className={`text-sm text-[#667085]  ${className}`}>{children}</p>
 );
 
 const SectionTitle = ({ children }) => (
@@ -29,7 +29,7 @@ const TimelineRow = ({ label, isLast }) => (
     <div className="flex shrink-0 flex-col items-center" style={{ width: 18 }}>
       <div
         className="mt-[3px] shrink-0 rounded-full border-2 border-[#F04438] bg-white"
-        style={{ width: 13, height: 13 }}
+        style={{ width: 10, height: 10 }}
       />
       {!isLast && (
         <div
@@ -124,25 +124,25 @@ const RefundDetailSheet = ({ isOpen, onClose, entry, onApprove, onEscalate, onRe
       }
     >
       <div className="pb-4">
-        
+
         {/* ── Entry Details ── */}
-        <SectionTitle>Entry Details</SectionTitle>
+        <SectionTitle > Entry Details</SectionTitle>
         <div className="grid grid-cols-2 gap-y-5 gap-x-4">
           <div>
-             <FieldLabel>Member (User)</FieldLabel>
-             <FieldValue className="text-[#175CD3] underline underline-offset-2 cursor-pointer">
-               {entry.member}
-             </FieldValue>
+            <FieldLabel>Member (User)</FieldLabel>
+            <FieldValue className="underline underline-offset-2 cursor-pointer hover:text-[#F04438]">
+              {entry.member}
+            </FieldValue>
           </div>
           <div>
             <FieldLabel>Member ID</FieldLabel>
             <FieldValue>{entry.memberId || "E001"}</FieldValue>
           </div>
           <div>
-             <FieldLabel>Caregiver (PSP)</FieldLabel>
-             <FieldValue className="text-[#175CD3] underline underline-offset-2 cursor-pointer">
-               {entry.psp}
-             </FieldValue>
+            <FieldLabel>Caregiver (PSP)</FieldLabel>
+            <FieldValue className="underline underline-offset-2 cursor-pointer hover:text-[#F04438]">
+              {entry.psp}
+            </FieldValue>
           </div>
           <div>
             <FieldLabel>PSP ID</FieldLabel>
@@ -163,7 +163,7 @@ const RefundDetailSheet = ({ isOpen, onClose, entry, onApprove, onEscalate, onRe
           <div>
             <FieldLabel>Status</FieldLabel>
             <div className="mt-1">
-              <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${STATUS_STYLE[entry.status] || "text-[#344054] bg-[#F2F4F7]"}`}>
+              <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold border-none ${STATUS_STYLE[entry.status] || "text-[#DC6803] bg-[#FFFAEB]"}`}>
                 {entry.status}
               </span>
             </div>
@@ -177,7 +177,7 @@ const RefundDetailSheet = ({ isOpen, onClose, entry, onApprove, onEscalate, onRe
         <HDivider />
 
         {/* ── Original Transaction ── */}
-        <SectionTitle>Original Transaction</SectionTitle>
+        <SectionTitle >Original Transaction</SectionTitle>
         <div className="grid grid-cols-2 gap-y-5 gap-x-4">
           <div>
             <FieldLabel>Transaction ID</FieldLabel>
@@ -204,8 +204,8 @@ const RefundDetailSheet = ({ isOpen, onClose, entry, onApprove, onEscalate, onRe
             <FieldValue className="text-[#475467] font-normal">{entry.txDate || "Mar 14, 2026"}</FieldValue>
           </div>
           <div className="col-span-2">
-             <FieldLabel>Payment Method</FieldLabel>
-             <FieldValue className="text-[#475467] font-normal">{entry.paymentMethod || "Card (**** 4587)"}</FieldValue>
+            <FieldLabel>Payment Method</FieldLabel>
+            <FieldValue className="text-[#475467] font-normal">{entry.paymentMethod || "Card (**** 4587)"}</FieldValue>
           </div>
         </div>
 
@@ -213,7 +213,7 @@ const RefundDetailSheet = ({ isOpen, onClose, entry, onApprove, onEscalate, onRe
 
         {/* ── Reason & Notes ── */}
         <SectionTitle>Reason & Notes</SectionTitle>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-y-2 mb-2 text-sm text-[#475467] min-[431px]:grid-cols-2 min-[431px]:gap-x-4">
           <div>
             <FieldLabel>Reason</FieldLabel>
             <FieldValue className="text-[#475467] font-normal">{entry.reason}</FieldValue>
@@ -229,21 +229,21 @@ const RefundDetailSheet = ({ isOpen, onClose, entry, onApprove, onEscalate, onRe
         {/* ── Approval Logs ── */}
         <SectionTitle>Approval Logs</SectionTitle>
         <div className="mt-4">
-           {entry.logs ? entry.logs.map((item, idx) => (
-             <TimelineRow key={idx} label={item} isLast={idx === entry.logs.length - 1} />
-           )) : (
-             <>
-                <TimelineRow label={`Mar 14  Refund requested by user (${entry.member})`} />
-                <TimelineRow label="Mar 14  Submitted for review" isLast />
-             </>
-           )}
+          {entry.logs ? entry.logs.map((item, idx) => (
+            <TimelineRow key={idx} label={item} isLast={idx === entry.logs.length - 1} />
+          )) : (
+            <>
+              <TimelineRow label={`Mar 14  Refund requested by user (${entry.member})`} />
+              <TimelineRow label="Mar 14  Submitted for review" isLast />
+            </>
+          )}
         </div>
 
         <HDivider />
 
         {/* ── Refund Breakdown ── */}
         <SectionTitle>Refund Breakdown</SectionTitle>
-        <div className="mt-4 rounded-xl border border-[#EAECF0] bg-[#F9FAFB] px-5 py-4 space-y-3">
+        <div className="mt-4 rounded-xl bg-[#F6F6F6] px-5 py-4 space-y-3">
           <div className="flex items-center justify-between text-sm text-[#475467]">
             <span>Service Amount</span>
             <span>{entry.serviceAmount || "$100.00"}</span>
@@ -252,28 +252,26 @@ const RefundDetailSheet = ({ isOpen, onClose, entry, onApprove, onEscalate, onRe
             <span>Tax</span>
             <span>{entry.tax || "$20.00"}</span>
           </div>
-          
-          <div className="flex items-center justify-between font-bold text-[#101828] text-sm pt-2">
-             <span>Total Paid:</span>
-             <span>{entry.totalPaid || "$120.00"}</span>
+
+          <div className="flex items-center justify-between border-t border-[#EAECF0]  font-medium text-[#101828] text-sm pt-2">
+            <span>Total Paid:</span>
+            <span>{entry.totalPaid || "$120.00"}</span>
           </div>
+        </div>
 
-          <div className="pt-3" />
-
+        <div className="mt-2 rounded-xl bg-[#F6F6F6] px-5 py-4 space-y-3">
           <div className="flex items-center justify-between text-sm text-[#475467]">
-             <span>Refund Requested</span>
-             <span>{entry.refundRequested || "$120.00"}</span>
+            <span>Refund Requested</span>
+            <span>{entry.refundRequested || "$120.00"}</span>
           </div>
           <div className="flex items-center justify-between text-sm text-[#475467]">
-             <span>Processing Fee</span>
-             <span>{entry.processingFee || "$0.00"}</span>
+            <span>Processing Fee</span>
+            <span>{entry.processingFee || "$0.00"}</span>
           </div>
 
-          <div className="pt-2" />
-
-          <div className="flex items-center justify-between border-t border-[#EAECF0] pt-4 font-bold text-sm text-[#F04438]">
-             <span>Final Refund:</span>
-             <span>{entry.finalRefund || "$120.00"}</span>
+          <div className="flex items-center justify-between border-t border-[#EAECF0] pt-4 font-medium text-sm text-[#F04438]">
+            <span>Final Refund:</span>
+            <span>{entry.finalRefund || "$120.00"}</span>
           </div>
         </div>
 

@@ -2,19 +2,19 @@ import { AlertCircle, AlertTriangle, Info } from "lucide-react";
 import SideSheet from "../../../components/SideSheet";
 
 const STATUS_STYLE = {
-  Processing: "bg-[#FFFAEB] text-[#B54708] border border-[#FEDF89]",
-  Paid:       "bg-[#ECFDF3] text-[#027A48] border border-[#ABEFC6]",
-  Pending:    "bg-[#EFF8FF] text-[#175CD3] border border-[#B2DDFF]",
-  Failed:     "bg-[#FEF3F2] text-[#B42318] border border-[#FECDCA]",
-  "On Hold":  "bg-[#F2F4F7] text-[#344054] border border-[#D0D5DD]",
+  Processing: "bg-[#FFFAEB] text-[#DC6803]",
+  Paid: "bg-[#ECFDF3] text-[#027A48] ",
+  Pending: "bg-[#EFF8FF] text-[#175CD3] ",
+  Failed: "bg-[#FEF3F2] text-[#B42318] ",
+  "On Hold": "bg-[#F2F4F7] text-[#344054] ",
 };
 
 /* ─── Shared Parts ─── */
 const FieldLabel = ({ children }) => (
-  <p className="mb-1 text-xs font-semibold text-[#667085]">{children}</p>
+  <p className="mb-1 text-xs font-semibold text-[#333]">{children}</p>
 );
 const FieldValue = ({ children, className = "" }) => (
-  <p className={`text-sm text-[#101828] ${className}`}>{children}</p>
+  <p className={`text-sm text-[#667085] ${className}`}>{children}</p>
 );
 const SectionTitle = ({ children }) => (
   <h3 className="text-base font-bold text-[#101828]">{children}</h3>
@@ -27,7 +27,7 @@ const TimelineRow = ({ label, isLast, isFailed }) => (
     <div className="flex shrink-0 flex-col items-center" style={{ width: 18 }}>
       <div
         className="mt-[3px] shrink-0 rounded-full border-2 border-[#F04438] bg-white"
-        style={{ width: 13, height: 13 }}
+        style={{ width: 10, height: 10 }}
       />
       {!isLast && (
         <div
@@ -66,14 +66,14 @@ const PayoutDetailSheet = ({ isOpen, onClose, payout, onProcessPayout }) => {
 
   const earnings = payout.earnings ?? [
     { job: "Grocery Trip Assistance", jobId: "J001", date: "Apr 16, 2026", earning: "$180.00", fee: "$18.00", net: "$162.00" },
-    { job: "Cleaning",                jobId: "J002", date: "Apr 17, 2026", earning: "$220.00", fee: "$22.00", net: "$198.00" },
-    { job: "Doctor Visit",            jobId: "J003", date: "Apr 18, 2026", earning: "$150.00", fee: "$15.00", net: "$135.00" },
-    { job: "Daily Care Assistance",   jobId: "J004", date: "Apr 20, 2026", earning: "$140.00", fee: "$14.00", net: "$126.00" },
-    { job: "Meal Preparation",        jobId: "J005", date: "Apr 21, 2026", earning: "$210.00", fee: "$21.00", net: "$189.00" },
-    { job: "House Cleaning",          jobId: "J006", date: "Apr 23, 2026", earning: "$120.00", fee: "$12.00", net: "$108.00" },
-    { job: "Cleaning",                jobId: "J007", date: "Apr 24, 2026", earning: "$200.00", fee: "$20.00", net: "$180.00" },
-    { job: "Meal Preparation",        jobId: "J008", date: "Apr 26, 2026", earning: "$160.00", fee: "$16.00", net: "$144.00" },
-    { job: "House Cleaning",          jobId: "J009", date: "Apr 28, 2026", earning: "$240.00", fee: "$24.00", net: "$216.00" },
+    { job: "Cleaning", jobId: "J002", date: "Apr 17, 2026", earning: "$220.00", fee: "$22.00", net: "$198.00" },
+    { job: "Doctor Visit", jobId: "J003", date: "Apr 18, 2026", earning: "$150.00", fee: "$15.00", net: "$135.00" },
+    { job: "Daily Care Assistance", jobId: "J004", date: "Apr 20, 2026", earning: "$140.00", fee: "$14.00", net: "$126.00" },
+    { job: "Meal Preparation", jobId: "J005", date: "Apr 21, 2026", earning: "$210.00", fee: "$21.00", net: "$189.00" },
+    { job: "House Cleaning", jobId: "J006", date: "Apr 23, 2026", earning: "$120.00", fee: "$12.00", net: "$108.00" },
+    { job: "Cleaning", jobId: "J007", date: "Apr 24, 2026", earning: "$200.00", fee: "$20.00", net: "$180.00" },
+    { job: "Meal Preparation", jobId: "J008", date: "Apr 26, 2026", earning: "$160.00", fee: "$16.00", net: "$144.00" },
+    { job: "House Cleaning", jobId: "J009", date: "Apr 28, 2026", earning: "$240.00", fee: "$24.00", net: "$216.00" },
   ];
 
   return (
@@ -107,7 +107,7 @@ const PayoutDetailSheet = ({ isOpen, onClose, payout, onProcessPayout }) => {
                 </button>
               </>
             ) : isPending ? (
-               <>
+              <>
                 <button
                   type="button"
                   onClick={() => onProcessPayout(payout)}
@@ -137,7 +137,7 @@ const PayoutDetailSheet = ({ isOpen, onClose, payout, onProcessPayout }) => {
       }
     >
       <div className="pb-6">
-        
+
         {/* ── Failed Alert Banner ── */}
         {isFailed && (
           <div className="mb-6 rounded-xl border border-[#FDA4AF] bg-[#FEF2F2] p-4 flex gap-3 shadow-sm">
@@ -165,13 +165,13 @@ const PayoutDetailSheet = ({ isOpen, onClose, payout, onProcessPayout }) => {
           </div>
           <div>
             <FieldLabel>PSP Name</FieldLabel>
-            <FieldValue className="text-[#175CD3] underline underline-offset-2 cursor-pointer">{payout.party}</FieldValue>
+            <FieldValue className="text-[#175CD3] underline underline-offset-2 cursor-pointer hover:text-[#F04438]">{payout.party}</FieldValue>
           </div>
           <div>
             <FieldLabel>PSP ID</FieldLabel>
             <FieldValue>{payout.pspId ?? "PSP001"}</FieldValue>
           </div>
-          
+
           {isFailed ? (
             <>
               <div>
@@ -182,9 +182,8 @@ const PayoutDetailSheet = ({ isOpen, onClose, payout, onProcessPayout }) => {
                 <FieldLabel>Payout Status</FieldLabel>
                 <div className="mt-1 flex items-center gap-1.5">
                   <span
-                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                      STATUS_STYLE[payout.status] || "bg-[#F2F4F7] text-[#344054]"
-                    }`}
+                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs ${STATUS_STYLE[payout.status] || "bg-[#F2F4F7] text-[#344054]"
+                      }`}
                   >
                     {payout.status}
                   </span>
@@ -202,9 +201,8 @@ const PayoutDetailSheet = ({ isOpen, onClose, payout, onProcessPayout }) => {
                 <FieldLabel>Payout Status</FieldLabel>
                 <div className="mt-1 flex items-center gap-1.5">
                   <span
-                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                      STATUS_STYLE[payout.status] || "bg-[#F2F4F7] text-[#344054]"
-                    }`}
+                    className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${STATUS_STYLE[payout.status] || "bg-[#F2F4F7] text-[#344054]"
+                      }`}
                   >
                     {payout.status}
                   </span>
@@ -239,7 +237,7 @@ const PayoutDetailSheet = ({ isOpen, onClose, payout, onProcessPayout }) => {
             Includes all completed jobs in this payout cycle
           </span>
         </div>
-        <div className="overflow-hidden rounded-xl border border-[#EAECF0]">
+        <div className="overflow-auto rounded-xl border border-[#EAECF0]">
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-[#F9FAFB]">
@@ -272,9 +270,9 @@ const PayoutDetailSheet = ({ isOpen, onClose, payout, onProcessPayout }) => {
             <tfoot>
               <tr className="border-t border-[#EAECF0] bg-[#F9FAFB]">
                 <td colSpan={2} className="py-3 pl-5" />
-                <td className="px-4 py-3 text-sm font-bold text-[#101828]">{payout.grossEarnings}</td>
-                <td className="px-4 py-3 text-sm font-bold text-[#667085]">{payout.platformFee}</td>
-                <td className="px-4 py-3 pr-5 text-sm font-bold text-[#101828]">{payout.netPayout}</td>
+                <td className="px-4 py-3 text-sm font-medium text-[#333]">{payout.grossEarnings}</td>
+                <td className="px-4 py-3 text-sm font-medium text-[#333]">{payout.platformFee}</td>
+                <td className="px-4 py-3 pr-5 text-sm font-medium text-[#333]">{payout.netPayout}</td>
               </tr>
             </tfoot>
           </table>
@@ -284,7 +282,7 @@ const PayoutDetailSheet = ({ isOpen, onClose, payout, onProcessPayout }) => {
 
         {/* ── Calculation ── */}
         <SectionTitle>Payout Calculation</SectionTitle>
-        <div className="mt-4 rounded-xl border border-[#EAECF0] bg-[#F9FAFB] px-5 py-4 space-y-3">
+        <div className="mt-4 rounded-xl  bg-[#F6F6F6] px-5 py-4 space-y-3">
           <div className="flex items-center justify-between text-sm text-[#475467]">
             <span>Gross Service Value</span>
             <span>{payout.grossEarnings}</span>
@@ -305,7 +303,7 @@ const PayoutDetailSheet = ({ isOpen, onClose, payout, onProcessPayout }) => {
             <span>Service Call Fee (if applicable)</span>
             <span>-$10.00</span>
           </div>
-          <div className="flex items-center justify-between border-t border-[#EAECF0] pt-3 text-base font-bold">
+          <div className="flex items-center justify-between border-t border-[#EAECF0] pt-3 text-base font-medium">
             <span className="text-[#12B76A]">Net Payout</span>
             <span className="text-[#12B76A]">{payout.netPayout}</span>
           </div>
