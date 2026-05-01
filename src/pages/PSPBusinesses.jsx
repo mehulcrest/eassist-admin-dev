@@ -33,10 +33,20 @@ const CATEGORY_OPTIONS = ["Select Category", "Company", "Solo", "Franchise"];
 const RATING_OPTIONS = ["All", "4.5 - 5.0", "4.0 - 4.4", "3.5 - 3.9", "3.0 - 3.4", "Below 3.0", "No Ratings Yet"];
 const JOB_COUNT_OPTIONS = ["All", "0 Jobs", "1 - 10 Jobs", "11 - 25 Jobs", "26 - 50 Jobs", "51 - 100 Jobs", "101+ Jobs"];
 const REVENUE_OPTIONS = ["All", "< $5K", "$5K - $15K", "$15K+"];
+const PAGE_SIZE_OPTIONS = [10, 25, 50];
+
+const getVisiblePages = (current, total, maxVisible = 5) => {
+  if (total <= maxVisible) return Array.from({ length: total }, (_, i) => i + 1);
+  let start = Math.max(1, current - Math.floor(maxVisible / 2));
+  let end = Math.min(total, start + maxVisible - 1);
+  start = Math.max(1, end - maxVisible + 1);
+  return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+};
 
 const PSPBusinesses = () => {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
+  const [pageSize, setPageSize] = useState(10);
   const [page, setPage] = useState(1);
   const [rows] = useState(ROWS);
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
@@ -55,10 +65,10 @@ const PSPBusinesses = () => {
     return rows.filter((row) => row.name.toLowerCase().includes(q) || row.id.toLowerCase().includes(q));
   }, [query, rows]);
 
-  const pageSize = 10;
   const totalPages = Math.max(1, Math.ceil(filteredRows.length / pageSize));
   const safePage = Math.min(page, totalPages);
   const pageRows = filteredRows.slice((safePage - 1) * pageSize, safePage * pageSize);
+  const pageNumbers = getVisiblePages(safePage, totalPages, 5);
 
   const selectClassName =
     "h-11 w-full appearance-none rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] placeholder:text-[#98A2B3]";
@@ -87,7 +97,7 @@ const PSPBusinesses = () => {
   return (
     <div className="flex flex-col gap-4 sm:gap-6">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <div className="relative flex-1 max-w-[320px]">
+        <div className="relative flex-1 sm:max-w-[320px]">
           <Search className="pointer-events-none absolute left-3.5 top-1/2 size-[18px] -translate-y-1/2 text-[#667085]" strokeWidth={2} />
           <input
             type="search"
@@ -98,32 +108,32 @@ const PSPBusinesses = () => {
           />
         </div>
 
-        <div className="flex shrink-0 gap-2">
-          <FiltersButton onClick={() => setIsFilterSheetOpen(true)} />
-          <Button variant="danger" size="md" onClick={() => navigate("/psp-businesses/new")}>
+        <div className="flex w-full shrink-0 gap-2 sm:w-auto">
+          <FiltersButton onClick={() => setIsFilterSheetOpen(true)} className="flex-1 sm:flex-none" />
+          <Button variant="danger" size="md" className="flex-1 sm:flex-none" onClick={() => navigate("/psp-businesses/new")}>
             <Plus size={18} />
             Add New
           </Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-5">
         {STATS.map((stat) => (
           <div
             key={stat.label}
-            className="rounded-xl border border-[#D0D5DD] bg-white px-5 py-4"
+            className="rounded-xl border border-[#E5E7EB] bg-white px-4 py-4 shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] sm:px-5 sm:py-5"
           >
-            <p className="text-lg leading-none font-medium text-[#1D2939]">
+            <p className="text-sm font-medium text-[#667085] sm:text-base">
               {stat.label}
             </p>
-            <div className="mt-5 flex items-center justify-between gap-3">
-              <span className="text-2xl leading-none font-semibold tracking-[-0.03em] text-[#1D2939]">
+            <div className="mt-2 flex items-center justify-between gap-2">
+              <span className="text-xl font-semibold tracking-tight leading-none text-[#101828] sm:text-[28px]">
                 {stat.value}
               </span>
               {stat.change ? (
-                <div className="flex items-center gap-2">
+                <div className="flex shrink-0 flex-col items-end gap-0.5">
                   <span
-                    className={`inline-flex rounded-full px-3 py-1 text-sm leading-none font-semibold ${
+                    className={`inline-flex rounded-full px-2 py-0.5 text-xs font-semibold ${
                       stat.tone === "text-[#12B76A]"
                         ? "bg-[#ECFDF3] text-[#12B76A]"
                         : "bg-[#FEF3F2] text-[#F04438]"
@@ -131,7 +141,7 @@ const PSPBusinesses = () => {
                   >
                     {stat.change}
                   </span>
-                  <span className="text-sm leading-none text-[#667085]">
+                  <span className="text-[11px] text-[#98A2B3]">
                     {stat.period}
                   </span>
                 </div>
@@ -225,16 +235,60 @@ const PSPBusinesses = () => {
           </Table>
         </div>
 
-        <div className="flex shrink-0 items-center justify-between border-t border-[#EAECF0] bg-white px-4 py-3 sm:px-6 sm:py-4">
-          <p className="text-sm text-[#667085]">Rows per page: 10</p>
-          <div className="flex items-center gap-1">
-            <Button variant="secondary" size="icon" onClick={() => setPage((prev) => Math.max(1, prev - 1))}>
-              <ChevronLeft size={16} />
-            </Button>
-            <span className="min-w-[36px] rounded-lg bg-redRejected px-3 py-2 text-center text-sm font-semibold text-white">{safePage}</span>
-            <Button variant="secondary" size="icon" onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}>
-              <ChevronRight size={16} />
-            </Button>
+        <div className="flex shrink-0 flex-col items-center gap-4 border-t border-[#EAECF0] bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-4">
+          <label className="flex w-full items-center justify-center gap-2 text-sm text-[#667085] sm:w-auto sm:justify-start">
+            <span>Rows per page:</span>
+            <select
+              value={pageSize}
+              onChange={(event) => {
+                setPageSize(Number(event.target.value));
+                setPage(1);
+              }}
+              className="rounded-lg border border-[#D0D5DD] bg-white px-3 py-1.5 text-sm font-medium text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia"
+            >
+              {PAGE_SIZE_OPTIONS.map((size) => (
+                <option key={size} value={size}>
+                  {size}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <div className="flex w-full items-center justify-center gap-1 sm:w-auto sm:justify-end">
+            <button
+              type="button"
+              disabled={safePage <= 1}
+              onClick={() => setPage((prev) => Math.max(1, prev - 1))}
+              className="inline-flex size-9 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] disabled:opacity-40"
+              aria-label="Previous page"
+            >
+              <ChevronLeft size={18} />
+            </button>
+
+            {pageNumbers.map((pageNumber) => (
+              <button
+                key={pageNumber}
+                type="button"
+                onClick={() => setPage(pageNumber)}
+                className={`min-w-[36px] rounded-lg px-3 py-2 text-sm font-semibold ${
+                  pageNumber === safePage
+                    ? "bg-redRejected text-white shadow-[0_1px_2px_0_rgba(16,24,40,0.05)]"
+                    : "border border-[#D0D5DD] text-[#344054] hover:bg-[#F9FAFB]"
+                }`}
+              >
+                {pageNumber}
+              </button>
+            ))}
+
+            <button
+              type="button"
+              disabled={safePage >= totalPages}
+              onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
+              className="inline-flex size-9 items-center justify-center rounded-lg border border-[#D0D5DD] bg-white text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] disabled:opacity-40"
+              aria-label="Next page"
+            >
+              <ChevronRight size={18} />
+            </button>
           </div>
         </div>
       </TableWrapper>

@@ -2,6 +2,7 @@ import { AlertTriangle, CalendarDays, CircleDollarSign, Clock3, Eye, Search } fr
 import { useMemo, useState } from "react";
 import PayoutDetailSideSheet from "./PayoutDetailSideSheet";
 import SideSheet from "../SideSheet";
+import DateRangeInput from "../ui/DateRangeInput";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 import Button, { FiltersButton } from "../ui/Button";
 import StatusBadge from "../ui/StatusBadge";
@@ -268,16 +269,11 @@ const EarningsPayoutTab = () => {
 
           <div>
             <label className="mb-1.5 block text-sm font-medium text-[#344054]">Date Range (Period)</label>
-            <div className="relative">
-              <input
-                type="text"
-                value={dateRange}
-                onChange={(event) => setDateRange(event.target.value)}
-                placeholder="MM-DD-YY ~ MM-DD-YYYY"
-                className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-base text-[#344054] placeholder:text-[#98A2B3]"
-              />
-              <CalendarDays className="pointer-events-none absolute right-3 top-1/2 size-5 -translate-y-1/2 text-[#667085]" />
-            </div>
+            <DateRangeInput
+              value={dateRange}
+              onChange={setDateRange}
+              className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-base text-[#344054] placeholder:text-[#98A2B3]"
+            />
           </div>
 
           <div>

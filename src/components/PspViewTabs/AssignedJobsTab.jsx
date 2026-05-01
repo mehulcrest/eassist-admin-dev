@@ -2,6 +2,7 @@ import { CalendarDays, ChevronDown, Eye, Search } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import AssignJobsDetailView from "./AssignJobsDetailView";
 import SideSheet from "../SideSheet";
+import DateRangeInput from "../ui/DateRangeInput";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 import Button, { FiltersButton } from "../ui/Button";
 import StatusBadge from "../ui/StatusBadge";
@@ -83,7 +84,7 @@ const AssignedJobsTab = ({ onOpenCompletedJob }) => {
             className="h-10 w-full rounded-lg border border-[#D0D5DD] bg-white pl-9 pr-3 text-sm text-[#344054] placeholder:text-[#98A2B3]"
           />
         </div>
-        <FiltersButton onClick={() => setIsFiltersOpen(true)} className="self-start sm:self-auto" />
+        <FiltersButton onClick={() => setIsFiltersOpen(true)} className="w-full sm:w-auto" />
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto p-3 sm:p-4">
@@ -225,16 +226,11 @@ const AssignedJobsTab = ({ onOpenCompletedJob }) => {
 
           <div>
             <label className="mb-1.5 block text-sm font-medium text-[#344054]">Date Range</label>
-            <div className="relative">
-              <input
-                type="text"
-                value={dateRange}
-                onChange={(event) => setDateRange(event.target.value)}
-                placeholder="MM-DD-YYY ~ MM-DD-YYYY"
-                className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-base text-[#344054] placeholder:text-[#98A2B3]"
-              />
-              <CalendarDays className="pointer-events-none absolute right-3 top-1/2 size-5 -translate-y-1/2 text-[#667085]" />
-            </div>
+            <DateRangeInput
+              value={dateRange}
+              onChange={setDateRange}
+              className="h-11 w-full rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-base text-[#344054] placeholder:text-[#98A2B3]"
+            />
           </div>
 
           <div>

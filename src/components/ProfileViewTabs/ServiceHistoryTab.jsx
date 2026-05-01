@@ -1,12 +1,11 @@
 import {
-  CalendarDays,
   ChevronDown,
 } from "lucide-react";
-import { useCallback, useMemo, useRef, useState } from "react";
-import DateRangePopover from "../DateRangePopover";
+import { useMemo, useState } from "react";
 import IndividualServiceDetailsView from "./IndividualServiceDetailsView";
 import userProfile from "../../assets/userProfile.png";
 import SideSheet from "../SideSheet";
+import DateRangeInput from "../ui/DateRangeInput";
 import { Table, TableBody, TableHead, TableRow, TableWrapper, Td, Th } from "../ui/Table";
 
 
@@ -215,40 +214,29 @@ const isoToMdY = (iso) => {
 const buildRangeDisplay = (dateStart, dateEnd) => {
   const from = isoToMdY(dateStart);
   const to = isoToMdY(dateEnd);
-  if (from && to) return `${from} - ${to}`;
-  if (from) return `${from} - `;
+  if (from && to) return `${from} ~ ${to}`;
+  if (from) return `${from} ~`;
   return "";
 };
 
-const rangeDisplayInputClass =
-  "h-11 w-full cursor-pointer rounded-lg border border-[#D0D5DD] bg-white px-3 pr-20 text-sm text-[#344054] placeholder:text-[#98A2B3] read-only:bg-white focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia";
+const parseDateRangeDisplayToIso = (displayValue) => {
+  const matches = String(displayValue ?? "").match(/\d{2}-\d{2}-\d{4}/g) ?? [];
+  const toIso = (mmDdYyyy) => {
+    const [mm, dd, yyyy] = mmDdYyyy.split("-");
+    if (!mm || !dd || !yyyy) return "";
+    return `${yyyy}-${mm}-${dd}`;
+  };
+  return {
+    dateStart: matches[0] ? toIso(matches[0]) : "",
+    dateEnd: matches[1] ? toIso(matches[1]) : "",
+  };
+};
 
 const ServiceHistoryTab = () => {
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
   const [draftFilters, setDraftFilters] = useState(initialFilters);
   const [appliedFilters, setAppliedFilters] = useState(initialFilters);
   const [selectedService, setSelectedService] = useState(null);
-  const rangeAnchorRef = useRef(null);
-  const [isRangePickerOpen, setIsRangePickerOpen] = useState(false);
-
-  const closeRangePicker = useCallback(() => {
-    setIsRangePickerOpen(false);
-  }, []);
-
-  const toggleRangePicker = useCallback(() => {
-    setIsRangePickerOpen((open) => !open);
-  }, []);
-
-  const handleRangeComplete = useCallback((startIso, endIso) => {
-    setDraftFilters((prev) => ({ ...prev, dateStart: startIso, dateEnd: endIso }));
-    setIsRangePickerOpen(false);
-  }, []);
-
-  const clearDateRange = useCallback((event) => {
-    event.stopPropagation();
-    setDraftFilters((prev) => ({ ...prev, dateStart: "", dateEnd: "" }));
-    setIsRangePickerOpen(false);
-  }, []);
 
   const filteredRows = useMemo(() => {
     return serviceRows.filter((row) => {
@@ -294,7 +282,6 @@ const ServiceHistoryTab = () => {
   };
 
   const closeFilters = () => {
-    setIsRangePickerOpen(false);
     setIsFilterSheetOpen(false);
   };
 
@@ -463,63 +450,14 @@ const ServiceHistoryTab = () => {
 
           <div>
             <span className="mb-1.5 block text-sm font-medium text-[#344054]">Date Range</span>
-            <div ref={rangeAnchorRef} className="relative">
-              <input
-                id="sh-filter-date-range-display"
-                type="text"
-                readOnly
-                value={rangeDisplay}
-                placeholder="MM-DD-YYYY - MM-DD-YYYY"
-                onClick={toggleRangePicker}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    toggleRangePicker();
-                  }
-                  if ((e.key === "Backspace" || e.key === "Delete") && rangeDisplay) {
-                    e.preventDefault();
-                    setDraftFilters((prev) => ({ ...prev, dateStart: "", dateEnd: "" }));
-                    setIsRangePickerOpen(false);
-                  }
-                }}
-                className={rangeDisplayInputClass}
-                aria-describedby="sh-filter-date-range-hint"
-                aria-expanded={isRangePickerOpen}
-              />
-              <span id="sh-filter-date-range-hint" className="sr-only">
-                One calendar: choose start date, then end date; the panel then closes.
-              </span>
-              {rangeDisplay ? (
-                <button
-                  type="button"
-                  onClick={clearDateRange}
-                  className="absolute right-8 top-1/2 -translate-y-1/2 rounded p-1 text-[#98A2B3] hover:bg-[#F2F4F7] hover:text-[#667085]"
-                  aria-label="Clear date range"
-                >
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-                  </svg>
-                </button>
-              ) : null}
-              <button
-                type="button"
-                onClick={toggleRangePicker}
-                className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-[#98A2B3] hover:bg-[#F2F4F7] hover:text-[#667085]"
-                aria-label="Choose date range"
-                aria-expanded={isRangePickerOpen}
-              >
-                <CalendarDays className="size-4" />
-              </button>
-              {isRangePickerOpen ? (
-                <DateRangePopover
-                  anchorRef={rangeAnchorRef}
-                  initialStart={draftFilters.dateStart}
-                  initialEnd={draftFilters.dateEnd}
-                  onComplete={handleRangeComplete}
-                  onDismiss={closeRangePicker}
-                />
-              ) : null}
-            </div>
+            <DateRangeInput
+              value={rangeDisplay}
+              onChange={(nextDisplay) => {
+                const { dateStart, dateEnd } = parseDateRangeDisplayToIso(nextDisplay);
+                setDraftFilters((prev) => ({ ...prev, dateStart, dateEnd }));
+              }}
+              className="h-11 w-full cursor-pointer rounded-lg border border-[#D0D5DD] bg-white px-3 pr-10 text-sm text-[#344054] placeholder:text-[#98A2B3] read-only:bg-white focus:border-gradientVia focus:outline-none focus:ring-1 focus:ring-gradientVia"
+            />
           </div>
 
           <div>

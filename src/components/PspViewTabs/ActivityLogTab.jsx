@@ -239,15 +239,15 @@ const ActivityLogTab = () => {
           </Table>
         </TableWrapper>
 
-        <div className="flex flex-col gap-2 border-t border-[#EAECF0] px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col items-center gap-2 border-t border-[#EAECF0] px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex w-full items-center justify-center gap-2 sm:w-auto sm:justify-start">
             <span className="text-xs text-textColor">Rows per page:</span>
             <span className="inline-flex items-center gap-1 rounded-md border border-[#D0D5DD] px-2 py-1 text-xs font-medium text-textColor">
               10
               <ChevronDown size={12} />
             </span>
           </div>
-          <div className="flex items-center gap-2 self-end sm:self-auto">
+          <div className="flex w-full items-center justify-center gap-2 sm:w-auto sm:justify-end">
             <button type="button" className="inline-flex size-7 items-center justify-center rounded-md border border-[#EAECF0] bg-white text-[#98A2B3]">
               <ChevronLeft size={14} />
             </button>
