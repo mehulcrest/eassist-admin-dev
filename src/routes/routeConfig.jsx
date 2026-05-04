@@ -10,6 +10,7 @@ import AddPSPView from "../views/psp-individuals/AddPSPView";
 import AddPSPBusinessView from "../views/psp-businesses/AddPSPBusinessView";
 import PSPIndividualProfileView from "../views/psp-individuals/PSPIndividualProfileView";
 import Payments from "../pages/Payments";
+import Territories from "../pages/Territories";
 import PSPBusinessProfileView from "../views/psp-businesses/PSPBusinessProfileView";
 import MainLayout from "../layouts/MainLayout";
 import AuthGuard from "../guards/AuthGuard";
@@ -41,6 +42,7 @@ const routeConfig = [
       { path: "psp-individuals/new", element: <AddPSPView /> },
       { path: "psp-businesses/new", element: <AddPSPBusinessView /> },
       { path: "jobs", element: <Jobs /> },
+      { path: "territories", element: <Territories /> },
       { path: "job/:id", element: <div className="p-6">Job Details View Placeholder</div> },
       { path: "psp-individuals/:id", element: <PSPIndividualProfileView /> },
       { path: "payments", element: <Payments /> },

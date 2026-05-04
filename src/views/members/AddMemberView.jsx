@@ -261,7 +261,7 @@ const AddMemberView = () => {
         </section>
           </div>
 
-          <section className="overflow-hidden rounded-xl border border-line bg-white">
+          <section className="overflow-hidden rounded-xl border border-line bg-white mt-4">
         <div className="flex items-center justify-between border-b border-[#EAECF0] px-4 py-3">
           <h2 className="text-lg font-semibold text-[#1D2939]">Family Contacts</h2>
           <button
@@ -285,7 +285,8 @@ const AddMemberView = () => {
         <section className="overflow-hidden rounded-xl border border-line bg-white">
           <div className="space-y-6 p-5">
             <p className="text-sm text-[#475467]">
-              Define language, mobility level, and care preferences to support better caregiver
+              Define language, mobility level, and care preferences to
+               support better caregiver
               matching.
             </p>
 

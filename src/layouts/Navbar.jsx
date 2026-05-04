@@ -24,6 +24,7 @@ const Navbar = ({ onMenuClick }) => {
     "/psp-individuals": "PSP Individuals",
     "/psp-businesses": "PSP Businesses",
     "/jobs": "Jobs",
+    "/territories": "Territories",
     "/payments": "Payments",
   };
 

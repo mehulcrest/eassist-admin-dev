@@ -20,14 +20,27 @@ const isMembersSectionPath = (pathname) =>
   pathname.startsWith("/members/") ||
   pathname.startsWith("/member/");
 
-  const isJobsSectionPath = (pathname) =>
+const isJobsSectionPath = (pathname) =>
   pathname === "/jobs" || pathname.startsWith("/job/");
+
+const isTerritoriesSectionPath = (pathname) =>
+  pathname === "/territories" || pathname.startsWith("/territories/");
+
+/** Dashboard is the index route (`/`) and also duplicated at `/dashboard` (e.g. post-login redirect). */
+const isDashboardSectionPath = (pathname) =>
+  pathname === "/" || pathname === "/dashboard" || pathname.startsWith("/dashboard/");
 
 const Sidebar = ({ isOpen, onClose }) => {
   const { pathname } = useLocation();
 
   const primaryItems = [
-    { label: "Dashboard", icon: LayoutGrid, to: "/", end: true },
+    {
+      label: "Dashboard",
+      icon: LayoutGrid,
+      to: "/",
+      end: true,
+      isActiveOverride: isDashboardSectionPath,
+    },
     {
       label: "Members",
       icon: Users,
@@ -42,7 +55,12 @@ const Sidebar = ({ isOpen, onClose }) => {
       to: "/jobs",
       isActiveOverride: isJobsSectionPath 
     },
-    { label: "Territories", icon: MapPinned },
+    {
+      label: "Territories",
+      icon: MapPinned,
+      to: "/territories",
+      isActiveOverride: isTerritoriesSectionPath,
+    },
     { label: "Payments", icon: WalletCards, to: "/payments" },
     { label: "Complaints", icon: MessageSquareWarning },
     { label: "System Settings", icon: Settings },
