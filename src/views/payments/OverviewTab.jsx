@@ -5,6 +5,7 @@ import {
   AlertTriangle,
   Clock,
   TrendingUp,
+  CircleDollarSign
 } from "lucide-react";
 
 /* ─────────────────────────────────────────────
@@ -19,8 +20,8 @@ const KPI_TOP = [
     suffix: "this month",
     trend: "up",
     iconBg: "bg-[#ECFDF3]",
-    icon: <TrendingUp size={20} className="text-[#12B76A]" />,
-    cardBg: "bg-white",
+    icon: <CircleDollarSign size={23} className="text-[#12B76A]" />,
+    cardBg: "bg-[#ECFDF3]",
   },
   {
     id: "total-payouts",
@@ -30,8 +31,8 @@ const KPI_TOP = [
     suffix: "this month",
     trend: "up",
     iconBg: "bg-[#FFFAEB]",
-    icon: <TrendingUp size={20} className="text-[#F79009]" />,
-    cardBg: "bg-white",
+    icon: <CircleDollarSign size={23} className="text-[#F79009]" />,
+    cardBg: "bg-[#FFFAEB]",
   },
   {
     id: "platform-revenue",
@@ -41,7 +42,7 @@ const KPI_TOP = [
     suffix: "this month",
     trend: "up",
     iconBg: "bg-[#EFF8FF]",
-    icon: <TrendingUp size={20} className="text-[#175CD3]" />,
+    icon: <TrendingUp size={23} className="text-[#007AFF]" />,
     cardBg: "bg-[#EFF8FF]",
   },
 ];
@@ -52,24 +53,24 @@ const KPI_BOTTOM = [
     title: "Pending Payout",
     value: "$6,200.00",
     sub: "Scheduled for May 05, 2026",
-    iconBg: "bg-[#FFFAEB]",
-    icon: <Clock size={20} className="text-[#F79009]" />,
+
+    icon: <Clock size={23} className="text-[#F79009]" />,
   },
   {
     id: "refunds-issued",
     title: "Refunds Issued",
     value: "$2,140.00",
     sub: "Scheduled for May 05, 2026",
-    iconBg: "bg-[#ECFDF3]",
-    icon: <CircleCheck size={20} className="text-[#12B76A]" />,
+
+    icon: <CircleCheck size={23} className="text-[#12B76A]" />,
   },
   {
     id: "failed-transactions",
     title: "Failed Transactions",
     value: "8",
     sub: "Scheduled for May 05, 2026",
-    iconBg: "bg-[#FEF3F2]",
-    icon: <AlertTriangle size={20} className="text-[#F04438]" />,
+
+    icon: <AlertTriangle size={23} className="text-[#F04438]" />,
   },
 ];
 
@@ -79,9 +80,9 @@ const REVENUE_MONTHS = [
 ];
 
 // Heights as % of max for bar chart (out of 100)
-const PAYMENTS_IN  = [82, 90, 100, 75, 95, 95, 98, 95, 78, 78, 80, 88];
-const PAYOUTS_OUT  = [60, 70,  80, 55, 72, 74, 78, 74, 55, 56, 60, 68];
-const NET_REVENUE  = [22, 20,  20, 20, 23, 21, 20, 21, 23, 22, 20, 20];
+const PAYMENTS_IN = [82, 90, 100, 75, 95, 95, 98, 95, 78, 78, 80, 88];
+const PAYOUTS_OUT = [60, 70, 80, 55, 72, 74, 78, 74, 55, 56, 60, 68];
+const NET_REVENUE = [22, 20, 20, 20, 23, 21, 20, 21, 23, 22, 20, 20];
 
 const CHART_FILTERS = ["Payments In", "Payouts Out", "Net Revenue"];
 
@@ -100,15 +101,16 @@ const TopKpiCard = ({ kpi }) => (
       <div className={`flex size-9 shrink-0 items-center justify-center rounded-lg ${kpi.iconBg}`}>
         {kpi.icon}
       </div>
-      <p className="text-sm font-semibold text-[#344054]">{kpi.title}</p>
+      <p className="text-lg font-semibold text-[#344054]">{kpi.title}</p>
     </div>
-    <p className="text-2xl font-bold text-[#101828]">{kpi.value}</p>
+
     <div className="mt-1 flex items-center gap-1.5">
-      <span className="flex items-center gap-0.5 text-xs font-semibold text-[#12B76A]">
+      <p className="text-2xl font-bold text-[#101828]">{kpi.value}</p>
+      <span className="flex items-center gap-0.5 text-xs font-semibold text-[#12B76A] bg-[#ECFDF3] px-1 py-0.5 rounded-md">
         <ArrowUpRight size={12} />
         {kpi.change}
       </span>
-      <span className="text-xs text-[#667085]">{kpi.suffix}</span>
+      <span className="text-xs text-[#667085] ">{kpi.suffix}</span>
     </div>
   </div>
 );
@@ -122,7 +124,7 @@ const BottomKpiCard = ({ kpi }) => (
       <div className={`flex size-9 shrink-0 items-center justify-center rounded-lg ${kpi.iconBg}`}>
         {kpi.icon}
       </div>
-      <p className="text-sm font-semibold text-[#344054]">{kpi.title}</p>
+      <p className="text-lg font-semibold text-[#344054]">{kpi.title}</p>
     </div>
     <p className="text-xl font-bold text-[#101828]">{kpi.value}</p>
     <p className="mt-1 text-xs text-[#667085]">{kpi.sub}</p>
@@ -261,7 +263,7 @@ const OverviewTab = ({ renderTabNav }) => {
         <div className="lg:col-span-2 rounded-xl border border-[#EAECF0] bg-white shadow-[0_1px_2px_0_rgba(16,24,40,0.05)]">
           {/* Card Header */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-5 py-4 border-b border-[#EAECF0]">
-            <h3 className="text-base font-bold text-[#101828]">Revenue Flow</h3>
+            <h4 className="text-lg font-bold text-[#101828]">Revenue Flow</h4>
             {/* Filter Tabs */}
             <div className="flex items-center rounded-lg border border-[#EAECF0] p-1 bg-[#F9FAFB] self-start sm:self-auto">
               {CHART_FILTERS.map((f) => (
@@ -269,11 +271,10 @@ const OverviewTab = ({ renderTabNav }) => {
                   key={f}
                   type="button"
                   onClick={() => setChartFilter(f)}
-                  className={`px-3 py-1 rounded-md text-xs font-semibold transition-colors ${
-                    chartFilter === f
-                      ? "bg-[#344054] text-white shadow-sm"
-                      : "text-[#667085] hover:text-[#344054]"
-                  }`}
+                  className={`px-3 py-1 rounded-md text-xs font-semibold transition-colors ${chartFilter === f
+                    ? "bg-[#344054] text-white shadow-sm"
+                    : "text-[#667085] hover:text-[#344054]"
+                    }`}
                 >
                   {f}
                 </button>
@@ -290,15 +291,15 @@ const OverviewTab = ({ renderTabNav }) => {
         {/* Alerts Panel */}
         <div className="rounded-xl border border-[#EAECF0] bg-white shadow-[0_1px_2px_0_rgba(16,24,40,0.05)]">
           <div className="px-5 py-4 border-b border-[#EAECF0]">
-            <h3 className="text-base font-bold text-[#101828]">Alerts</h3>
+            <h4 className="text-lg font-bold text-[#101828]">Alerts</h4>
           </div>
-          <div className="p-5 flex flex-col gap-3">
+          <div className="p-5 flex flex-col gap-1.5">
             {ALERTS.map((alert) => (
               <div
                 key={alert.id}
                 className="flex items-start gap-3 rounded-lg border border-[#FEE4E2] bg-[#FFFBF0] px-3 py-3"
               >
-                {alert.icon}
+                <AlertTriangle size={20} className="text-[#F79009] shrink-0" />
                 <p className="text-sm text-[#344054]">{alert.text}</p>
               </div>
             ))}

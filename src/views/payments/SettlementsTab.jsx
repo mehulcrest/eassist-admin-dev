@@ -83,9 +83,9 @@ const SETTLEMENT_ROWS = [
 ];
 
 const STATUS_STYLE = {
-  Closed: "text-[#027A48] bg-[#ECFDF3] border border-[#ABEFC6]",
-  "In Progress": "text-[#B54708] bg-[#FFFAEB] border border-[#FEDF89]",
-  Open: "text-[#B42318] bg-[#FEF3F2] border border-[#FECDCA]",
+  Closed: "bg-[#ECFDF3] text-[#039855] ",
+  "In Progress": "bg-[#FFFAEB] text-[#DC6803] ",
+  Open: "bg-[#FEF3F2] text-[#D92D20]",
 };
 
 const thClass =
@@ -161,7 +161,7 @@ const MoreActionsMenu = ({ row, onCloseCycle, onReopenCycle }) => {
 const SettlementsTab = ({ renderTabNav }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  
+
   // Filter States
   const [fStatus, setFStatus] = useState("");
   const [fDate, setFDate] = useState("");
@@ -174,7 +174,7 @@ const SettlementsTab = ({ renderTabNav }) => {
 
   const filtered = useMemo(() => {
     let result = SETTLEMENT_ROWS;
-    
+
     // Search
     const q = searchQuery.toLowerCase();
     if (q) {
@@ -257,7 +257,7 @@ const SettlementsTab = ({ renderTabNav }) => {
                   <td className={tdClass}>{row.totalPayouts}</td>
                   <td className={tdClass}>{row.adjustments}</td>
                   <td className={tdClass}>{row.taxes}</td>
-                  <td className="px-4 py-4 text-sm font-bold text-[#101828] align-middle">{row.netBalance}</td>
+                  <td className="px-4 py-4 text-sm font-medium text-[#101828] align-middle">{row.netBalance}</td>
                   <td className={tdClass}>
                     <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs ${STATUS_STYLE[row.status] || "text-[#667085]"}`}>
                       {row.status}
@@ -273,8 +273,8 @@ const SettlementsTab = ({ renderTabNav }) => {
                       >
                         <Eye size={15} strokeWidth={2} />
                       </button>
-                      <MoreActionsMenu 
-                        row={row} 
+                      <MoreActionsMenu
+                        row={row}
                         onCloseCycle={(record) => setSelectedCloseEntry(record)}
                         onReopenCycle={(record) => setSelectedReopenEntry(record)}
                       />
@@ -397,7 +397,7 @@ const SettlementsTab = ({ renderTabNav }) => {
         onClose={() => setSelectedCloseEntry(null)}
         record={selectedCloseEntry}
       />
-      
+
       <ReopenSettlementModal
         isOpen={!!selectedReopenEntry}
         onClose={() => setSelectedReopenEntry(null)}

@@ -21,27 +21,27 @@ const DETAIL_DATA = {
     ],
     earnings: [
       { job: "Grocery Trip Assistance", jobId: "J001", date: "Apr 16, 2026", earning: "$180.00", fee: "$18.00", net: "$162.00" },
-      { job: "Cleaning",               jobId: "J002", date: "Apr 17, 2026", earning: "$220.00", fee: "$22.00", net: "$198.00" },
-      { job: "Doctor Visit",           jobId: "J003", date: "Apr 18, 2026", earning: "$150.00", fee: "$15.00", net: "$135.00" },
-      { job: "Daily Care Assistance",  jobId: "J004", date: "Apr 20, 2026", earning: "$140.00", fee: "$14.00", net: "$126.00" },
-      { job: "Meal Preparation",       jobId: "J005", date: "Apr 21, 2026", earning: "$210.00", fee: "$21.00", net: "$189.00" },
-      { job: "House Cleaning",         jobId: "J006", date: "Apr 23, 2026", earning: "$120.00", fee: "$12.00", net: "$108.00" },
-      { job: "Cleaning",               jobId: "J007", date: "Apr 24, 2026", earning: "$200.00", fee: "$20.00", net: "$180.00" },
-      { job: "Meal Preparation",       jobId: "J008", date: "Apr 26, 2026", earning: "$160.00", fee: "$16.00", net: "$144.00" },
-      { job: "House Cleaning",         jobId: "J009", date: "Apr 28, 2026", earning: "$240.00", fee: "$24.00", net: "$216.00" },
+      { job: "Cleaning", jobId: "J002", date: "Apr 17, 2026", earning: "$220.00", fee: "$22.00", net: "$198.00" },
+      { job: "Doctor Visit", jobId: "J003", date: "Apr 18, 2026", earning: "$150.00", fee: "$15.00", net: "$135.00" },
+      { job: "Daily Care Assistance", jobId: "J004", date: "Apr 20, 2026", earning: "$140.00", fee: "$14.00", net: "$126.00" },
+      { job: "Meal Preparation", jobId: "J005", date: "Apr 21, 2026", earning: "$210.00", fee: "$21.00", net: "$189.00" },
+      { job: "House Cleaning", jobId: "J006", date: "Apr 23, 2026", earning: "$120.00", fee: "$12.00", net: "$108.00" },
+      { job: "Cleaning", jobId: "J007", date: "Apr 24, 2026", earning: "$200.00", fee: "$20.00", net: "$180.00" },
+      { job: "Meal Preparation", jobId: "J008", date: "Apr 26, 2026", earning: "$160.00", fee: "$16.00", net: "$144.00" },
+      { job: "House Cleaning", jobId: "J009", date: "Apr 28, 2026", earning: "$240.00", fee: "$24.00", net: "$216.00" },
     ],
     earningTotal: { earning: "$1,620.00", fee: "$162.00", net: "$1,458.00" },
     calculation: [
-      { label: "Gross Service Value",            value: "$1,620.00"  },
-      { label: "Platform Commission (10%)",      value: "-$162.00"   },
-      { label: "Refunds & Adjustments",          value: "-$40.00"    },
-      { label: "Penalties",                      value: "-$20.00"    },
-      { label: "Service Call Fee (if applicable)", value: "-$10.00"  },
+      { label: "Gross Service Value", value: "$1,620.00" },
+      { label: "Platform Commission (10%)", value: "-$162.00" },
+      { label: "Refunds & Adjustments", value: "-$40.00" },
+      { label: "Penalties", value: "-$20.00" },
+      { label: "Service Call Fee (if applicable)", value: "-$10.00" },
     ],
     netPayout: "$1,388.00",
     adjustments: [
       { label: "Refund Adjustment (Job ID: J005)", value: "-$20.00" },
-      { label: "Penalty Applied (Late arrival)",    value: "-$20.00" },
+      { label: "Penalty Applied (Late arrival)", value: "-$20.00" },
     ],
   },
 };
@@ -63,9 +63,9 @@ const GENERIC_DETAIL = (tx) => ({
   earnings: [],
   earningTotal: { earning: tx.amount, fee: tx.fee, net: tx.net },
   calculation: [
-    { label: "Gross Service Value",       value: tx.amount },
+    { label: "Gross Service Value", value: tx.amount },
     { label: "Platform Commission (10%)", value: `-${tx.fee}` },
-    { label: "Refunds & Adjustments",     value: "$0.00" },
+    { label: "Refunds & Adjustments", value: "$0.00" },
   ],
   netPayout: tx.net,
   adjustments: [],
@@ -75,21 +75,21 @@ const GENERIC_DETAIL = (tx) => ({
    Status pill styles
 ───────────────────────────────────────────── */
 const statusPillStyle = {
-  Processing: "bg-[#FFFAEB] text-[#B54708] border border-[#FEDF89]",
-  Paid:       "bg-[#ECFDF3] text-[#027A48] border border-[#ABEFC6]",
-  Failed:     "bg-[#FEF3F2] text-[#B42318] border border-[#FECDCA]",
-  Pending:    "bg-[#F2F4F7] text-[#344054] border border-[#D0D5DD]",
+  Processing: "bg-[#FFFAEB] text-[#B54708] ",
+  Paid: "bg-[#ECFDF3] text-[#027A48] ",
+  Failed: "bg-[#FEF3F2] text-[#B42318] ",
+  Pending: "bg-[#F2F4F7] text-[#344054] ",
 };
 
 /* ─────────────────────────────────────────────
    Tiny primitives
 ───────────────────────────────────────────── */
 const FieldLabel = ({ children }) => (
-  <p className="text-xs font-medium text-[#667085] mb-1">{children}</p>
+  <p className="text-xs font-medium text-[#333] mb-1">{children}</p>
 );
 
 const FieldValue = ({ children, className = "" }) => (
-  <p className={`text-sm text-[#344054] ${className}`}>{children}</p>
+  <p className={`text-sm text-[#667085] ${className}`}>{children}</p>
 );
 
 const SectionTitle = ({ children }) => (
@@ -107,7 +107,7 @@ const TimelineRow = ({ item, isLast }) => (
     <div className="flex shrink-0 flex-col items-center" style={{ width: 18 }}>
       <div
         className="mt-[2px] shrink-0 rounded-full border-2 border-[#F04438] bg-white"
-        style={{ width: 14, height: 14 }}
+        style={{ width: 10, height: 10 }}
       />
       {!isLast && (
         <div
@@ -139,7 +139,7 @@ const TransactionDetailSheet = ({ isOpen, onClose, transaction }) => {
       title="Payout Detail"
       widthClass="w-full sm:w-[640px]"
       footer={
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-col items-stretch gap-3 min-[571px]:flex-row min-[571px]:items-center">
           {/* Contact Support – text link */}
           <button
             type="button"
@@ -148,12 +148,12 @@ const TransactionDetailSheet = ({ isOpen, onClose, transaction }) => {
             Contact Support
           </button>
 
-          <div className="flex-1" />
+          <div className="hidden min-[571px]:block flex-1" />
 
           {/* Download Statement */}
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-lg bg-[#F04438] px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#D92D20] transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg bg-[#F04438] px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#D92D20] transition-colors w-full min-[571px]:w-auto"
           >
             <Download size={15} strokeWidth={2} />
             Download Statement
@@ -162,7 +162,7 @@ const TransactionDetailSheet = ({ isOpen, onClose, transaction }) => {
           {/* View Transaction Log */}
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-lg border border-[#F04438] px-5 py-2.5 text-sm font-semibold text-[#F04438] hover:bg-[#FEF3F2] transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg border border-[#F04438] px-5 py-2.5 text-sm font-semibold text-[#F04438] hover:bg-[#FEF3F2] transition-colors w-full min-[571px]:w-auto"
           >
             <ScrollText size={15} strokeWidth={2} />
             View Transaction Log
@@ -177,7 +177,7 @@ const TransactionDetailSheet = ({ isOpen, onClose, transaction }) => {
         ══════════════════════════════════════ */}
         <SectionTitle>Payout Summary</SectionTitle>
 
-        <div className="mt-5 grid grid-cols-2 gap-x-8 gap-y-5">
+        <div className="mt-5 grid grid-cols-1 gap-y-5 min-[571px]:grid-cols-2 min-[571px]:gap-x-8">
           {/* Payment ID */}
           <div>
             <FieldLabel>Payment ID</FieldLabel>
@@ -200,7 +200,7 @@ const TransactionDetailSheet = ({ isOpen, onClose, transaction }) => {
           <div>
             <FieldLabel>Payout Status</FieldLabel>
             <div className="flex items-center gap-2 mt-1">
-              <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${statusPillStyle[d.payoutStatus] ?? statusPillStyle.Pending}`}>
+              <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-xs ${statusPillStyle[d.payoutStatus] ?? statusPillStyle.Pending}`}>
                 {d.payoutStatus}
               </span>
               <Info size={15} className="text-[#98A2B3]" />
@@ -208,7 +208,7 @@ const TransactionDetailSheet = ({ isOpen, onClose, transaction }) => {
           </div>
 
           {/* Paid To Bank Account – full width */}
-          <div className="col-span-2">
+          <div className="min-[571px]:col-span-2">
             <FieldLabel>Paid To Bank Account</FieldLabel>
             <FieldValue>{d.paidToBank}</FieldValue>
           </div>
@@ -245,14 +245,14 @@ const TransactionDetailSheet = ({ isOpen, onClose, transaction }) => {
             SECTION 3 – Earnings Breakdown
         ══════════════════════════════════════ */}
         <div className="flex items-baseline justify-between gap-2 mb-4">
-          <SectionTitle>Earnings Breakdown</SectionTitle>
+          <SectionTitle >Earnings Breakdown</SectionTitle>
           <span className="text-xs text-[#667085] italic shrink-0">
             Includes all completed jobs in this payout cycle
           </span>
         </div>
 
         {/* Table card */}
-        <div className="rounded-xl border border-[#EAECF0] overflow-hidden">
+        <div className="rounded-xl border border-[#EAECF0] overflow-auto">
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-[#F9FAFB]">
@@ -286,9 +286,9 @@ const TransactionDetailSheet = ({ isOpen, onClose, transaction }) => {
             <tfoot>
               <tr className="border-t border-[#EAECF0] bg-[#F9FAFB]">
                 <td colSpan={2} className="pl-5 py-3" />
-                <td className="px-4 py-3 text-sm font-bold text-[#101828]">{d.earningTotal.earning}</td>
-                <td className="px-4 py-3 text-sm font-bold text-[#101828]">{d.earningTotal.fee}</td>
-                <td className="px-4 py-3 pr-5 text-sm font-bold text-[#101828]">{d.earningTotal.net}</td>
+                <td className="px-4 py-3 text-sm font-semibold text-[#101828]">{d.earningTotal.earning}</td>
+                <td className="px-4 py-3 text-sm font-semibold  text-[#101828]">{d.earningTotal.fee}</td>
+                <td className="px-4 py-3 pr-5 text-sm font-semibold text-[#101828]">{d.earningTotal.net}</td>
               </tr>
             </tfoot>
           </table>
@@ -302,11 +302,11 @@ const TransactionDetailSheet = ({ isOpen, onClose, transaction }) => {
         <SectionTitle>Payout Calculation</SectionTitle>
 
         {/* Calculation card */}
-        <div className="mt-4 rounded-xl border border-[#EAECF0] bg-[#F9FAFB] px-5 py-4 space-y-3">
+        <div className="mt-4 rounded-xl bg-[#F6F6F6] px-5 py-4 space-y-3">
           {d.calculation.map((row, idx) => (
             <div key={idx} className="flex items-center justify-between">
-              <span className="text-sm text-[#475467]">{row.label}</span>
-              <span className={`text-sm text-[#344054] ${row.value.startsWith("-") ? "text-[#344054]" : ""}`}>
+              <span className="text-sm text-[#333]">{row.label}</span>
+              <span className={`text-sm text-[#333] ${row.value.startsWith("-") ? "text-[#344054]" : ""}`}>
                 {row.value}
               </span>
             </div>
@@ -314,8 +314,8 @@ const TransactionDetailSheet = ({ isOpen, onClose, transaction }) => {
 
           {/* Net Payout separator */}
           <div className="border-t border-[#EAECF0] pt-3 flex items-center justify-between">
-            <span className="text-base font-bold text-[#12B76A]">Net Payout</span>
-            <span className="text-base font-bold text-[#12B76A]">{d.netPayout}</span>
+            <span className="text-base font-semibold text-[#12B76A]">Net Payout</span>
+            <span className="text-base font-semibold text-[#12B76A]">{d.netPayout}</span>
           </div>
         </div>
 
@@ -330,8 +330,8 @@ const TransactionDetailSheet = ({ isOpen, onClose, transaction }) => {
             <div className="mt-4 space-y-3">
               {d.adjustments.map((row, idx) => (
                 <div key={idx} className="flex items-center justify-between">
-                  <span className="text-sm text-[#475467]">{row.label}</span>
-                  <span className="text-sm text-[#344054]">{row.value}</span>
+                  <span className="text-sm text-[#333]">{row.label}</span>
+                  <span className="text-sm text-[#333]">{row.value}</span>
                 </div>
               ))}
             </div>

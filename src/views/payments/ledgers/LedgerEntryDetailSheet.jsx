@@ -1,17 +1,17 @@
 import SideSheet from "../../../components/SideSheet";
 
 const STATUS_STYLE = {
-  Completed: "text-[#027A48] bg-[#ECFDF3] border border-[#ABEFC6]",
-  Pending:   "text-[#B54708] bg-[#FFFAEB] border border-[#FEDF89]",
-  Failed:    "text-[#B42318] bg-[#FEF3F2] border border-[#FECDCA]",
+  Completed: "text-[#027A48] bg-[#ECFDF3] ",
+  Pending: "text-[#DC6803] bg-[#FFFAEB] ",
+  Failed: "text-[#B42318] bg-[#FEF3F2] ",
 };
 
 const FieldLabel = ({ children }) => (
-  <p className="mb-1 text-xs font-semibold text-[#667085]">{children}</p>
+  <p className="mb-1 text-xs font-semibold text-[#333]">{children}</p>
 );
 
 const FieldValue = ({ children, className = "" }) => (
-  <p className={`text-sm font-medium text-[#101828] ${className}`}>{children}</p>
+  <p className={`text-sm  text-[#667085] ${className}`}>{children}</p>
 );
 
 const SectionTitle = ({ children }) => (
@@ -49,13 +49,13 @@ const LedgerEntryDetailSheet = ({ isOpen, onClose, entry }) => {
       }
     >
       <div className="pb-4">
-        
+
         {/* ── Entry Details ── */}
         <SectionTitle>Entry Details</SectionTitle>
         <div className="grid grid-cols-2 gap-y-5 gap-x-4">
           <div>
             <FieldLabel>Member</FieldLabel>
-            <FieldValue className="text-[#175CD3] underline underline-offset-2 cursor-pointer">
+            <FieldValue className="text-[#175CD3] underline underline-offset-2 cursor-pointer hover:text-[#F04438]">
               {entry.member}
             </FieldValue>
           </div>
@@ -78,7 +78,7 @@ const LedgerEntryDetailSheet = ({ isOpen, onClose, entry }) => {
           <div>
             <FieldLabel>Status</FieldLabel>
             <div className="mt-1">
-              <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${STATUS_STYLE[entry.status] || "text-[#344054] bg-[#F2F4F7]"}`}>
+              <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs  ${STATUS_STYLE[entry.status] || "text-[#344054] bg-[#F2F4F7]"}`}>
                 {entry.status}
               </span>
             </div>
@@ -142,7 +142,7 @@ const LedgerEntryDetailSheet = ({ isOpen, onClose, entry }) => {
 
         {/* ── Breakdown Calculation ── */}
         <SectionTitle>Breakdown Calculation</SectionTitle>
-        <div className="mt-3 rounded-xl bg-[#F9FAFB] p-4 text-sm text-[#475467] font-medium space-y-2.5">
+        <div className="mt-3 rounded-xl bg-[#F9FAFB] p-4 text-sm text-[#475467] space-y-2.5">
           <div className="flex justify-between">
             <span>Service Amount:</span>
             <span>{entry.serviceAmount ?? "$120.00"}</span>
@@ -155,7 +155,7 @@ const LedgerEntryDetailSheet = ({ isOpen, onClose, entry }) => {
             <span>Tax</span>
             <span>-{entry.taxApplied ?? "$2.00"}</span>
           </div>
-          <div className="mt-3 flex justify-between border-t border-[#EAECF0] pt-3 text-sm font-bold text-[#027A48]">
+          <div className="mt-3 flex justify-between border-t border-[#EAECF0] pt-3 text-sm font-medium text-[#039855]">
             <span>Net PSP</span>
             <span>{entry.netPsp ?? "$106.00"}</span>
           </div>

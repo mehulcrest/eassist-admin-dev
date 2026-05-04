@@ -3,21 +3,21 @@ import SideSheet from "../../../components/SideSheet";
 
 /* ─── Status pill styles ─────────────────────────────────── */
 const statusPill = {
-  Paid:           "bg-[#ECFDF3] text-[#027A48] border border-[#ABEFC6]",
-  "Refund Pending": "bg-[#FEF3F2] text-[#B42318] border border-[#FECDCA]",
-  Active:         "bg-[#EFF8FF] text-[#175CD3] border border-[#B2DDFF]",
-  Flagged:        "bg-[#FFFAEB] text-[#B54708] border border-[#FEDF89]",
+  Paid: "bg-[#ECFDF3] text-[#027A48] ",
+  "Refund Pending": "bg-[#FEF3F2] text-[#B42318] ",
+  Active: "bg-[#EFF8FF] text-[#175CD3] ",
+  Flagged: "bg-[#FFFAEB] text-[#B54708] ",
 };
 
 /* ─── Primitives ─────────────────────────────────────────── */
 const FieldLabel = ({ children }) => (
-  <p className="text-xs font-medium text-[#667085] mb-1">{children}</p>
+  <p className="text-xs font-medium text-[#333] mb-1">{children}</p>
 );
 const FieldValue = ({ children, className = "" }) => (
-  <p className={`text-sm text-[#344054] ${className}`}>{children}</p>
+  <p className={`text-sm text-[#667085] ${className}`}>{children}</p>
 );
 const SectionTitle = ({ children }) => (
-  <h3 className="text-base font-bold text-[#101828]">{children}</h3>
+  <h3 className="text-base font-bold text-[#333]">{children}</h3>
 );
 const HDivider = () => <div className="my-6 border-t border-[#EAECF0]" />;
 
@@ -27,16 +27,16 @@ const MemberWalletDetailSheet = ({ isOpen, onClose, member }) => {
 
   /* Recent transactions per member */
   const recentTransactions = member.recentTx ?? [
-    { id: "TXN001", type: "Payment",  description: "Grocery Trip Assistance", amount: "$120.00", date: "Apr 16, 2026", status: "Completed" },
-    { id: "TXN002", type: "Refund",   description: "Service Cancellation",    amount: "-$45.00", date: "Apr 10, 2026", status: "Refunded"  },
-    { id: "TXN003", type: "Payment",  description: "Doctor Visit",            amount: "$80.00",  date: "Apr 05, 2026", status: "Completed" },
+    { id: "TXN001", type: "Payment", description: "Grocery Trip Assistance", amount: "$120.00", date: "Apr 16, 2026", status: "Completed" },
+    { id: "TXN002", type: "Refund", description: "Service Cancellation", amount: "-$45.00", date: "Apr 10, 2026", status: "Refunded" },
+    { id: "TXN003", type: "Payment", description: "Doctor Visit", amount: "$80.00", date: "Apr 05, 2026", status: "Completed" },
   ];
 
   const txStatusColor = {
     Completed: "text-[#12B76A]",
-    Refunded:  "text-[#F04438]",
-    Pending:   "text-[#F79009]",
-    Failed:    "text-[#F04438]",
+    Refunded: "text-[#F04438]",
+    Pending: "text-[#F79009]",
+    Failed: "text-[#F04438]",
   };
 
   return (
@@ -46,7 +46,7 @@ const MemberWalletDetailSheet = ({ isOpen, onClose, member }) => {
       title="Member Wallet Detail"
       widthClass="w-full sm:w-[600px]"
       footer={
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-col items-stretch gap-3 min-[571px]:flex-row min-[571px]:items-center">
           <button
             type="button"
             className="text-sm font-semibold text-[#344054] underline underline-offset-2 hover:text-[#F04438] transition-colors"
@@ -56,14 +56,14 @@ const MemberWalletDetailSheet = ({ isOpen, onClose, member }) => {
           <div className="flex-1" />
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-lg bg-[#F04438] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#D92D20] transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg bg-[#F04438] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#D92D20] transition-colors w-full min-[571px]:w-auto"
           >
             <Download size={15} strokeWidth={2} />
             Download Statement
           </button>
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-lg border border-[#F04438] px-5 py-2.5 text-sm font-semibold text-[#F04438] hover:bg-[#FEF3F2] transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg border border-[#F04438] px-5 py-2.5 text-sm font-semibold text-[#F04438] hover:bg-[#FEF3F2] transition-colors w-full min-[571px]:w-auto"
           >
             <ScrollText size={15} strokeWidth={2} />
             View Transaction Log
@@ -127,7 +127,7 @@ const MemberWalletDetailSheet = ({ isOpen, onClose, member }) => {
         {/* ── Spending Summary Card ── */}
         <SectionTitle>Spending Summary</SectionTitle>
 
-        <div className="mt-4 rounded-xl border border-[#EAECF0] bg-[#F9FAFB] px-5 py-4 space-y-3">
+        <div className="mt-4 rounded-xl  bg-[#F6F6F6] px-5 py-4 space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-sm text-[#475467]">Total Payments Made</span>
             <span className="text-sm font-medium text-[#344054]">{member.totalSpend}</span>
@@ -141,8 +141,8 @@ const MemberWalletDetailSheet = ({ isOpen, onClose, member }) => {
             <span className="text-sm font-medium text-[#344054]">{member.netSpend ?? member.totalSpend}</span>
           </div>
           <div className="border-t border-[#EAECF0] pt-3 flex items-center justify-between">
-            <span className="text-base font-bold text-[#101828]">Outstanding Balance</span>
-            <span className="text-base font-bold text-[#101828]">{member.refundBalance}</span>
+            <span className="text-base font-medium text-[#333]">Outstanding Balance</span>
+            <span className="text-base font-medium text-[#333]">{member.refundBalance}</span>
           </div>
         </div>
 
@@ -154,7 +154,7 @@ const MemberWalletDetailSheet = ({ isOpen, onClose, member }) => {
           <span className="text-xs text-[#667085] italic shrink-0">Last 30 days</span>
         </div>
 
-        <div className="rounded-xl border border-[#EAECF0] overflow-hidden">
+        <div className="rounded-xl border border-[#EAECF0] overflow-auto">
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-[#F9FAFB]">
@@ -175,7 +175,7 @@ const MemberWalletDetailSheet = ({ isOpen, onClose, member }) => {
                     {tx.amount}
                   </td>
                   <td className="px-4 py-3 text-sm text-[#667085] whitespace-nowrap">{tx.date}</td>
-                  <td className={`px-4 py-3 pr-5 text-sm font-semibold ${txStatusColor[tx.status] ?? "text-[#667085]"}`}>
+                  <td className={`px-4 py-3 pr-5 text-sm font-medium ${txStatusColor[tx.status] + " items-center rounded-full px-2.5 py-0.5 text-xs" ?? "text-[#667085]"}`}>
                     {tx.status}
                   </td>
                 </tr>

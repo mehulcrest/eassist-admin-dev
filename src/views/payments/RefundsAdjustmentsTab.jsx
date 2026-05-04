@@ -102,10 +102,10 @@ const REFUND_ROWS = [
 ];
 
 const STATUS_STYLE = {
-  Approved: "text-[#027A48] bg-[#ECFDF3] border border-[#ABEFC6]",
-  Pending: "text-[#B54708] bg-[#FFFAEB] border border-[#FEDF89]",
-  Rejected: "text-[#B42318] bg-[#FEF3F2] border border-[#FECDCA]",
-  Escalated: "text-[#175CD3] bg-[#EFF8FF] border border-[#B2DDFF]",
+  Approved: "bg-[#ECFDF3] text-[#039855] ",
+  Pending: "bg-[#FFFAEB] text-[#DC6803]",
+  Rejected: "bg-[#FEF3F2] text-[#D92D20]",
+  Escalated: "bg-[#EFF8FF] text-[#175CD3] ",
 };
 
 const thClass =
@@ -175,7 +175,7 @@ const MoreActionsMenu = ({ row, onApprove, onReject, onEscalate }) => {
 const RefundsAdjustmentsTab = ({ renderTabNav }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  
+
   // Filter States
   const [fType, setFType] = useState("");
   const [fStatus, setFStatus] = useState("");
@@ -184,7 +184,7 @@ const RefundsAdjustmentsTab = ({ renderTabNav }) => {
   const [fTerritory, setFTerritory] = useState("");
 
   const [selectedEntry, setSelectedEntry] = useState(null);
-  
+
   // Modal States
   const [approveEntry, setApproveEntry] = useState(null);
   const [rejectEntry, setRejectEntry] = useState(null);
@@ -192,13 +192,13 @@ const RefundsAdjustmentsTab = ({ renderTabNav }) => {
 
   const filtered = useMemo(() => {
     let result = REFUND_ROWS;
-    
+
     // Search
     const q = searchQuery.toLowerCase();
     if (q) {
       result = result.filter(
-        (r) => 
-          r.id.toLowerCase().includes(q) || 
+        (r) =>
+          r.id.toLowerCase().includes(q) ||
           r.txId.toLowerCase().includes(q) ||
           r.member.toLowerCase().includes(q)
       );
@@ -282,7 +282,7 @@ const RefundsAdjustmentsTab = ({ renderTabNav }) => {
                   <td className={tdClass}>
                     <div className="flex items-center gap-2.5">
                       <img src={userProfile} alt="" className="size-8 shrink-0 rounded-full object-cover ring-1 ring-[#EAECF0]" />
-                      <span className="text-[#175CD3] underline underline-offset-2 cursor-pointer hover:text-[#101828]">
+                      <span className="underline underline-offset-2 cursor-pointer hover:text-[#F04438]">
                         {row.member}
                       </span>
                     </div>
@@ -290,7 +290,7 @@ const RefundsAdjustmentsTab = ({ renderTabNav }) => {
                   <td className={tdClass}>
                     <div className="flex items-center gap-2.5">
                       <img src={userProfile} alt="" className="size-8 shrink-0 rounded-full object-cover ring-1 ring-[#EAECF0]" />
-                      <span className="text-[#175CD3] underline underline-offset-2 cursor-pointer hover:text-[#101828]">
+                      <span className="underline underline-offset-2 cursor-pointer hover:text-[#F04438]">
                         {row.psp}
                       </span>
                     </div>
@@ -314,8 +314,8 @@ const RefundsAdjustmentsTab = ({ renderTabNav }) => {
                       >
                         <Eye size={15} strokeWidth={2} />
                       </button>
-                      <MoreActionsMenu 
-                        row={row} 
+                      <MoreActionsMenu
+                        row={row}
                         onApprove={setApproveEntry}
                         onReject={setRejectEntry}
                         onEscalate={setEscalateEntry}

@@ -2,11 +2,11 @@ import { X, Edit3, ChevronDown } from "lucide-react";
 import { createPortal } from "react-dom";
 
 const FieldLabel = ({ children }) => (
-  <p className="mb-1 text-xs font-semibold text-[#101828]">{children}</p>
+  <p className="mb-1 text-xs font-semibold text-[#333]">{children}</p>
 );
 
 const FieldValue = ({ children }) => (
-  <p className="text-sm font-medium text-[#475467]">{children}</p>
+  <p className="text-sm  text-[#667085]">{children}</p>
 );
 
 const HDivider = () => <div className="my-5 border-t border-[#EAECF0]" />;
@@ -79,12 +79,12 @@ const ReopenSettlementModal = ({ isOpen, onClose, record }) => {
 
         {/* ── Re-enable Details ── */}
         <h3 className="mb-3 text-sm font-bold text-[#101828]">Reopen Cycle will be re-enabled:</h3>
-        <ul className="mb-2 grid list-disc grid-cols-2 gap-x-4 gap-y-2 pl-5 text-sm text-[#475467]">
-          <li>Modify payouts</li>
-          <li>Adjust ledger entries</li>
-          <li>Process refunds</li>
-          <li>Update tax calculations</li>
-        </ul>
+        <div className="grid grid-cols-1 gap-y-2 mb-2 text-sm text-[#475467] min-[431px]:grid-cols-2 min-[431px]:gap-x-4">
+          <p>• Modify payouts</p>
+          <p>• Adjust ledger entries</p>
+          <p>• Process refunds</p>
+          <p>• Update tax calculations</p>
+        </div>
 
         <HDivider />
 
